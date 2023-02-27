@@ -15,5 +15,8 @@
     "bugs": {
         "url": "https://github.com/DavyK17/kenyan-comedy-directory/issues"
     },
-    "homepage": "https://github.com/DavyK17/kenyan-comedy-directory#readme"
+    "homepage": "https://github.com/DavyK17/kenyan-comedy-directory#readme",
+    "dependencies": {
+        "express": "^4.18.2"
+    }
 }
