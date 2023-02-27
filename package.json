@@ -1,0 +1,19 @@
+{
+    "name": "kenyan-comedy-directory",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DavyK17/kenyan-comedy-directory.git"
+    },
+    "author": "Davy Kamanzi",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/DavyK17/kenyan-comedy-directory/issues"
+    },
+    "homepage": "https://github.com/DavyK17/kenyan-comedy-directory#readme"
+}
