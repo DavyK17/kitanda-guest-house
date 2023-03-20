@@ -11,7 +11,7 @@ const app = express();
 /* ROUTING */
 // Client
 app.get("/*", (req, res) => {
-    res.send("Welcome to the Kenyan Comedy Directory!");
+    res.send("Welcome to Kitanda Guest House!");
 });
 
 
