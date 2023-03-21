@@ -11,9 +11,10 @@ import helmet from "helmet";
 
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
-import pool from "./db/pool.js";
-
 import passport from "passport";
+
+import pool from "./db/pool.js";
+import apiRouter from "./routers/index.js";
 
 
 /* CONFIGURATION */
@@ -59,6 +60,9 @@ app.use(passport.session());
 
 
 /* ROUTING */
+// Routers
+app.use("/api", apiRouter);
+
 // Client
 app.get("/*", (req, res) => {
     res.send("Welcome to Kitanda Guest House!");
