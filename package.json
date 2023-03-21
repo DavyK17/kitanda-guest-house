@@ -1,5 +1,6 @@
 {
-    "name": "kenyan-comedy-directory",
+    "type": "module",
+    "name": "kitanda-guest-house",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -9,14 +10,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/DavyK17/kenyan-comedy-directory.git"
+        "url": "git+https://github.com/DavyK17/kitanda-guest-house.git"
     },
     "author": "Davy Kamanzi",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/DavyK17/kenyan-comedy-directory/issues"
+        "url": "https://github.com/DavyK17/kitanda-guest-house/issues"
     },
-    "homepage": "https://github.com/DavyK17/kenyan-comedy-directory#readme",
+    "homepage": "https://github.com/DavyK17/kitanda-guest-house#readme",
     "dependencies": {
         "bcrypt": "^5.1.0",
         "cookie-parser": "^1.4.6",
