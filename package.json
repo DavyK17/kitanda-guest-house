@@ -5,15 +5,6 @@
     "author": "Davy Kamanzi",
     "license": "ISC",
     "private": true,
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/DavyK17/kitanda-guest-house.git"
-    },
-    "bugs": {
-        "url": "https://github.com/DavyK17/kitanda-guest-house/issues"
-    },
-    "homepage": "https://github.com/DavyK17/kitanda-guest-house#readme",
-    "main": "index.js",
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
