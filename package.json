@@ -1,24 +1,23 @@
 {
     "type": "module",
     "name": "kitanda-guest-house",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "nodemon index.js"
-    },
+    "version": "0.1.0",
+    "author": "Davy Kamanzi",
+    "license": "ISC",
+    "private": true,
     "repository": {
         "type": "git",
         "url": "git+https://github.com/DavyK17/kitanda-guest-house.git"
     },
-    "author": "Davy Kamanzi",
-    "license": "ISC",
     "bugs": {
         "url": "https://github.com/DavyK17/kitanda-guest-house/issues"
     },
     "homepage": "https://github.com/DavyK17/kitanda-guest-house#readme",
+    "main": "index.js",
     "dependencies": {
+        "@testing-library/jest-dom": "^5.16.5",
+        "@testing-library/react": "^13.4.0",
+        "@testing-library/user-event": "^13.5.0",
         "bcrypt": "^5.1.0",
         "cookie-parser": "^1.4.6",
         "cors": "^2.8.5",
@@ -27,11 +26,40 @@
         "express-session": "^1.17.3",
         "helmet": "^6.0.1",
         "node-postgres": "^0.6.2",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-scripts": "5.0.1",
         "request-ip": "^3.3.0",
         "sanitize-html": "^2.10.0",
-        "validator": "^13.9.0"
+        "validator": "^13.9.0",
+        "web-vitals": "^2.1.4"
     },
     "devDependencies": {
         "nodemon": "^2.0.20"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "dev": "nodemon server/index.js"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
     }
 }
