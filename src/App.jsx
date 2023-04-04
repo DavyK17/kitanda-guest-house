@@ -7,7 +7,6 @@ import NotFound from "./components/Other/NotFound";
 import Home from "./components/Home/Home";
 import Gallery from "./components/Gallery/Gallery";
 import Booking from "./components/Booking/Booking";
-import Contact from "./components/Contact/Contact";
 
 const App = () => {
     const activeClassName = "selected";
@@ -20,7 +19,6 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/gallery" element={<Gallery />} />
                     <Route path="/booking" element={<Booking />} />
-                    <Route path="/contact" element={<Contact />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
