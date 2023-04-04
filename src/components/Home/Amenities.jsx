@@ -27,23 +27,35 @@ const Amenities = () => {
         <section id="amenities">
             <div className="background white">
                 <div className="content">
-                    <h1 className="bold uppercase">Amenities</h1>
+                    <h2 className="bold uppercase">Amenities</h2>
                     <div className="box-list">
                         <div className="box-item">
-                            <h2 className="semi-bold uppercase amenities-header">{iconWireless}&nbsp;&nbsp;Internet access</h2>
+                            <h3 className="semi-bold uppercase amenities-header">
+                                {iconWireless}
+                                <span>Internet access</span>
+                            </h3>
                             <p>Wi-fi in all rooms and public areas is complimentary and of a good quality for your enjoyment.</p>
                         </div>
                         <div className="box-item">
-                            <h2 className="semi-bold uppercase amenities-header">{iconCar}&nbsp;&nbsp;Getting around</h2>
+                            <h3 className="semi-bold uppercase amenities-header">
+                                {iconCar}
+                                <span>Getting around</span>
+                            </h3>
                             <p>A sizeable and secure car park for those who prefer to use personal means is available. Airport transfer and other local travel are available through our front office at affordable prices.
                             </p>
                         </div>
                         <div className="box-item">
-                            <h2 className="semi-bold uppercase amenities-header">{iconPolice}&nbsp;&nbsp;Security</h2>
+                            <h3 className="semi-bold uppercase amenities-header">
+                                {iconPolice}
+                                <span>Security</span>
+                            </h3>
                             <p>We are located at the center of a prime zone that is safe, with free movement in and out, at any time of day. We also have a security guard posted 24/7 to ensure no entry to unwelcome guests.</p>
                         </div>
                         <div className="box-item">
-                            <h2 className="semi-bold uppercase amenities-header">{iconConcierge}&nbsp;&nbsp;Convenience</h2>
+                            <h3 className="semi-bold uppercase amenities-header">
+                                {iconConcierge}
+                                <span>Convenience</span>
+                            </h3>
                             <p>We serve meals on order at our restaurant, guaranteeing freshness; you can also request for room service. Laundry services are also offered at a cost, with laundry taken for dry cleaning and delivered after 24 hours.</p>
                         </div>
                     </div>
