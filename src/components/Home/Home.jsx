@@ -1,5 +1,11 @@
+import Amenities from "./Amenities";
+
 const Home = () => {
-    return;
+    return (
+        <>
+            <Amenities />
+        </>
+    )
 }
 
 export default Home;
