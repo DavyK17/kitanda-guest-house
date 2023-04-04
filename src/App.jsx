@@ -1,24 +1,32 @@
-import logo from "./logo.svg";
+import { Routes, Route } from "react-router-dom";
 
-function App() {
-	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.jsx</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-			</header>
-		</div>
-	);
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import NotFound from "./components/Other/NotFound";
+
+import Home from "./components/Home/Home";
+import Gallery from "./components/Gallery/Gallery";
+import Booking from "./components/Booking/Booking";
+import Contact from "./components/Contact/Contact";
+
+const App = () => {
+    const activeClassName = "selected";
+
+    return (
+        <>
+            <Header activeClassName={activeClassName} />
+            <main>
+                <Routes>
+                    <Route path="/" Component={<Home />} />
+                    <Route path="/gallery" Component={<Gallery />} />
+                    <Route path="/booking" Component={<Booking />} />
+                    <Route path="/contact" Component={<Contact />} />
+                    <Route path="*" Component={<NotFound />} />
+                </Routes>
+            </main>
+            <Footer />
+        </>
+    )
 }
 
 export default App;
