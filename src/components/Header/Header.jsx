@@ -16,6 +16,8 @@ const Header = props => {
         nav.classList.toggle("open");
     }
 
+    const setActive = isActive => isActive ? activeClassName : null;
+
     return (
         <header>
             <img src={logo} width="200px" alt="Logo" />
@@ -23,16 +25,16 @@ const Header = props => {
                 <button onClick={toggleMenu}>{iconMenu}</button>
                 <ul>
                     <li>
-                        <NavLink className={({ isActive }) => isActive ? activeClassName : null} to="/">Home</NavLink>
+                        <NavLink className={({ isActive }) => setActive(isActive)} to="/">Home</NavLink>
                     </li>
                     <li>
-                        <NavLink className={({ isActive }) => isActive ? activeClassName : null} to="/gallery">Gallery</NavLink>
+                        <NavLink className={({ isActive }) => setActive(isActive)} to="/gallery">Gallery</NavLink>
                     </li>
                     <li>
-                        <NavLink className={({ isActive }) => isActive ? activeClassName : null} to="/booking">Booking</NavLink>
+                        <NavLink className={({ isActive }) => setActive(isActive)} to="/booking">Booking</NavLink>
                     </li>
                     <li>
-                        <NavLink className={({ isActive }) => isActive ? activeClassName : null} to="/contact">Contact</NavLink>
+                        <NavLink className={({ isActive }) => setActive(isActive)} to="/contact">Contact</NavLink>
                     </li>
                 </ul>
             </nav>
