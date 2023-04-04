@@ -17,11 +17,11 @@ const App = () => {
             <Header activeClassName={activeClassName} />
             <main>
                 <Routes>
-                    <Route path="/" Component={<Home />} />
-                    <Route path="/gallery" Component={<Gallery />} />
-                    <Route path="/booking" Component={<Booking />} />
-                    <Route path="/contact" Component={<Contact />} />
-                    <Route path="*" Component={<NotFound />} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="/gallery" element={<Gallery />} />
+                    <Route path="/booking" element={<Booking />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
             <Footer />
