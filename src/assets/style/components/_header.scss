@@ -1,0 +1,144 @@
+/* HEADER */
+
+header {
+    grid-area: header;
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: auto;
+    z-index: 1000;
+    background-color: #FFFBD7;
+    font-family: "Lora", "Georgia", "Times New Roman", serif;
+    text-transform: uppercase;
+    justify-content: space-between;
+    padding: 1rem;
+    box-shadow: 0px 2px 20px #070707;
+
+    img {
+        object-fit: contain;
+    }
+
+    nav {
+        font-size: 1.25rem;
+        font-weight: 400;
+
+        button {
+            background-color: transparent;
+            margin: unset;
+
+            &:hover,
+            &:focus {
+                cursor: pointer;
+                background-color: transparent;
+                transition: unset;
+            }
+
+            svg {
+                path {
+                    transition: fill 0.25s ease-in-out;
+                }
+            }
+        }
+
+        ul {
+            display: none;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            padding: unset;
+            margin: unset;
+            margin-top: 1rem;
+            list-style-type: none;
+            border-top: 1px solid powderblue;
+
+            li {
+                margin: unset;
+
+                a {
+                    display: flex;
+                    height: 3rem;
+                    background-color: black;
+                    color: white;
+                    padding: 1rem;
+                    justify-content: center;
+
+                    &:hover,
+                    &:focus {
+                        background-color: #222;
+                        color: white;
+                    }
+
+                    &.selected {
+                        color: steelblue;
+                    }
+                }
+            }
+        }
+
+        &.open {
+            button {
+                opacity: 0.75;
+
+                svg {
+                    path {
+                        fill: steelblue;
+                    }
+                }
+            }
+
+            ul {
+                display: block !important;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    header {
+        padding: 1rem 2rem;
+
+        button {
+            display: none;
+        }
+
+        nav {
+            font-weight: 500;
+
+            ul {
+                display: flex;
+                position: static;
+                left: unset;
+                margin: unset;
+                border-top: unset;
+
+                li {
+                    margin: 1rem;
+
+                    a {
+                        height: unset;
+                        background-color: unset;
+                        color: black;
+                        padding: unset;
+                        transition: opacity 0.2s ease-in-out;
+
+                        &:hover,
+                        &:focus {
+                            background-color: unset;
+                            color: black;
+                            opacity: 0.75;
+                        }
+
+                        &.selected {
+                            color: steelblue;
+                        }
+                    }
+
+                    &:hover,
+                    &:focus {
+                        background-color: unset;
+                    }
+                }
+            }
+        }
+    }
+}

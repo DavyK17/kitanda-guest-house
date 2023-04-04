@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap");
+@import "components/header";
+@import "components/main";
+@import "components/footer";
 
 
 /* GENERAL */
@@ -18,9 +21,24 @@ html {
 body {
     background-color: silver;
     font-family: "IBM Plex Sans", "Bahnschrift Light", "Helvetica", sans-serif;
+}
+
+#root {
+    display: grid;
+    min-width: 100%;
+    min-height: 100%;
     margin: 0 auto;
     padding: 0;
     overflow-x: hidden;
+    grid-template-columns: 1fr;
+    grid-template-areas: "header" "main" "footer";
+}
+
+@media only screen and (min-width: 992px) {
+    #root {
+        grid-template: repeat(3, auto) / 1fr 1200px 1fr;
+        grid-template-areas: "header header header" ". main ." "footer footer footer";
+    }
 }
 
 .lowercase {
@@ -128,6 +146,10 @@ h6 {
     font-family: "Lora", "Georgia", "Times New Roman", serif;
 }
 
+p {
+    font-size: 1rem;
+}
+
 ul {
     list-style-type: disc;
 }
@@ -172,292 +194,4 @@ button {
 
 .text-shadow {
     text-shadow: 4px 4px 8px black !important;
-}
-
-
-/* HEADER */
-
-header {
-    display: flex;
-    position: relative;
-    width: 100%;
-    height: auto;
-    z-index: 1000;
-    background-color: #FFFBD7;
-    font-family: "Lora", "Georgia", "Times New Roman", serif;
-    text-transform: uppercase;
-    justify-content: space-between;
-    padding: 1rem;
-    box-shadow: 0px 2px 20px #070707;
-
-    img {
-        object-fit: contain;
-    }
-
-    nav {
-        font-size: 1.25rem;
-        font-weight: 400;
-
-        button {
-            background-color: transparent;
-            margin: unset;
-
-            &:hover,
-            &:focus {
-                cursor: pointer;
-                background-color: transparent;
-                transition: unset;
-            }
-
-            svg {
-                path {
-                    transition: fill 0.25s ease-in-out;
-                }
-            }
-        }
-
-        ul {
-            display: none;
-            position: absolute;
-            width: 100%;
-            left: 0;
-            padding: unset;
-            margin: unset;
-            margin-top: 1rem;
-            list-style-type: none;
-            border-top: 1px solid powderblue;
-
-            li {
-                margin: unset;
-
-                a {
-                    display: flex;
-                    height: 3rem;
-                    background-color: black;
-                    color: white;
-                    padding: 1rem;
-                    justify-content: center;
-
-                    &:hover,
-                    &:focus {
-                        background-color: #222;
-                        color: white;
-                    }
-
-                    &.selected {
-                        color: steelblue;
-                    }
-                }
-            }
-        }
-
-        &.open {
-            button {
-                opacity: 0.75;
-
-                svg {
-                    path {
-                        fill: steelblue;
-                    }
-                }
-            }
-
-            ul {
-                display: block !important;
-            }
-        }
-    }
-}
-
-@media only screen and (min-width: 992px) {
-    header {
-        button {
-            display: none;
-        }
-
-        nav {
-            font-weight: 500;
-
-            ul {
-                display: flex;
-                position: static;
-                left: unset;
-                margin: unset;
-                border-top: unset;
-
-                li {
-                    margin: 1rem;
-
-                    a {
-                        height: unset;
-                        background-color: unset;
-                        color: black;
-                        padding: unset;
-                        transition: opacity 0.2s ease-in-out;
-
-                        &:hover,
-                        &:focus {
-                            background-color: unset;
-                            color: black;
-                            opacity: 0.75;
-                        }
-
-                        &.selected {
-                            color: steelblue;
-                        }
-                    }
-
-                    &:hover,
-                    &:focus {
-                        background-color: unset;
-                    }
-                }
-            }
-        }
-    }
-}
-
-
-/* MAIN */
-
-main {
-    display: grid;
-    background-color: white;
-    grid-template: repeat(5, auto) / 1fr;
-    grid-template-areas: "home" "about" "testimonials" "amenities" "contact";
-
-    section {
-        width: 100%;
-    }
-
-    .background {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        padding: 2rem;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        &.black {
-            background-color: rgba(0, 0, 0, 0.8) !important;
-
-            &.lighter {
-                background-color: rgba(0, 0, 0, 0.6) !important;
-            }
-        }
-
-        &.white {
-            background-color: rgba(255, 255, 255, 0.8) !important;
-
-            &.lighter {
-                background-color: rgba(255, 255, 255, 0.6) !important;
-            }
-        }
-    }
-
-    .content {
-        display: flex;
-        width: 100%;
-        padding: unset;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .box-list {
-        display: inline-flex;
-        justify-content: space-around;
-        align-items: baseline;
-        flex-wrap: wrap;
-    }
-
-    .box-item {
-        display: inline-flex;
-        flex-direction: column;
-        height: auto;
-        margin: 2rem;
-    }
-
-    .carousel-item {
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        width: 100%;
-        height: 400px;
-    }
-
-    form .label-input {
-        display: flex !important;
-        flex-direction: column;
-
-        &.radio {
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
-
-            label {
-                margin: 0;
-                padding: 0.5rem;
-            }
-        }
-    }
-
-    [data-toggle=tooltip] {
-        border-bottom: 1px dotted white;
-    }
-}
-
-
-@media only screen and (min-width: 992px) {
-    main {
-        .content {
-            padding: 2rem;
-        }
-
-        .box-item {
-            width: 300px;
-        }
-    }
-}
-
-// Amenities section
-#amenities {
-    grid-area: amenities;
-    background: white url("../img/slideshow/slide-4.JPG") no-repeat scroll center;
-    background-size: cover;
-}
-
-.amenities-header {
-    display: flex;
-    width: auto;
-    align-items: center;
-    flex-direction: row;
-    margin: 0.5rem 0;
-
-    img {
-        height: 2rem;
-    }
-}
-
-// 404 page
-#error-404 {
-    grid-area: home;
-    height: 500px;
-}
-
-
-/* FOOTER */
-
-footer {
-    display: flex;
-    width: 100%;
-    min-height: 5rem;
-    background-color: black;
-    color: white;
-    font-family: "Zilla Slab", "Georgia", "Times New Roman", serif !important;
-    text-transform: uppercase;
-    padding: 1rem;
-    justify-content: center;
-    align-items: center;
 }

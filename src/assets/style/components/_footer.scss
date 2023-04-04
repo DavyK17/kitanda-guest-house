@@ -1,0 +1,15 @@
+/* FOOTER */
+
+footer {
+    grid-area: footer;
+    display: flex;
+    width: 100%;
+    min-height: 5rem;
+    background-color: black;
+    color: white;
+    font-family: "Zilla Slab", "Georgia", "Times New Roman", serif !important;
+    text-transform: uppercase;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+}

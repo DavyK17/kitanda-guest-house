@@ -1,0 +1,312 @@
+main {
+    grid-area: main;
+    display: grid;
+    background-color: white;
+    box-shadow: 2px 5px 20px #070707;
+    grid-template: repeat(5, auto) / 1fr;
+    grid-template-areas: "top" "about" "testimonials" "amenities" "contact";
+
+    section {
+        width: 100%;
+    }
+
+    .background {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        padding: unset;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &.black {
+            background-color: rgba(0, 0, 0, 0.8) !important;
+
+            &.lighter {
+                background-color: rgba(0, 0, 0, 0.6) !important;
+            }
+        }
+
+        &.white {
+            background-color: rgba(255, 255, 255, 0.8) !important;
+
+            &.lighter {
+                background-color: rgba(255, 255, 255, 0.6) !important;
+            }
+        }
+    }
+
+    .content {
+        display: flex;
+        width: 100%;
+        padding: 2rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .box-list {
+        display: inline-flex;
+        justify-content: space-around;
+        align-items: baseline;
+        flex-wrap: wrap;
+    }
+
+    .box-item {
+        display: inline-flex;
+        flex-direction: column;
+        height: auto;
+        margin: 2rem;
+    }
+
+    .carousel-item {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 400px;
+    }
+
+    form .label-input {
+        display: flex !important;
+        flex-direction: column;
+
+        &.radio {
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+
+            label {
+                margin: 0;
+                padding: 0.5rem;
+            }
+        }
+    }
+
+    [data-toggle=tooltip] {
+        border-bottom: 1px dotted white;
+    }
+}
+
+
+@media only screen and (min-width: 992px) {
+    main {
+        .background {
+            padding: 2rem;
+        }
+
+        .box-item {
+            width: 300px;
+        }
+    }
+}
+
+
+/* Top section */
+
+#top {
+    grid-area: "top";
+}
+
+.check-availability {
+    width: 100%;
+    background-color: black;
+    font-family: "Zilla Slab", "Georgia", "Times New Roman", serif !important;
+    color: white;
+    align-items: center;
+    padding: 2rem 0;
+
+    .container {
+        display: flex;
+        width: 95%;
+        margin: 0 auto;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        #availability-form-head {
+            display: flex;
+            width: auto;
+            align-items: center;
+            flex-direction: row;
+            margin: unset;
+            margin-bottom: 1rem;
+
+            img {
+                height: 40px;
+            }
+
+            h2 {
+                margin: unset 0.75rem;
+            }
+        }
+
+        #availability-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            label {
+                margin: unset;
+            }
+
+            .label-input {
+                width: 100%;
+                margin: 0.5rem;
+            }
+
+            button {
+                margin: 1rem 0;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .check-availability {
+        .container {
+            #availability-form {
+                flex-direction: row;
+                align-items: start;
+
+                .label-input {
+                    width: 150px;
+                    margin: auto 0.625rem;
+
+                    &.a-c-i {
+                        width: 75px;
+                    }
+
+                    input {
+                        width: inherit;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .check-availability {
+        padding: 1.5rem 0;
+
+        .container {
+            flex-direction: row;
+
+            #availability-form-head {
+                margin-bottom: unset;
+            }
+        }
+    }
+}
+
+
+/* About and Testimonials ssections */
+
+#about {
+    grid-area: about;
+
+    .content {
+        align-items: start !important;
+
+        p {
+            margin-bottom: 1rem;
+        }
+    }
+
+    .google-map {
+        width: inherit;
+        height: 400px;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+}
+
+#testimonials {
+    grid-area: testimonials;
+    background: black url("../../img/slideshow/slide-1.JPG") no-repeat scroll center;
+    background-size: cover;
+    color: white;
+}
+
+.testimonial-slide {
+    display: flex;
+    width: 50%;
+    height: inherit;
+    margin: 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        font-family: "Jim Nightshade", cursive !important;
+        font-size: 3.5rem !important;
+    }
+}
+
+
+/* Amenities section */
+
+#amenities {
+    grid-area: amenities;
+    background: white url("../../img/slideshow/slide-4.JPG") no-repeat scroll center;
+    background-size: cover;
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    .amenities-header {
+        display: flex;
+        width: auto;
+        align-items: center;
+        margin: 0.5rem 0;
+    
+        svg {
+            width: 2rem;
+            height: 2rem;
+            margin-right: 0.5rem;
+        }
+    }
+}
+
+
+/* Contact section */
+
+#contact {
+    grid-area: contact;
+    height: 500px;
+    background: black url("../../img/slideshow/slide-3.JPG") no-repeat scroll center;
+    background-size: cover;
+    color: white;
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .contact-details {
+        margin: 2rem auto;
+
+        p {
+            display: flex;
+            width: auto;
+            align-items: center;
+            margin: 0.5rem 0;
+    
+            svg {
+                margin-right: 0.5rem;
+            }
+        }
+    }
+}
+
+
+/* 404 page */
+#error-404 {
+    grid-area: home;
+    height: 500px;
+}
