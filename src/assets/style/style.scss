@@ -170,13 +170,19 @@ button {
     }
 }
 
+.text-shadow {
+    text-shadow: 4px 4px 8px black !important;
+}
+
 
 /* HEADER */
 
 header {
     display: flex;
+    position: relative;
     width: 100%;
     height: auto;
+    z-index: 1000;
     background-color: #FFFBD7;
     font-family: "Lora", "Georgia", "Times New Roman", serif;
     text-transform: uppercase;
@@ -309,6 +315,135 @@ header {
             }
         }
     }
+}
+
+
+/* MAIN */
+
+main {
+    display: grid;
+    background-color: white;
+    grid-template: repeat(5, auto) / 1fr;
+    grid-template-areas: "home" "about" "testimonials" "amenities" "contact";
+
+    section {
+        width: 100%;
+    }
+
+    .background {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        padding: 2rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &.black {
+            background-color: rgba(0, 0, 0, 0.8) !important;
+
+            &.lighter {
+                background-color: rgba(0, 0, 0, 0.6) !important;
+            }
+        }
+
+        &.white {
+            background-color: rgba(255, 255, 255, 0.8) !important;
+
+            &.lighter {
+                background-color: rgba(255, 255, 255, 0.6) !important;
+            }
+        }
+    }
+
+    .content {
+        display: flex;
+        width: 100%;
+        padding: unset;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .box-list {
+        display: inline-flex;
+        justify-content: space-around;
+        align-items: baseline;
+        flex-wrap: wrap;
+    }
+
+    .box-item {
+        display: inline-flex;
+        flex-direction: column;
+        height: auto;
+        margin: 2rem;
+    }
+
+    .carousel-item {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 400px;
+    }
+
+    form .label-input {
+        display: flex !important;
+        flex-direction: column;
+
+        &.radio {
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+
+            label {
+                margin: 0;
+                padding: 0.5rem;
+            }
+        }
+    }
+
+    [data-toggle=tooltip] {
+        border-bottom: 1px dotted white;
+    }
+}
+
+
+@media only screen and (min-width: 992px) {
+    main {
+        .content {
+            padding: 2rem;
+        }
+
+        .box-item {
+            width: 300px;
+        }
+    }
+}
+
+// Amenities section
+#amenities {
+    grid-area: amenities;
+    background: white url("../img/slideshow/slide-4.JPG") no-repeat scroll center;
+    background-size: cover;
+}
+
+.amenities-header {
+    display: flex;
+    width: auto;
+    align-items: center;
+    flex-direction: row;
+    margin: 0.5rem 0;
+
+    img {
+        height: 2rem;
+    }
+}
+
+// 404 page
+#error-404 {
+    grid-area: home;
+    height: 500px;
 }
 
 
