@@ -19,10 +19,10 @@ const Contact = () => {
 
     return (
         <section id="contact">
-            <div class="background black">
-                <div class="content">
-                    <h2 class="bold uppercase">Get In Touch</h2>
-                    <div class="contact-details">
+            <div className="background black">
+                <div className="content">
+                    <h2 className="bold uppercase">Get In Touch</h2>
+                    <div className="contact-details">
                         <p>
                             {iconLocation}
                             <span>Kilimani Road, off Elgeyo Marakwet Road</span>
