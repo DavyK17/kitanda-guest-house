@@ -1,0 +1,32 @@
+#gallery-top {
+    grid-area: top;
+    background: black url("../../img/slideshow/slide-1.JPG") no-repeat scroll center;
+    background-size: cover;
+    color: white;
+
+    .background {
+        height: 400px;
+    }
+}
+
+#gallery {
+    padding: 2rem 0;
+}
+
+.lg-react-element {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    a {
+        display: block;
+        width: 320px;
+        height: 180px;
+        margin: 1rem;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+        }
+    }
+}
