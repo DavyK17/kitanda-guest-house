@@ -19,7 +19,7 @@ header {
     }
 
     nav {
-        font-size: 1.25rem;
+        font-size: 2rem;
         font-weight: 400;
 
         button {
@@ -41,23 +41,24 @@ header {
         }
 
         ul {
-            display: none;
-            position: absolute;
-            width: 100%;
-            left: 0;
+            display: flex;
+            position: fixed;
+            width: 310px;
+            height: 100vh;
+            top: 0;
+            right: -310px;
+            background-color: black;
             padding: unset;
             margin: unset;
-            margin-top: 1rem;
             list-style-type: none;
-            border-top: 1px solid powderblue;
+            flex-direction: column;
+            justify-content: center;
 
             li {
                 margin: unset;
 
                 a {
                     display: flex;
-                    height: 3rem;
-                    background-color: black;
                     color: white;
                     padding: 1rem;
                     justify-content: center;
@@ -69,25 +70,10 @@ header {
                     }
 
                     &.selected {
+                        background-color: #222;
                         color: steelblue;
                     }
                 }
-            }
-        }
-
-        &.open {
-            button {
-                opacity: 0.75;
-
-                svg {
-                    path {
-                        fill: steelblue;
-                    }
-                }
-            }
-
-            ul {
-                display: block !important;
             }
         }
     }
@@ -102,14 +88,18 @@ header {
         }
 
         nav {
+            font-size: 1.25rem;
             font-weight: 500;
 
             ul {
                 display: flex;
                 position: static;
-                left: unset;
+                width: unset;
+                height: auto;
+                background-color: unset;
                 margin: unset;
                 border-top: unset;
+                flex-direction: row;
 
                 li {
                     margin: 1rem;
@@ -129,6 +119,7 @@ header {
                         }
 
                         &.selected {
+                            background-color: unset;
                             color: steelblue;
                         }
                     }

@@ -21,6 +21,22 @@ html {
 body {
     background-color: silver;
     font-family: "IBM Plex Sans", "Bahnschrift Light", "Helvetica", sans-serif;
+    transition: transform 0.25s ease-in-out;
+
+    &.nav-open {
+        transform: translateX(-310px);
+        transition: transform 0.25s ease-in-out;
+
+        header nav button {
+            opacity: 0.75;
+
+            svg {
+                path {
+                    fill: steelblue;
+                }
+            }
+        }
+    }
 }
 
 #root {
