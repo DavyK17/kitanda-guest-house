@@ -1,4 +1,5 @@
-import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/img/logos/logo.png";
 
 const Header = props => {
@@ -12,9 +13,13 @@ const Header = props => {
 
     const toggleMenu = e => {
         e.preventDefault();
-        const nav = document.querySelector("header nav");
-        nav.classList.toggle("open");
+        document.body.classList.toggle("nav-open");
     }
+
+    let location = useLocation();
+    useEffect(() => {
+        if (document.body.classList.contains("nav-open")) document.body.classList.toggle("nav-open");
+    }, [location]);
 
     const setActive = isActive => isActive ? activeClassName : null;
 
