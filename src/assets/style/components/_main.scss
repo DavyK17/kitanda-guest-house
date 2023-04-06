@@ -1,4 +1,5 @@
 @import "gallery";
+@import "booking";
 
 main {
     grid-area: main;
@@ -123,9 +124,16 @@ main {
 
 .google-map {
     width: inherit;
-    height: 400px;
+    height: 300px;
     border-top: 1px solid black;
     border-bottom: 1px solid black;
+}
+
+
+@media only screen and (min-width: 575px) {
+    .google-map {
+        height: 400px;
+    }
 }
 
 
