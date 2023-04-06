@@ -1,5 +1,5 @@
 const Cart = props => {
-    const { cart, step, handleCheckout } = props;
+    const { step, handleCheckout } = props;
     
     return (
         <div className="cart" id="booking-cart">
