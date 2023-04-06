@@ -199,6 +199,22 @@
 
                         .remove {
                             margin-top: 0.5rem;
+
+                            button {
+                                background-color: unset;
+                                color: steelblue;
+                                text-decoration: none;
+                                margin: unset;
+                                padding: unset;
+                                transition: color 0.15s ease-in-out;
+                            
+                                &:hover,
+                                &:focus {
+                                    color: darkseagreen;
+                                    text-decoration: none;
+                                    transition: color 0.15s ease-in-out;
+                                }
+                            }
                         }
                     }
 

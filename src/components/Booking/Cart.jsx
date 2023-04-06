@@ -42,7 +42,7 @@ const Cart = props => {
                                 <p className="font-head-2 uppercase">Ksh. 0,000</p>
                             </div>
                             <div className="remove">
-                                <a className="font-head-2 uppercase" href="#">Remove</a>
+                                <button className="font-head-2 uppercase" href="#">Remove</button>
                             </div>
                         </div>
     
@@ -64,7 +64,7 @@ const Cart = props => {
                                 <p className="font-head-2 uppercase">Ksh. 0,000</p>
                             </div>
                             <div className="remove">
-                                <a className="font-head-2 uppercase" href="#">Remove</a>
+                                <button className="font-head-2 uppercase" href="#">Remove</button>
                             </div>
     
                         </div>
@@ -87,7 +87,7 @@ const Cart = props => {
                                 <p className="font-head-2 uppercase">Ksh. 0,000</p>
                             </div>
                             <div className="remove">
-                                <a className="font-head-2 uppercase" href="#">Remove</a>
+                                <button className="font-head-2 uppercase" href="#">Remove</button>
                             </div>
                         </div>
     
