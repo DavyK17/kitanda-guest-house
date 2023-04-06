@@ -12,7 +12,7 @@
 
 #booking-main {
     grid-area: about;
-    display: grid !important;
+    display: grid;
     grid-template: repeat(3, auto) / 1fr;
 
     .sort {
@@ -33,90 +33,107 @@
     .rooms {
         grid-area: 2 / 1 / span 1 / span 1;
 
-        .room-card {
-            width: 100%;
+        h2 {
+            font-weight: 700;
+            margin: unset;
+        }
 
-            &:not(:first-of-type) {
-                margin-top: 2rem;
-            }
+        .content {
+            padding: 2rem 2rem 0 2rem;
 
-            &.single-room .room-img {
-                background: silver url("../../img/booking/single.JPG") no-repeat scroll center;
-                background-size: cover;
-            }
+            .room-card {
+                width: 100%;
 
-            &.double-room .room-img {
-                background: silver url("../../img/booking/double.JPG") no-repeat scroll center;
-                background-size: cover;
-            }
-
-            &.twin-room .room-img {
-                background: silver url("../../img/booking/twin.JPG") no-repeat scroll center;
-                background-size: cover;
-            }
-
-            &.triple-room .room-img {
-                background: silver url("../../img/booking/triple.JPG") no-repeat scroll center;
-                background-size: cover;
-            }
-
-            .room-card-header {
-                display: flex;
-                background-color: black;
-                color: white;
-                padding: 1rem;
-                justify-content: space-between;
-
-                .room-card-price {
-                    font-weight: 300;
-                    text-align: right;
-                    opacity: 0.6;
-                }
-            }
-
-            .room-card-body {
-                display: grid;
-                height: auto;
-                background-color: white;
-                grid-template: repeat(3, auto) / repeat(2, 1fr);
-                border-left: 1px solid rgba(0, 0, 0, 0.5);
-                border-right: 1px solid rgba(0, 0, 0, 0.5);
-                border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-
-                h4 {
-                    margin-bottom: 0.5rem !important;
-                    text-align: center;
+                &:not(:first-of-type) {
+                    margin-top: 2rem;
                 }
 
-                ul {
-                    padding: 0;
-                    list-style-type: none;
+                &.single-room .room-img {
+                    background: silver url("../../img/booking/single.JPG") no-repeat scroll center;
+                    background-size: cover;
                 }
 
-                .room-img {
-                    grid-area: 1 / 1 / span 1 / span 2;
-                    height: 150px;
+                &.double-room .room-img {
+                    background: silver url("../../img/booking/double.JPG") no-repeat scroll center;
+                    background-size: cover;
+                }
+
+                &.twin-room .room-img {
+                    background: silver url("../../img/booking/twin.JPG") no-repeat scroll center;
+                    background-size: cover;
+                }
+
+                &.triple-room .room-img {
+                    background: silver url("../../img/booking/triple.JPG") no-repeat scroll center;
+                    background-size: cover;
+                }
+
+                p {
+                    margin: unset;
+                }
+
+                .room-card-header {
+                    display: flex;
+                    background-color: black;
+                    color: white;
+                    padding: 1rem;
+                    justify-content: space-between;
+
+                    p {
+                        font-size: 1.5rem;
+                    }
+
+                    .room-card-price {
+                        font-weight: 300;
+                        text-align: right;
+                        opacity: 0.6;
+                    }
+                }
+
+                .room-card-body {
+                    display: grid;
+                    height: auto;
+                    background-color: white;
+                    grid-template: repeat(3, auto) / repeat(2, 1fr);
+                    border-left: 1px solid rgba(0, 0, 0, 0.5);
+                    border-right: 1px solid rgba(0, 0, 0, 0.5);
                     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-                }
 
-                .room-features {
-                    grid-area: 2 / 1 / span 1 / span 1;
-                    padding: 0.5rem;
-                    justify-self: center;
-                }
+                    h4 {
+                        margin-bottom: 0.5rem !important;
+                        text-align: center;
+                    }
 
-                .room-capacity {
-                    grid-area: 2 / 2 / span 1 / span 1;
-                    padding: 0.5rem;
-                    justify-self: center;
-                }
+                    ul {
+                        padding: 0;
+                        list-style-type: none;
+                    }
 
-                .room-book {
-                    width: auto;
-                    grid-area: 3 / 1 / span 1 / span 2;
-                    padding: 0.5rem;
-                    justify-self: center;
-                    align-self: center;
+                    .room-img {
+                        grid-area: 1 / 1 / span 1 / span 2;
+                        height: 150px;
+                        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+                    }
+
+                    .room-features {
+                        grid-area: 2 / 1 / span 1 / span 1;
+                        padding: 0.5rem;
+                        justify-self: center;
+                    }
+
+                    .room-capacity {
+                        grid-area: 2 / 2 / span 1 / span 1;
+                        padding: 0.5rem;
+                        justify-self: center;
+                    }
+
+                    .room-book {
+                        width: auto;
+                        grid-area: 3 / 1 / span 1 / span 2;
+                        padding: 0.5rem;
+                        justify-self: center;
+                        align-self: center;
+                    }
                 }
             }
         }
@@ -219,33 +236,46 @@
             }
         }
 
-        .room-card-body {
-            grid-template: 1fr / 30% 1fr 1fr 1fr;
-            height: 150px;
-
-            .room-img {
-                height: auto;
-            }
-
-            .room-features {
-                grid-area: unset;
-            }
-
-            .room-capacity {
-                grid-area: unset;
-            }
-
-            .room-book {
-                grid-area: unset;
+        .rooms {
+            .content {
+                .room-card {
+                    .room-card-body {
+                        grid-template: 1fr / 30% 1fr 1fr 1fr;
+                        height: 150px;
+    
+                        .room-img {
+                            height: auto;
+                            grid-area: unset;
+                        }
+    
+                        .room-features {
+                            grid-area: unset;
+                        }
+    
+                        .room-capacity {
+                            grid-area: unset;
+                        }
+    
+                        .room-book {
+                            grid-area: unset;
+                        }
+                    }
+                }
             }
         }
 
-        .room-cart-header {
-            flex-direction: row;
+        .cart {
+            .content {
+                .room-cart {
+                    .room-cart-header {
+                        flex-direction: row;
 
-            .info-line:last-of-type {
-                text-align: right;
-                margin-top: unset;
+                        .info-line:last-of-type {
+                            text-align: right;
+                            margin-top: unset;
+                        }
+                    }
+                }
             }
         }
     }
@@ -300,11 +330,11 @@
         &#guest-details {
             display: grid;
             width: 100%;
-            grid-template: auto repeat(6, 1fr) / repeat(6, 1fr);
+            grid-template: auto repeat(12, 1fr) / 1fr;
             grid-gap: 1rem;
 
             .form-legend {
-                grid-area: 1 / 1 / span 1 / span 6;
+                grid-area: 1 / 1 / span 1 / span 1;
             }
         }
 
@@ -313,9 +343,14 @@
         }
 
         &#payment-method {
-            display: flex;
             width: 100%;
-            justify-content: space-between;
+
+            .methods {
+                display: flex;
+                width: inherit;
+                flex-direction: column;
+                justify-content: flex-start;
+            }
         }
 
         &#form-end button {
@@ -332,51 +367,123 @@
 
     .label-input {
         &#form-title {
-            grid-area: 2 / 1 / span 1 / span 2;
+            grid-area: 2 / 1 / span 1 / span 1;
         }
 
         &#form-first {
-            grid-area: 2 / 3 / span 1 / span 2;
+            grid-area: 3 / 1 / span 1 / span 1;
         }
 
         &#form-last {
-            grid-area: 2 / 5 / span 1 / span 2;
+            grid-area: 4 / 1 / span 1 / span 1;
         }
 
         &#form-company {
-            grid-area: 3 / 1 / span 1 / span 6;
+            grid-area: 5 / 1 / span 1 / span 1;
         }
 
         &#form-address-1 {
-            grid-area: 4 / 1 / span 1 / span 3;
+            grid-area: 6 / 1 / span 1 / span 1;
         }
 
         &#form-address-2 {
-            grid-area: 4 / 4 / span 1 / span 3;
+            grid-area: 7 / 1 / span 1 / span 1;
         }
 
         &#form-city {
-            grid-area: 5 / 1 / span 1 / span 2;
+            grid-area: 8 / 1 / span 1 / span 1;
         }
 
         &#form-county {
-            grid-area: 5 / 3 / span 1 / span 2;
+            grid-area: 9 / 1 / span 1 / span 1;
         }
 
         &#form-postcode {
-            grid-area: 5 / 5 / span 1 / span 2;
+            grid-area: 10 / 1 / span 1 / span 1;
         }
 
         &#form-country {
-            grid-area: 6 / 1 / span 1 / span 6;
+            grid-area: 11 / 1 / span 1 / span 1;
         }
 
         &#form-phone {
-            grid-area: 7 / 1 / span 1 / span 3;
+            grid-area: 12 / 1 / span 1 / span 1;
         }
 
         &#form-email {
-            grid-area: 7 / 4 / span 1 / span 3;
+            grid-area: 13 / 1 / span 1 / span 1;
+        }
+    }
+}
+
+
+@media only screen and (min-width: 576px) {
+    #checkout-form {
+        fieldset {
+            &#guest-details {
+                grid-template: auto repeat(6, 1fr) / repeat(6, 1fr);
+            }
+
+            &#guest-details .form-legend {
+                grid-area: 1 / 1 / span 1 / span 6;
+            }
+
+            &#payment-method {
+                .methods {
+                    flex-direction: row;
+                    justify-content: space-between;
+                }
+            }
+        }
+
+        .label-input {
+            &#form-title {
+                grid-area: 2 / 1 / span 1 / span 2;
+            }
+
+            &#form-first {
+                grid-area: 2 / 3 / span 1 / span 2;
+            }
+
+            &#form-last {
+                grid-area: 2 / 5 / span 1 / span 2;
+            }
+
+            &#form-company {
+                grid-area: 3 / 1 / span 1 / span 6;
+            }
+
+            &#form-address-1 {
+                grid-area: 4 / 1 / span 1 / span 3;
+            }
+
+            &#form-address-2 {
+                grid-area: 4 / 4 / span 1 / span 3;
+            }
+
+            &#form-city {
+                grid-area: 5 / 1 / span 1 / span 2;
+            }
+
+            &#form-county {
+                grid-area: 5 / 3 / span 1 / span 2;
+            }
+
+            &#form-postcode {
+                grid-area: 5 / 5 / span 1 / span 2;
+            }
+
+            &#form-country {
+                grid-area: 6 / 1 / span 1 / span 6;
+            }
+
+            &#form-phone {
+                grid-area: 7 / 1 / span 1 / span 3;
+            }
+
+            &#form-email {
+                grid-area: 7 / 4 / span 1 / span 3;
+            }
         }
     }
 }
