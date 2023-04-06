@@ -198,13 +198,13 @@ button {
     width: auto;
     padding: 1rem;
     margin: auto 1rem;
-    transition: background-color 0.25s ease-in-out;
+    transition: background-color 0.15s ease-in-out;
 
     &:hover,
     &:focus {
         cursor: pointer;
-        background-color: steelblue;
-        transition: background-color 0.25s ease-in-out;
+        background-color: powderblue;
+        transition: background-color 0.15s ease-in-out;
     }
 }
 
