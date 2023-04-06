@@ -332,6 +332,7 @@ const Checkout = props => {
                     <fieldset id="payment-method">
                         <legend>Payment method</legend>
 
+                        {/* Add logic for only one method to be selectable at a time */}
                         <div className="methods">
                             <div className="label-input radio">
                                 <input type="radio" id="bank-transfer" name="bank-transfer" defaultValue="bank-transfer" />
@@ -352,7 +353,7 @@ const Checkout = props => {
                         <legend>Confirmation</legend>
 
                         <div className="label-input radio">
-                            <input type="radio" id="agree" name="agree" defaultValue="agree" required />
+                            <input type="checkbox" id="agree" name="agree" value="agree" required />
                             <label htmlFor="agree">I have read and agreed to the Non-Existent Privacy Policy.</label>
                         </div>
                         <button className="font-head-2 bold uppercase">Checkout</button>
