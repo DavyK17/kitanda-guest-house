@@ -38,6 +38,9 @@ const Header = props => {
                     <li>
                         <NavLink className={({ isActive }) => setActive(isActive)} to="/booking">Booking</NavLink>
                     </li>
+                    <li>
+                        <NavLink className={({ isActive }) => setActive(isActive)} to="/account">Account</NavLink>
+                    </li>
                 </ul>
             </nav>
         </header>
