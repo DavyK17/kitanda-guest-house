@@ -1,5 +1,6 @@
 @import "gallery";
 @import "booking";
+@import "auth";
 
 main {
     grid-area: main;
@@ -144,94 +145,85 @@ main {
 }
 
 .check-availability {
+    display: flex;
     width: 100%;
     background-color: black;
     font-family: "Zilla Slab", "Georgia", "Times New Roman", serif !important;
     color: white;
+    margin: unset;
+    padding: 2rem;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
-    padding: 2rem 0;
 
-    .container {
+    #availability-form-head {
         display: flex;
-        width: 95%;
-        margin: 0 auto;
-        flex-direction: column;
-        justify-content: space-around;
+        width: auto;
         align-items: center;
+        flex-direction: row;
+        margin: unset;
+        margin-bottom: 1rem;
 
-        #availability-form-head {
-            display: flex;
-            width: auto;
-            align-items: center;
-            flex-direction: row;
-            margin: unset;
-            margin-bottom: 1rem;
-
-            svg {
-                margin-right: 0.25rem;
-            }
-
-            h2 {
-                margin: unset;
-            }
+        svg {
+            margin-right: 0.25rem;
         }
 
-        #availability-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        h2 {
+            margin: unset;
+        }
+    }
 
-            label {
-                margin: unset;
-            }
+    #availability-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-            .label-input {
-                width: 100%;
-                margin: 0.5rem;
-            }
+        label {
+            margin: unset;
+        }
 
-            button {
-                margin: 1rem 0;
-            }
+        .label-input {
+            width: 100%;
+            margin: 0.5rem;
+        }
+
+        button {
+            margin: 1rem 0;
         }
     }
 }
 
 @media only screen and (min-width: 992px) {
     .check-availability {
-        .container {
-            #availability-form {
-                flex-direction: row;
-                align-items: start;
+        #availability-form {
+            flex-direction: row;
+            align-items: start;
 
-                .label-input {
-                    width: 150px;
-                    margin: auto 0.625rem;
+            .label-input {
+                margin: auto 0.625rem;
 
-                    &.a-c-i {
-                        width: 75px;
-                    }
+                &.a-c-i {
+                    width: 75px;
+                }
 
-                    input {
-                        width: inherit;
-                    }
+                input {
+                    width: inherit;
                 }
             }
         }
+
     }
 }
 
 @media only screen and (min-width: 1200px) {
     .check-availability {
-        padding: 1.5rem 0;
+        padding: 1.5rem;
+        flex-direction: row;
 
-        .container {
-            flex-direction: row;
-
-            #availability-form-head {
-                margin-bottom: unset;
-            }
+        #availability-form-head {
+            margin-bottom: unset;
         }
+
     }
 }
 
