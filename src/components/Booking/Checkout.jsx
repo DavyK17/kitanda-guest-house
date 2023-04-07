@@ -10,9 +10,7 @@ const Checkout = props => {
                 <form id="checkout-form" onSubmit={props.handleSubmit}>
 
                     <fieldset id="guest-details">
-                        <div className="form-legend">
-                            <legend>Guest details</legend>
-                        </div>
+                        <legend>Guest details</legend>
 
                         <div className="label-input" id="form-title">
                             <label htmlFor="customer-title">Title</label>

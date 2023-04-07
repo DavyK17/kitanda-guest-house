@@ -9,35 +9,33 @@ const CheckAvailability = props => {
 
     return (
         <div className="check-availability">
-            <div className="container">
-                <div id="availability-form-head">
-                    {iconCheckbox}
-                    <h2 className="uppercase">Check Availability</h2>
-                </div>
-                <form id="availability-form" onSubmit={handleSubmit}>
-                    <div className="label-input">
-                        <label htmlFor="arrival">Arrival date</label>
-                        <input type="date" id="arrival" name="arrival" />
-                    </div>
-                    <div className="label-input">
-                        <label htmlFor="departure">Departure date</label>
-                        <input type="date" id="departure" name="departure" />
-                    </div>
-                    <div className="label-input a-c-i">
-                        <label htmlFor="adults">Adults</label>
-                        <input type="number" id="adults" name="adults" defaultValue="1" />
-                    </div>
-                    <div className="label-input a-c-i">
-                        <label htmlFor="children"><span data-toggle="tooltip" data-placement="top" title="Children aged 0-6 years stay for free sharing with the parents. Children over 12 years are considered adults.">Children</span></label>
-                        <input type="number" id="children" name="children" defaultValue="0" />
-                    </div>
-                    <div className="label-input a-c-i">
-                        <label htmlFor="infants">Infants</label>
-                        <input type="number" id="infants" name="infants" defaultValue="0" />
-                    </div>
-                    <button className="bold uppercase" type="submit">Search</button>
-                </form>
+            <div id="availability-form-head">
+                {iconCheckbox}
+                <h2 className="uppercase">Check Availability</h2>
             </div>
+            <form id="availability-form" onSubmit={handleSubmit}>
+                <div className="label-input">
+                    <label htmlFor="arrival">Arrival date</label>
+                    <input type="date" id="arrival" name="arrival" />
+                </div>
+                <div className="label-input">
+                    <label htmlFor="departure">Departure date</label>
+                    <input type="date" id="departure" name="departure" />
+                </div>
+                <div className="label-input a-c-i">
+                    <label htmlFor="adults">Adults</label>
+                    <input type="number" id="adults" name="adults" defaultValue="1" />
+                </div>
+                <div className="label-input a-c-i">
+                    <label htmlFor="children"><span data-toggle="tooltip" data-placement="top" title="Children aged 0-6 years stay for free sharing with the parents. Children over 12 years are considered adults.">Children</span></label>
+                    <input type="number" id="children" name="children" defaultValue="0" />
+                </div>
+                <div className="label-input a-c-i">
+                    <label htmlFor="infants">Infants</label>
+                    <input type="number" id="infants" name="infants" defaultValue="0" />
+                </div>
+                <button className="bold uppercase" type="submit">Search</button>
+            </form>
         </div>
     )
 }
