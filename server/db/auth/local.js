@@ -8,6 +8,7 @@ import { checkPassword } from "../../util/passwordCheck.js";
 import idGen from "../../util/idGen.js";
 import loginAttempt from "../../util/loginAttempt.js";
 import sanitizeHtml from "../../util/sanitizeHtml.js";
+import sendGenericError from "../../util/sendGenericError.js";
 
 import pkg from "validator";
 const { isEmail, isNumeric, isLength, trim, escape, normalizeEmail } = pkg;
@@ -63,7 +64,7 @@ export const register = async(req, res) => {
         result = await pool.query(text, values);
         res.status(201).send(`User created with ID: ${result.rows[0].id}`);
     } catch (err) {
-        res.status(500).send("An unknown error occurred. Kindly try again.")
+        sendGenericError(res);
     }
 }
 
@@ -121,7 +122,7 @@ export const confirmThirdPartyRegistration = async(req, res) => {
         }
 
     } catch (err) {
-        res.status(500).send("An unknown error occurred. Kindly try again.");
+        sendGenericError(res);
     }
 }
 
@@ -131,7 +132,7 @@ export const logout = (req, res) => {
 
     // Log out
     req.logout(err => {
-        if (err) return res.status(500).send("An unknown error occurred. Kindly try again.");
+        if (err) return sendGenericError(res);
         res.send("Logout successful");
     });
 }
