@@ -1,6 +1,7 @@
 /* IMPORTS */
 import express from "express";
-import { getUser, updateUser, deleteUser, unlinkThirdParty } from "../db/account.js";
+import { getUser, updateUser, deleteUser, unlinkThirdParty } from "../../db/account.js";
+import addressesRouter from "./addresses.js";
 
 
 /* IMPLEMENTATION */
@@ -11,6 +12,7 @@ accountRouter.put("/", updateUser);
 accountRouter.delete("/", deleteUser);
 
 accountRouter.delete("/third", unlinkThirdParty);
+accountRouter.use("/addresses", addressesRouter);
 
 
 /* EXPORT */
