@@ -4,7 +4,7 @@ import pool from "../pool.js";
 import requestIp from "request-ip";
 
 import checkPhone from "../../util/checkPhone.js";
-import { checkPassword } from "../../util/passwordCheck.js"
+import { checkPassword } from "../../util/passwordCheck.js";
 import idGen from "../../util/idGen.js";
 import loginAttempt from "../../util/loginAttempt.js";
 import sanitizeHtml from "../../util/sanitizeHtml.js";
@@ -19,7 +19,7 @@ export const register = async(req, res) => {
     const userId = idGen(10);
 
     // VALIDATION AND SANITISATION
-    let { firstName, lastName, phone, email, password, confirmPassword } = req.body;
+    let { firstName, lastName, companyName, phone, email, password, confirmPassword } = req.body;
 
     // First name
     if (typeof firstName !== "string") return res.status(400).send("Error: First name must be a string.");
@@ -28,6 +28,10 @@ export const register = async(req, res) => {
     // Last name
     if (typeof lastName !== "string") return res.status(400).send("Error: Last name must be a string.");
     lastName = sanitizeHtml(trim(escape(lastName)));
+
+    // Company name
+    if (typeof companyName !== "string") return res.status(400).send("Error: Company name must be a string.");
+    companyName = sanitizeHtml(trim(escape(companyName)));
 
     // Phone number
     if (typeof phone !== "number" && typeof phone !== "string") return res.status(400).send(`Error: Phone number must be a number.`);
@@ -54,8 +58,8 @@ export const register = async(req, res) => {
         if (result.rows.length > 0) return res.status(409).send("Error: A user with the provided email already exists.");
 
         // Add user to database
-        let text = `INSERT INTO guests (id, first_name, last_name, phone, email, password, created_at) VALUES ($1, $2, $3, $4, $5, $6, to_timestamp(${Date.now()} / 1000)) RETURNING id`;
-        let values = [userId, firstName, lastName, phone, email, passwordHash];
+        let text = `INSERT INTO guests (id, first_name, last_name, company_name, phone, email, password, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, to_timestamp(${Date.now()} / 1000)) RETURNING id`;
+        let values = [userId, firstName, lastName, companyName, phone, email, passwordHash];
         result = await pool.query(text, values);
         res.status(201).send(`User created with ID: ${result.rows[0].id}`);
     } catch (err) {

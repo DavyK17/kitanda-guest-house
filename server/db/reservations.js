@@ -353,7 +353,7 @@ export const makeMpesaPayment = async (req, res, next) => {
 
 export const completeCheckout = async(req, res) => {
     // Destructure request object for checkout data
-    let { reservationId, checkInDate, checkOutDate, rooms, email, userId } = req;
+    let { reservationId, phone, checkInDate, checkOutDate, rooms, email, userId } = req;
 
     try { // Get total price of reservation
         // Create reservation room prices array
@@ -369,8 +369,8 @@ export const completeCheckout = async(req, res) => {
         let totalPrice = prices.reduce((a, b) => a + b);
 
         // Create reservation
-        let text = `INSERT INTO reservations (id, guest_id, email, checkin_date, checkout_date, total_price, created_at) VALUES ($1, $2, $3, to_timestamp($4, 'YYYY-MM-DD'), to_timestamp($5, 'YYYY-MM-DD'), $6, to_timestamp(${Date.now()} / 1000)) RETURNING id`;
-        let values = [reservationId, userId, email, checkInDate, checkOutDate, totalPrice];
+        let text = `INSERT INTO reservations (id, guest_id, phone, email, checkin_date, checkout_date, total_price, created_at) VALUES ($1, $2, $3, $4, to_timestamp($5, 'YYYY-MM-DD'), to_timestamp($6, 'YYYY-MM-DD'), $7, to_timestamp(${Date.now()} / 1000)) RETURNING id`;
+        let values = [reservationId, userId, phone, email, checkInDate, checkOutDate, totalPrice];
         let result = await pool.query(text, values);
 
         // Confirm reservation
