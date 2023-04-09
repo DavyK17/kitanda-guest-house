@@ -23,7 +23,7 @@ export const getReservations = async (req, res) => {
 
         try {
             if (req.query.id) { // GET USER RESERVATION BY ID
-                // Validate and sanitise order ID
+                // Validate and sanitise reservation ID
                 let id = trim(req.query.id);
                 if (!isNumeric(id, { no_symbols: true }) || !isLength(id, { min: 7, max: 7 })) return res.status(400).send("Error: Invalid reservation ID provided.");
 
@@ -146,10 +146,10 @@ export const cancelReservation = async(req, res) => {
             // Send error if reservation check-in date is within 48 hours
             if ((new Date(result.rows[0].checkin_date).getTime() / 1000) - (new Date().getTime() / 1000) <= 172800) return res.status(403).send("Error: This reservation cannot be cancelled as check-in is within 48 hours.");
 
-            // Cancel order if pending
+            // Cancel reservation if pending
             if (result.rows[0].status === "pending") {
                 result = await pool.query("UPDATE reservations SET status = 'cancelled' WHERE id = $1 AND guest_id = $2 RETURNING id", [id, userId]);
-                return res.status(200).send(`Order cancelled with ID: ${result.rows[0].id}`);
+                return res.status(200).send(`Reservation cancelled with ID: ${result.rows[0].id}`);
             }
 
             // Send error if reservation has been processed
@@ -174,10 +174,10 @@ export const cancelReservation = async(req, res) => {
         // Send error if reservation check-in date is within 48 hours
         if ((new Date(result.rows[0].checkin_date).getTime() / 1000) - (new Date().getTime() / 1000) <= 172800) return res.status(403).send("Error: This reservation cannot be cancelled as check-in is within 48 hours.");
 
-        // Cancel order if pending
+        // Cancel reservation if pending
         if (result.rows[0].status === "pending") {
             result = await pool.query("UPDATE reservations SET status = 'cancelled' WHERE id = $1 AND email = $2 RETURNING id", [id, email]);
-            return res.status(200).send(`Order cancelled with ID: ${result.rows[0].id}`);
+            return res.status(200).send(`Reservation cancelled with ID: ${result.rows[0].id}`);
         }
 
         // Send error if reservation has been processed
@@ -324,9 +324,9 @@ export const makeMpesaPayment = async (req, res, next) => {
         "PartyA": phone,
         "PartyB": shortcode,
         "PhoneNumber": phone,
-        "CallBackURL": "https://kibandaski.up.railway.app/api/payment/mpesa-callback",
-        "AccountReference": "Kibandaski App",
-        "TransactionDesc": "Order payment"
+        "CallBackURL": "https://kitanda-guest-house-production.up.railway.app/api/payment/mpesa-callback",
+        "AccountReference": "Kitanda Guest House",
+        "TransactionDesc": "Booking payment"
     });
     let headers = { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` };
 
