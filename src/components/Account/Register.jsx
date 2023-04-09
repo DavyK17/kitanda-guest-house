@@ -35,8 +35,8 @@ const Register = props => {
                     <input type="text" id="customer-city" name="customer-city" required />
                 </div>
                 <div className="label-input" id="form-county">
-                    <label htmlFor="customer-county">County/State/Province*</label>
-                    <input type="text" id="customer-county" name="customer-county" required />
+                    <label htmlFor="customer-county">County/State/Province</label>
+                    <input type="text" id="customer-county" name="customer-county" />
                 </div>
                 <div className="label-input" id="form-postcode">
                     <label htmlFor="customer-postcode">Postcode/ZIP*</label>
