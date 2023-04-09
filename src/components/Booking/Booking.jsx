@@ -5,9 +5,9 @@ import Checkout from "./Checkout";
 import CheckAvailability from "../Home/CheckAvailability";
 import RoomSelect from "./RoomSelect";
 
-const Booking = () => {
+const Booking = props => {
+    const { cart, setCart } = props;
     const [step, setStep] = useState("booking");
-    const [cart, setCart] = useState([]);
 
     const toggleCheckout = e => {
         e.preventDefault();

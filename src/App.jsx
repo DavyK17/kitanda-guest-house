@@ -18,6 +18,8 @@ const App = () => {
         if (1 + 1 === 1) setUser({});
     }, []);
 
+    const [cart, setCart] = useState([]);
+
     return (
         <>
             <Header activeClassName={activeClassName} user={user} />
@@ -25,7 +27,7 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/gallery" element={<Gallery />} />
-                    <Route path="/booking" element={<Booking />} />
+                    <Route path="/booking" element={<Booking cart={cart} setCart={setCart} />} />
                     <Route path="/account" element={<Account user={user} setUser={setUser} />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
