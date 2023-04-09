@@ -84,8 +84,14 @@ export const createAddress = async (req, res) => {
 	// VALIDATION AND SANITISATION
 	let { reservationId, address1, address2, townCity, countyStateProvince, postcodeZip, country } = req.body;
 
+	// User ID
+	let userId = req.user.id ? trim(req.user.id) : null;
+	if (userId && (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 })))
+		return res.status(401).send("Error: Invalid user ID in session.");
+
 	// Reservation ID
-	if (reservationId) {
+    if (reservationId) {
+        if (userId) return res.status(403).send("Error: Reservation ID cannot be provided while logged in.");
 		if (typeof reservationId !== "string") return res.status(400).send("Error: Reservation ID name must be a string.");
 		if (!isNumeric(reservationId, { no_symbols: true }) || !isLength(reservationId, { min: 7, max: 7 }))
 			return res.status(400).send("Error: Invalid reservation ID provided.");
@@ -118,11 +124,6 @@ export const createAddress = async (req, res) => {
 	if (!isLength(country, { min: 2, max: 2 })) return res.status(400).send("Error: Invalid country provided (must be ISO 3166-1 alpha-2 code).");
 	country = iso3311a2.getCode(country);
 	if (!country) return res.status(400).send("Error: This country (ISO 3166-1 alpha-2 code) does not exist.");
-
-	// User ID
-	let userId = req.user.id ? trim(req.user.id) : null;
-	if (userId && (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 })))
-		return res.status(401).send("Error: Invalid user ID in session.");
 
 	try {
 		// Add address to database
