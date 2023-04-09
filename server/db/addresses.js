@@ -1,5 +1,5 @@
 /* IMPORTS */
-import pool from "../pool.js";
+import pool from "./pool.js";
 import iso3311a2 from "iso-3166-1-alpha-2";
 
 import idGen from "../util/idGen.js";
@@ -8,6 +8,7 @@ import sendGenericError from "../util/sendGenericError.js";
 
 import pkg from "validator";
 const { isNumeric, isLength, trim, escape } = pkg;
+
 
 /* FUNCTIONS */
 export const getAddresses = async (req, res) => {
