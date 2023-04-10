@@ -16,10 +16,13 @@ const Login = props => {
                     <input type="password" id="customer-password" placeholder="Password" required />
                 </div>
             </fieldset>
+
             <fieldset id="form-end">
-                    <button type="submit" className="font-head-2 bold uppercase">Submit</button>
-                    <button className="font-head-2 bold uppercase" onClick={toggleHasAccount}>Sign up instead</button>
+                <button type="submit" className="font-head-2 bold uppercase">Submit</button>
+                <button className="font-head-2 bold uppercase" onClick={toggleHasAccount}>Sign up instead</button>
             </fieldset>
+
+            <p id="status"></p>
         </form>
     )
 }
