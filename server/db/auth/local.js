@@ -15,11 +15,12 @@ const { isEmail, isNumeric, isLength, trim, escape, normalizeEmail } = pkg;
 
 /* FUNCTIONS */
 export const register = async (req, res) => {
-	// Generate user ID
+	// Generate user ID and address ID
 	const userId = idGen(10);
+	const addressId = idGen(12);
 
 	// VALIDATION AND SANITISATION
-	let { title, firstName, lastName, companyName, phone, email, password, confirmPassword } = req.body;
+	let { title, firstName, lastName, companyName, address1, address2, townCity, countyStateProvince, postcodeZip, country, phone, email, password, confirmPassword } = req.body;
 
 	// Title
 	if (title) {
@@ -40,6 +41,33 @@ export const register = async (req, res) => {
 		if (typeof companyName !== "string") return res.status(400).send("Error: Company name must be a string.");
 		companyName = sanitizeHtml(trim(escape(companyName)));
 	}
+
+	// Address
+	if (typeof address1 !== "string") return res.status(400).send("Error: Address 1 must be a string.");
+	address1 = sanitizeHtml(trim(escape(address1)));
+
+	if (address2) {
+		if (typeof address2 !== "string") return res.status(400).send("Error: Address 2 must be a string.");
+		address2 = sanitizeHtml(trim(escape(address2)));
+	}
+
+	// Town/city
+	if (typeof townCity !== "string") return res.status(400).send("Error: Town/city must be a string.");
+	townCity = sanitizeHtml(trim(escape(townCity)));
+
+	// County/state/province
+	if (typeof countyStateProvince !== "string") return res.status(400).send("Error: County/state/province must be a string.");
+	countyStateProvince = sanitizeHtml(trim(escape(countyStateProvince)));
+
+	// Postcode/ZIP
+	if (typeof postcodeZip !== "string") return res.status(400).send("Error: Postcode/ZIP must be a string.");
+	postcodeZip = sanitizeHtml(trim(escape(postcodeZip)));
+
+	// Country
+	if (typeof country !== "string") return res.status(400).send("Error: Country (ISO 3166-1 alpha-2 code) must be a string.");
+	if (!isLength(country, { min: 2, max: 2 })) return res.status(400).send("Error: Invalid country provided (must be ISO 3166-1 alpha-2 code).");
+	country = iso3311a2.getCode(country);
+	if (!country) return res.status(400).send("Error: This country (ISO 3166-1 alpha-2 code) does not exist.");
 
 	// Phone number
 	if (phone) {
@@ -69,10 +97,17 @@ export const register = async (req, res) => {
 		if (result.rows.length > 0) return res.status(409).send("Error: A user with the provided email already exists.");
 
 		// Add user to database
-		let text = `INSERT INTO guests (id, title, first_name, last_name, company_name, phone, email, password, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, to_timestamp(${Date.now()} / 1000)) RETURNING id`;
+		let text = `INSERT INTO guests (id, title, first_name, last_name, company_name, phone, email, password, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, to_timestamp(${Date.now()} / 1000))`;
 		let values = [userId, title, firstName, lastName, companyName, phone, email, passwordHash];
 		result = await pool.query(text, values);
-		res.status(201).send(`User created with ID: ${result.rows[0].id}`);
+
+		// Add address to database
+		text = `INSERT INTO addresses (id, guest_id, address1, address2, town_city, county_state_province, postcode_zip, country, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, to_timestamp(${Date.now()} / 1000))`;
+		values = [addressId, userId, address1, address2, townCity, countyStateProvince, postcodeZip, country];
+		result = await pool.query(text, values);
+
+		// Send response
+		res.status(201).send(`User created with ID: ${userId}`);
 	} catch (err) {
 		sendGenericError(res);
 	}
