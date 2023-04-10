@@ -124,10 +124,26 @@ export const createAddress = async (req, res) => {
 
 	try {
 		// Add address to database
-		let text = `INSERT INTO addresses (id, guest_id, reservation_id, address1, address2, town_city, county_state_province, postcode_zip, country, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, to_timestamp(${Date.now()} / 1000)) RETURNING id`;
-		let values = [addressId, userId, reservationId, address1, address2, townCity, countyStateProvince, postcodeZip, country];
+		let text = `INSERT INTO addresses (id, address1, address2, town_city, county_state_province, postcode_zip, country, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, to_timestamp(${Date.now()} / 1000)) RETURNING id`;
+		let values = [addressId, address1, address2, townCity, countyStateProvince, postcodeZip, country];
 		let result = await pool.query(text, values);
-		res.status(201).send(`Address created with ID: ${result.rows[0].id}`);
+
+		// Link address to reservation if provided
+		if (reservationId) {
+			text = `INSERT INTO reservations_address (reservation_id, address_id) VALUES ($1, $2)`;
+			values = [reservationId, addressId];
+			result = await pool.query(text, values);
+		}
+
+		// Link address to user if logged in
+		if (userId) {
+			text = `INSERT INTO addresses_guest (address_id, guest_id) VALUES ($1, $2)`;
+			values = [addressId, userId];
+			result = await pool.query(text, values);
+		}
+
+		// Send response
+		res.status(201).send(`Address created with ID: ${addressId}`);
 	} catch (err) {
 		sendGenericError(res);
 	}

@@ -67,7 +67,7 @@ export const register = async (req, res) => {
 	// Country
 	if (typeof country !== "string") return res.status(400).send("Error: Country (ISO 3166-1 alpha-2 code) must be a string.");
 	if (!isLength(country, { min: 2, max: 2 })) return res.status(400).send("Error: Invalid country provided (must be ISO 3166-1 alpha-2 code).");
-	country = iso3311a2.getCode(country);
+	country = iso3311a2.getCountry(country);
 	if (!country) return res.status(400).send("Error: This country (ISO 3166-1 alpha-2 code) does not exist.");
 
 	// Phone number
@@ -103,8 +103,13 @@ export const register = async (req, res) => {
 		result = await pool.query(text, values);
 
 		// Add address to database
-		text = `INSERT INTO addresses (id, guest_id, address1, address2, town_city, county_state_province, postcode_zip, country, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, to_timestamp(${Date.now()} / 1000))`;
-		values = [addressId, userId, address1, address2, townCity, countyStateProvince, postcodeZip, country];
+		text = `INSERT INTO addresses (id, address1, address2, town_city, county_state_province, postcode_zip, country, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, to_timestamp(${Date.now()} / 1000))`;
+		values = [addressId, address1, address2, townCity, countyStateProvince, postcodeZip, country];
+		result = await pool.query(text, values);
+
+		// Link address to user
+		text = `INSERT INTO addresses_guest (address_id, guest_id) VALUES ($1, $2)`;
+		values = [addressId, userId];
 		result = await pool.query(text, values);
 
 		// Send response
