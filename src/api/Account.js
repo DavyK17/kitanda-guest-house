@@ -9,12 +9,12 @@ export const getUser = async () => {
 	}
 };
 
-export const updateUser = async (firstName = null, lastName = null, phone = null, email = null, currentPassword = null, newPassword = null, confirmNewPassword = null) => {
+export const updateUser = async (firstName = null, lastName = null, companyName = null, phone = null, email = null, currentPassword = null, newPassword = null, confirmNewPassword = null) => {
 	try {
 		let response = await fetch(url, {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ firstName, lastName, phone, email, currentPassword, newPassword, confirmNewPassword }),
+			body: JSON.stringify({ firstName, lastName, companyName, phone, email, currentPassword, newPassword, confirmNewPassword }),
 		});
 		if (response.status !== 503) return response.text();
 	} catch (err) {

@@ -31,8 +31,10 @@ export const register = async(req, res) => {
     lastName = sanitizeHtml(trim(escape(lastName)));
 
     // Company name
-    if (typeof companyName !== "string") return res.status(400).send("Error: Company name must be a string.");
-    companyName = sanitizeHtml(trim(escape(companyName)));
+    if (companyName) {
+        if (typeof companyName !== "string") return res.status(400).send("Error: Company name must be a string.");
+        companyName = sanitizeHtml(trim(escape(companyName)));
+    }
 
     // Phone number
     if (typeof phone !== "number" && typeof phone !== "string") return res.status(400).send(`Error: Phone number must be a number.`);
