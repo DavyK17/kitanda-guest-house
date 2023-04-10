@@ -48,10 +48,11 @@ export const updateUser = async (req, res) => {
 
 	try {
 		// Retrieve existing details from database if not provided in body
-		let result = await pool.query("SELECT first_name, last_name, company_name, phone, email, password FROM guests WHERE id = $1", [userId]);
+		let result = await pool.query("SELECT title, first_name, last_name, company_name, phone, email, password FROM guests WHERE id = $1", [userId]);
 
 		// Create existing details object
 		let old = {
+			title: result.rows[0].title,
 			firstName: result.rows[0].first_name,
 			lastName: result.rows[0].last_name,
 			companyName: result.rows[0].company_name,
@@ -61,10 +62,15 @@ export const updateUser = async (req, res) => {
 		};
 
 		// VALIDATION AND SANITISATION
-		let { firstName, lastName, companyName, phone, email, currentPassword, newPassword, confirmNewPassword } = req.body;
+		let { title, firstName, lastName, companyName, phone, email, currentPassword, newPassword, confirmNewPassword } = req.body;
 
 		// Send error if no details are provided
-		if (!firstName && !lastName && !phone && !email && !currentPassword && !newPassword) return res.status(400).send("Error: No updates provided.");
+		if (!title && !firstName && !lastName && !phone && !email && !currentPassword && !newPassword) return res.status(400).send("Error: No updates provided.");
+
+		// Title
+		title = title || old.title;
+		if (typeof title !== "string") return res.status(400).send("Error: Title must be a string.");
+		title = sanitizeHtml(trim(escape(title)));
 
 		// First name
 		firstName = firstName || old.firstName;
@@ -127,8 +133,8 @@ export const updateUser = async (req, res) => {
 		const passwordHash = newPassword ? await bcrypt.hash(trim(newPassword), salt) : old.password;
 
 		// UPDATE USER DETAILS
-		let text = "UPDATE guests SET first_name = $1, last_name = $2, company_name = $3, phone = $4, email = $5, password = $6 WHERE id = $7 RETURNING id";
-		let values = [firstName, lastName, companyName, phone, email, passwordHash, userId];
+		let text = "UPDATE guests SET title = $1, first_name = $2, last_name = $3, company_name = $4, phone = $5, email = $6, password = $7 WHERE id = $8 RETURNING id";
+		let values = [title, firstName, lastName, companyName, phone, email, passwordHash, userId];
 		result = await pool.query(text, values);
 
 		// Confirm update
