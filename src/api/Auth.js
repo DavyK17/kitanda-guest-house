@@ -9,12 +9,27 @@ export const getUser = async () => {
 	}
 };
 
-export const register = async (title, firstName, lastName, companyName, phone, email, password, confirmPassword) => {
+export const register = async (
+	title = null,
+	firstName,
+	lastName,
+	companyName = null,
+	address1,
+	address2 = null,
+	townCity,
+	countyStateProvince = null,
+	postcodeZip,
+	country,
+	phone = null,
+	email,
+	password,
+	confirmPassword
+) => {
 	try {
 		let response = await fetch(`${url}/register`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ title, firstName, lastName, companyName, phone, email, password, confirmPassword }),
+			body: JSON.stringify({ title, firstName, lastName, companyName, address1, address2, townCity, countyStateProvince, postcodeZip, country, phone, email, password, confirmPassword }),
 		});
 
 		if (response.status !== 503) return response.text();
