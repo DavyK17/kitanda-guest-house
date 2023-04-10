@@ -15,7 +15,7 @@ export const getUser = async (req, res) => {
 	try {
 		// Validate and sanitise user ID
 		let id = trim(req.user.id);
-		if (!isNumeric(id, { no_symbols: true }) || !isLength(id, { min: 7, max: 7 })) return res.status(401).send("Error: Invalid user ID in session.");
+		if (!isNumeric(id, { no_symbols: true }) || !isLength(id, { min: 10, max: 10 })) return res.status(401).send("Error: Invalid user ID in session.");
 
 		// Get user
 		let result = await pool.query("SELECT id, first_name, last_name, phone, email FROM guests WHERE id = $1", [id]);
@@ -44,7 +44,7 @@ export const getUser = async (req, res) => {
 export const updateUser = async (req, res) => {
 	// Validate and sanitise user ID
 	let userId = trim(req.user.id);
-	if (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 7, max: 7 })) return res.status(401).send("Error: Invalid user ID in session.");
+	if (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 })) return res.status(401).send("Error: Invalid user ID in session.");
 
 	try {
 		// Retrieve existing details from database if not provided in body
@@ -151,7 +151,7 @@ export const deleteUser = async (req, res) => {
 	// VALIDATION AND SANITISATION
 	// User ID
 	let userId = trim(req.user.id);
-	if (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 7, max: 7 })) return res.status(401).send("Error: Invalid user ID in session.");
+	if (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 })) return res.status(401).send("Error: Invalid user ID in session.");
 
 	try {
 		// DELETE USER
@@ -190,7 +190,7 @@ export const unlinkThirdParty = async (req, res) => {
 
 	// User ID
 	let userId = trim(req.user.id);
-	if (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 7, max: 7 })) return res.status(401).send("Error: Invalid user ID in session.");
+	if (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 })) return res.status(401).send("Error: Invalid user ID in session.");
 
 	try {
 		// Get third-party credentials from given provider
