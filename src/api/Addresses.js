@@ -21,7 +21,7 @@ export const getAddresses = async (id = null) => {
 	}
 };
 
-export const createAddress = async (reservationId = null, address1, address2 = null, townCity, countyStateProvince, postcodeZip, country) => {
+export const createAddress = async (address1, address2 = null, townCity, countyStateProvince, postcodeZip, country, reservationId = null) => {
 	try {
 		let response = await fetch(url, {
 			method: "POST",
@@ -42,7 +42,7 @@ export const updateAddress = async (id, address1 = null, address2 = null, townCi
 		let response = await fetch(endpoint, {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ reservationId, address1, address2, townCity, countyStateProvince, postcodeZip, country }),
+			body: JSON.stringify({ address1, address2, townCity, countyStateProvince, postcodeZip, country }),
 		});
 		if (response.status !== 503) return response.text();
 	} catch (err) {

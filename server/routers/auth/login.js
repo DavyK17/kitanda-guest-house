@@ -18,6 +18,5 @@ loginRouter.get("/google/callback", callback("google"));
 loginRouter.get("/facebook", passport.authenticate("facebook"));
 loginRouter.get("/facebook/callback", callback("facebook"));
 
-
 /* EXPORT */
 export default loginRouter;

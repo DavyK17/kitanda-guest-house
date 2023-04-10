@@ -9,7 +9,6 @@ import sendGenericError from "../util/sendGenericError.js";
 import pkg from "validator";
 const { isNumeric, isLength, trim, escape } = pkg;
 
-
 /* FUNCTIONS */
 export const getAddresses = async (req, res) => {
 	// Validate and sanitise user ID
@@ -24,8 +23,7 @@ export const getAddresses = async (req, res) => {
 			if (!isNumeric(id, { no_symbols: true }) || !isLength(id, { min: 12, max: 12 })) return res.status(400).send("Error: Invalid address ID provided.");
 
 			// Get address
-			let text =
-				"SELECT id, address1, address2, town_city, county_state_province, postcode_zip, country, created_at FROM addresses WHERE id = $1 AND guest_id = $2";
+			let text = "SELECT id, address1, address2, town_city, county_state_province, postcode_zip, country, created_at FROM addresses WHERE id = $1 AND guest_id = $2";
 			let result = await pool.query(text, [id, userId]);
 
 			// Send error if address does not exist
@@ -87,15 +85,13 @@ export const createAddress = async (req, res) => {
 
 	// User ID
 	let userId = req.user.id ? trim(req.user.id) : null;
-	if (userId && (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 })))
-		return res.status(401).send("Error: Invalid user ID in session.");
+	if (userId && (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 }))) return res.status(401).send("Error: Invalid user ID in session.");
 
 	// Reservation ID
-    if (reservationId) {
-        if (userId) return res.status(403).send("Error: Reservation ID cannot be provided while logged in.");
+	if (reservationId) {
+		if (userId) return res.status(403).send("Error: Reservation ID cannot be provided while logged in.");
 		if (typeof reservationId !== "string") return res.status(400).send("Error: Reservation ID name must be a string.");
-		if (!isNumeric(reservationId, { no_symbols: true }) || !isLength(reservationId, { min: 7, max: 7 }))
-			return res.status(400).send("Error: Invalid reservation ID provided.");
+		if (!isNumeric(reservationId, { no_symbols: true }) || !isLength(reservationId, { min: 7, max: 7 })) return res.status(400).send("Error: Invalid reservation ID provided.");
 		reservationId = trim(reservationId);
 	}
 
@@ -174,8 +170,7 @@ export const updateAddress = async (req, res) => {
 
 	try {
 		// Get address
-		let text =
-			"SELECT id, address1, address2, town_city, county_state_province, postcode_zip, country, created_at FROM addresses WHERE id = $1 AND guest_id = $2";
+		let text = "SELECT id, address1, address2, town_city, county_state_province, postcode_zip, country, created_at FROM addresses WHERE id = $1 AND guest_id = $2";
 		let result = await pool.query(text, [id, userId]);
 
 		// Send error if product does not exist
@@ -214,8 +209,7 @@ export const updateAddress = async (req, res) => {
 			return res.status(400).send("Error: No updates provided.");
 
 		// Update address
-		text =
-			"UPDATE addresses SET address1 = $1, address2 = $2, town_city = $3, county_state_province = $4, postcode_zip = $5, country = $6 WHERE id = $5 RETURNING id";
+		text = "UPDATE addresses SET address1 = $1, address2 = $2, town_city = $3, county_state_province = $4, postcode_zip = $5, country = $6 WHERE id = $5 RETURNING id";
 		let values = [address1, address2, townCity, countyStateProvince, postcodeZip, country];
 		result = await pool.query(text, values);
 		res.status(200).send(`Address updated with ID: ${result.rows[0].id}`);
