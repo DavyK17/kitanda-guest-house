@@ -1,6 +1,5 @@
 /* IMPORTS */
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+import { join } from "path";
 
 import dotenv from "dotenv";
 import express from "express";
@@ -20,8 +19,6 @@ import apiRouter from "./routers/index.js";
 /* CONFIGURATION */
 // General
 dotenv.config();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 // App
 const app = express();
@@ -65,7 +62,7 @@ app.use("/api", apiRouter);
 
 // Client
 app.get("/*", (req, res) => {
-    res.send("Welcome to Kitanda Guest House!");
+    res.sendFile(join(__dirname, "..", "build", "index.html"));
 });
 
 
