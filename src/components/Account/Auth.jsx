@@ -5,7 +5,6 @@ import Login from "./Login";
 import Register from "./Register";
 
 import { login, register } from "../../api/Auth";
-import { createAddress } from "../../api/Addresses";
 import displayErrorMessage from "../../util/displayErrorMessage";
 
 /* COMPONENT */
@@ -58,15 +57,13 @@ const Auth = props => {
         const password = e.target[13].value;
         const confirmPassword = e.target[14].value;
 
+        if (password !== confirmPassword) return status.textContent = "Passwords do not match.";
+
         status.textContent = "Creating account…";
-        let response = await register(title, firstName, lastName, companyName, phone, email, password, confirmPassword);
+        let response = await register(title, firstName, lastName, companyName, address1, address2, townCity, countyStateProvince, postcodeZip, country, phone, email, password, confirmPassword);
         if (!response.includes("User created")) return displayErrorMessage(response);
 
-        status.textContent = "Account created. Adding address…";
-        response = await createAddress(address1, address2, townCity, countyStateProvince, postcodeZip, country);
-        if (!response.includes("Address created")) return displayErrorMessage(response);
-
-        status.textContent = "Registration complete. Kindly log in.";
+        status.textContent = "Account created. Kindly log in.";
         e.target.reset();
         setHasAccount(true);
         setTimeout(() => status.textContent = null, 3000);
