@@ -2,7 +2,7 @@
 import { useState, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import { getUser } from "./api/Account";
+import { getUser } from "./api/Auth";
 
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
