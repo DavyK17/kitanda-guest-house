@@ -1,5 +1,6 @@
 /* IMPORTS */
 import bcrypt from "bcrypt";
+import iso3311a2 from "iso-3166-1-alpha-2";
 import pool from "../pool.js";
 import requestIp from "request-ip";
 
