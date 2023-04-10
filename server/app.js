@@ -1,5 +1,6 @@
 /* IMPORTS */
-import { join } from "path";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
 
 import dotenv from "dotenv";
 import express from "express";
@@ -18,6 +19,8 @@ import apiRouter from "./routers/index.js";
 /* CONFIGURATION */
 // General
 dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // App
 const app = express();
