@@ -1,25 +1,78 @@
+/* IMPORTS */
 import { useState } from "react";
 
 import Login from "./Login";
 import Register from "./Register";
 
-const Auth = () => {
+import { login, register } from "../../api/Auth";
+import { createAddress } from "../../api/Addresses";
+import displayErrorMessage from "../../util/displayErrorMessage";
+
+/* COMPONENT */
+const Auth = props => {
+    // Destructure props
+    const { setUser } = props;
+
+    /* STATE + FUNCTIONS */
+    // Has account
     const [hasAccount, setHasAccount] = useState(true);
     const toggleHasAccount = e => {
         e.preventDefault();
         setHasAccount(!hasAccount);
     }
 
-    const handleLogin = e => {
+    // Login
+    const handleLogin = async e => {
         e.preventDefault();
-        console.log("login");
+
+        const status = document.getElementById("status");
+        const email = e.target[1].value;
+        const password = e.target[2].value;
+
+        status.textContent = "Logging in…";
+        let response = await login(email, password);
+        if (typeof response !== "object") return displayErrorMessage(response);
+
+        status.textContent = null;
+        e.target.reset();
+        setUser(response);
     }
 
-    const handleRegister = e => {
+    // Register
+    const handleRegister = async e => {
         e.preventDefault();
-        console.log("register");
+
+        const status = document.getElementById("status");
+        const title = e.target[1].value;
+        const firstName = e.target[2].value;
+        const lastName = e.target[3].value;
+        const companyName = e.target[4].value;
+        const address1 = e.target[5].value;
+        const address2 = e.target[6].value;
+        const townCity = e.target[7].value;
+        const countyStateProvince = e.target[8].value;
+        const postcodeZip = e.target[9].value;
+        const country = e.target[10].value;
+        const phone = e.target[11].value;
+        const email = e.target[12].value;
+        const password = e.target[13].value;
+        const confirmPassword = e.target[14].value;
+
+        status.textContent = "Creating account…";
+        let response = await register(title, firstName, lastName, companyName, phone, email, password, confirmPassword);
+        if (!response.includes("User created")) return displayErrorMessage(response);
+
+        status.textContent = "Account created. Adding address…";
+        response = await createAddress(address1, address2, townCity, countyStateProvince, postcodeZip, country);
+        if (!response.includes("Address created")) return displayErrorMessage(response);
+
+        status.textContent = "Registration complete. Kindly log in.";
+        e.target.reset();
+        setHasAccount(true);
+        setTimeout(() => status.textContent = null, 3000);
     }
 
+    /* RETURN COMPONENT */
     return (
         <>
             <section id="auth-top">
@@ -40,4 +93,5 @@ const Auth = () => {
     )
 }
 
+/* EXPORT */
 export default Auth;
