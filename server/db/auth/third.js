@@ -113,7 +113,7 @@ export const callback = (strategy) => {
 				if (typeof redirect === "string") return res.redirect(redirect);
 
 				// Redirect user to account
-				res.redirect("/account");
+				res.redirect("/account/dashboard");
 			});
 		})(req, res);
 	};
