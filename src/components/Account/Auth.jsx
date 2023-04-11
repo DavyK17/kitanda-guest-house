@@ -1,5 +1,6 @@
 /* IMPORTS */
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Login from "./Login";
 import Register from "./Register";
@@ -9,8 +10,15 @@ import displayErrorMessage from "../../util/displayErrorMessage";
 
 /* COMPONENT */
 const Auth = props => {
-    // Destructure props
-    const { setUser } = props;
+    // Destructure props and define useNavigate()
+    const { user, setUser } = props;
+    let navigate = useNavigate();
+
+    // Redirect to dashboard if authenticated
+    useEffect(() => {
+        if (user) navigate("/account/dashboard");
+        // eslint-disable-next-line
+    }, [user]);
 
     /* STATE + FUNCTIONS */
     // Has account
@@ -35,6 +43,7 @@ const Auth = props => {
         status.textContent = null;
         e.target.reset();
         setUser(response);
+        navigate("/account/dashboard");
     }
 
     // Register
