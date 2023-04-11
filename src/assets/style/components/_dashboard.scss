@@ -1,0 +1,47 @@
+/* Account dashboard */
+.account-dashboard {
+    width: 100%;
+
+    .user-id {
+        p {
+            color: steelblue;
+        }
+    }
+
+    .third-party {
+        .providers {
+            a, button {
+                display: block;
+                margin: unset;
+            }
+        }
+    }
+
+    .buttons {
+        display: flex;
+        width: 100%;
+        margin-top: 2rem;
+        gap: 1rem;
+        flex-direction: column;
+
+        button {
+            margin: unset;
+            width: 100%;
+            max-width: 250px;
+        }
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .account-dashboard {
+        width: 50%;
+
+        .buttons {
+            flex-direction: row;
+
+            button {
+                margin: unset;
+            }
+        }
+    }
+}
