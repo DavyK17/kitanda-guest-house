@@ -3,13 +3,19 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
-import { getUser } from "../../api/Account";
+import { getUser, deleteUser } from "../../api/Account";
+import { logout } from "../../api/Auth";
 
 import capitalise from "../../util/capitalise";
+import displayErrorMessage from "../../util/displayErrorMessage";
 
 /* COMPONENT */
-const Dashboard = () => {
-    // Define useNavigate()
+const Dashboard = props => {
+    // Destructure props
+    const { setUser } = props;
+
+    // Define status and useNavigate()
+    const status = document.getElementById("status");
     let navigate = useNavigate();
 
     /* STATE + FUNCTIONS */
@@ -66,7 +72,36 @@ const Dashboard = () => {
                 return providers.includes(provider) ? <button title={title} onClick={unlink}>{text}</button> : <a href={path} title={title}>{text}</a>;
             }
 
+            // Define function to sign out
+            const signOut = async e => {
+                e.preventDefault();
 
+                status.textContent = "Signing out…";
+                let response = await logout();
+                if (response !== "Logout successful") return displayErrorMessage(response);
+
+                status.textContent = null;
+                setUser(null);
+                navigate("/");
+            }
+
+            // Define function to delete account
+            const deleteAccount = async e => {
+                e.preventDefault();
+
+                status.textContent = "Deleting account…";
+                let response = await deleteUser();
+                if (typeof response === "string") return displayErrorMessage(response);
+
+                status.textContent = "Account deleted successfully";
+                setTimeout(() => {
+                    setUser(null);
+                    navigate("/");
+                    status.textContent = null;
+                }, 3000);
+            }
+
+            // Return account dashboard
             return <div className="account-dashboard">
                 <div className="user-id" data-testid="account-id">
                     <h3 className="font-head-2 bold uppercase">User ID</h3>
@@ -93,8 +128,8 @@ const Dashboard = () => {
                 </div>
                 <div className="buttons">
                     <button class="font-head-2 bold uppercase" onClick={() => navigate("/account/details")}>Edit details</button>
-                    <button class="font-head-2 bold uppercase">Sign out</button>
-                    <button class="font-head-2 bold uppercase">Delete account</button>
+                    <button class="font-head-2 bold uppercase" onClick={signOut}>Sign out</button>
+                    <button class="font-head-2 bold uppercase" onClick={deleteAccount}>Delete account</button>
                 </div>
             </div>
         }
@@ -112,6 +147,7 @@ const Dashboard = () => {
             <section id="auth-main">
                 <div className="content align-items-start">
                     {renderBody()}
+                    <p id="status"></p>
                 </div>
             </section>
         </>
