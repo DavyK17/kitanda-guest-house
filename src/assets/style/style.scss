@@ -211,3 +211,13 @@ button {
 .text-shadow {
     text-shadow: 4px 4px 8px black !important;
 }
+
+.error {
+    margin: unset;
+    color: rgb(180, 130, 70);
+}
+
+#status {
+    margin: 1rem 0;
+    color: rgb(180, 130, 70);
+}
