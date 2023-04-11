@@ -11,7 +11,11 @@ import NotFound from "./components/Other/NotFound";
 import Home from "./components/Home/Home";
 import Gallery from "./components/Gallery/Gallery";
 import Booking from "./components/Booking/Booking";
-import Account from "./components/Account/Account";
+
+import Addresses from "./components/Account/Addresses";
+import Auth from "./components/Account/Auth";
+import Dashboard from "./components/Account/Dashboard";
+import Details from "./components/Account/Details";
 
 /* APP */
 const App = () => {
@@ -33,6 +37,8 @@ const App = () => {
         fetchUser();
     }, []);
 
+    // Function to return account route
+    const renderAccountRoute = (path, element) => <Route path={path} element={user ? element : <Auth user={user} setUser={setUser} />} />;
 
     /* RETURN APP */
     return (
@@ -43,7 +49,12 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/gallery" element={<Gallery />} />
                     <Route path="/booking" element={<Booking cart={cart} setCart={setCart} />} />
-                    <Route path="/account" element={<Account user={user} setUser={setUser} />} />
+                    <Route path="/account">
+                        {renderAccountRoute("addresses", <Addresses />)}
+                        {renderAccountRoute("details", <Details />)}
+                        {renderAccountRoute("dashboard", <Dashboard setUser={setUser} />)}
+                        <Route path="" element={<Auth user={user} setUser={setUser} />} />
+                    </Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
