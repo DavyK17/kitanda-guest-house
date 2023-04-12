@@ -12,10 +12,8 @@ import Home from "./components/Home/Home";
 import Gallery from "./components/Gallery/Gallery";
 import Booking from "./components/Booking/Booking";
 
-import Addresses from "./components/Account/Addresses";
-import Auth from "./components/Account/Auth";
-import Dashboard from "./components/Account/Dashboard";
-import Details from "./components/Account/Details";
+import Account from "./components/Account/Account";
+import Auth from "./components/Auth/Auth";
 
 /* APP */
 const App = () => {
@@ -38,7 +36,7 @@ const App = () => {
     }, []);
 
     // Function to return account route
-    const renderAccountRoute = (path, element) => <Route path={path} element={user ? element : <Auth user={user} setUser={setUser} />} />;
+    const renderAccountRoute = (path, view = path) => <Route path={path} element={<Account view={view} user={user} setUser={setUser} />} />;
 
     /* RETURN APP */
     return (
@@ -50,11 +48,12 @@ const App = () => {
                     <Route path="/gallery" element={<Gallery />} />
                     <Route path="/booking" element={<Booking cart={cart} setCart={setCart} />} />
                     <Route path="/account">
-                        {renderAccountRoute("addresses", <Addresses />)}
-                        {renderAccountRoute("details", <Details />)}
-                        {renderAccountRoute("dashboard", <Dashboard setUser={setUser} />)}
-                        <Route path="" element={<Auth user={user} setUser={setUser} />} />
+                        {renderAccountRoute("addresses")}
+                        {renderAccountRoute("details")}
+                        {renderAccountRoute("dashboard")}
+                        {renderAccountRoute("", "dashboard")}
                     </Route>
+                    <Route path="/auth" element={<Auth user={user} setUser={setUser} />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
