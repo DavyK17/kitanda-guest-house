@@ -3,7 +3,7 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
-import { getUser, deleteUser } from "../../api/Account";
+import { getUser, deleteUser, unlinkThirdParty } from "../../api/Account";
 import { logout } from "../../api/Auth";
 
 import capitalise from "../../util/capitalise";
@@ -67,9 +67,16 @@ const Dashboard = props => {
 
                 const unlink = async e => {
                     e.preventDefault();
+
+                    status.textContent = `Unlinking from ${capitalise(provider)}…`;
+                    let response = await unlinkThirdParty(provider);
+                    if (typeof response === "string") return displayErrorMessage(response);
+
+                    status.textContent = null;
+                    fetchAccount();
                 }
 
-                return providers.includes(provider) ? <button title={title} onClick={unlink}>{text}</button> : <a href={path} title={title}>{text}</a>;
+                return providers.includes(provider) ? <button className="link" title={title} onClick={unlink}>{text}</button> : <a href={path} title={title}>{text}</a>;
             }
 
             // Define function to sign out
