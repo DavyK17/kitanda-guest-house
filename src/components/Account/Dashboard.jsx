@@ -54,7 +54,7 @@ const Dashboard = props => {
         // Return account details if fetched
         if (account) {
             // Destructure account details
-            const { id, firstName, lastName, phone, email, federatedCredentials } = account;
+            const { id, title, firstName, lastName, companyName, phone, email, federatedCredentials } = account;
 
             // List all providers of user's third-party credentials
             const providers = federatedCredentials.map(credential => credential.provider);
@@ -116,7 +116,11 @@ const Dashboard = props => {
                 </div>
                 <div className="names" data-testid="account-names">
                     <h3 className="font-head-2 bold uppercase">Name</h3>
-                    <p>{firstName} {lastName}</p>
+                    <p>{title} {firstName} {lastName}</p>
+                </div>
+                <div className="company-name" data-testid="account-names">
+                    <h3 className="font-head-2 bold uppercase">Company</h3>
+                    <p>{companyName}</p>
                 </div>
                 <div className="phone" data-testid="account-phone">
                     <h3 className="font-head-2 bold uppercase">Phone number</h3>
@@ -143,22 +147,7 @@ const Dashboard = props => {
     }
 
     // Return user details
-    return (
-        <>
-            <section id="auth-top">
-                <div className="background black">
-                    <h1 className="bold uppercase">Account</h1>
-                    <p>Manage your user account.</p>
-                </div>
-            </section>
-            <section id="auth-main">
-                <div className="content align-items-start">
-                    {renderBody()}
-                    <p id="status"></p>
-                </div>
-            </section>
-        </>
-    );
+    return renderBody();
 }
 
 /* EXPORT */
