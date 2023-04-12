@@ -10,8 +10,11 @@ import displayErrorMessage from "../../util/displayErrorMessage";
 
 /* COMPONENT */
 const Auth = props => {
-    // Destructure props and define useNavigate()
+    // Destructure props
     const { user, setUser } = props;
+
+    // Define status and useNavigate()
+    const status = document.getElementById("status");
     let navigate = useNavigate();
 
     // Redirect to dashboard if authenticated
@@ -32,7 +35,6 @@ const Auth = props => {
     const handleLogin = async e => {
         e.preventDefault();
 
-        const status = document.getElementById("status");
         const email = e.target[1].value;
         const password = e.target[2].value;
 
@@ -50,7 +52,6 @@ const Auth = props => {
     const handleRegister = async e => {
         e.preventDefault();
 
-        const status = document.getElementById("status");
         const title = e.target[1].value;
         const firstName = e.target[2].value;
         const lastName = e.target[3].value;
