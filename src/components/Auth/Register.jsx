@@ -1,13 +1,11 @@
 /* IMPORTS */
 import countryData from "../../util/countryData";
+import phoneRegex from "../../util/phoneRegex";
 
 /* COMPONENT */
 const Register = props => {
     // Destructure props
     const { toggleHasAccount, handleSubmit } = props;
-
-    // Kenyan phone number regex
-    const phoneRegex = /^254((20|4[0-6]|5\d|6([0-2]|[4-9]))\d{7}|1[0-1]\d{7}|7\d{8})$/;
 
     // Render list of countries
     const renderCountries = () => countryData.map(({ code, name }, i) => <option key={i} value={code}>{name}</option>);
