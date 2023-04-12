@@ -178,7 +178,8 @@ code {
     color: inherit;
 }
 
-a {
+a,
+.link {
     color: steelblue;
     text-decoration: none;
     transition: color 0.15s ease-in-out;

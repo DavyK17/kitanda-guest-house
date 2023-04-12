@@ -2,17 +2,13 @@
 .account-dashboard {
     width: 100%;
 
-    .user-id {
-        p {
-            color: steelblue;
-        }
-    }
-
     .third-party {
         .providers {
             a, button {
                 display: block;
+                background-color: unset;
                 margin: unset;
+                padding: unset;
             }
         }
     }
