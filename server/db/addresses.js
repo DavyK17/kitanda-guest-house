@@ -119,7 +119,7 @@ export const createAddress = async (req, res) => {
 	// Country
 	if (typeof country !== "string") return res.status(400).send("Error: Country (ISO 3166-1 alpha-2 code) must be a string.");
 	if (!isLength(country, { min: 2, max: 2 })) return res.status(400).send("Error: Invalid country provided (must be ISO 3166-1 alpha-2 code).");
-	country = iso3311a2.getCode(country);
+	country = iso3311a2.getCountry(country);
 	if (!country) return res.status(400).send("Error: This country (ISO 3166-1 alpha-2 code) does not exist.");
 
 	try {
@@ -210,7 +210,7 @@ export const updateAddress = async (req, res) => {
 		postcodeZip = sanitizeHtml(trim(escape(postcodeZip || old.postcode_zip)));
 
 		// Country
-		country = iso3311a2.getCode(country);
+		country = iso3311a2.getCountry(country);
 		if (!country) return res.status(400).send("Error: This country (ISO 3166-1 alpha-2 code) does not exist.");
 
 		// Send error if no updates made
