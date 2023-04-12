@@ -94,6 +94,7 @@ const Auth = props => {
                         <Login toggleHasAccount={toggleHasAccount} handleSubmit={handleLogin} /> :
                         <Register toggleHasAccount={toggleHasAccount} handleSubmit={handleRegister} />
                     }
+					<p id="status"></p>
                 </div>
             </section>
         </>

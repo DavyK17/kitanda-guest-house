@@ -10,10 +10,13 @@
     }
 }
 
-
 #auth-main {
     grid-area: about;
     display: block;
+}
+
+#status {
+    margin: unset !important;
 }
 
 
@@ -36,6 +39,7 @@ form {
         &#form-end {
             display: flex;
             gap: 1rem;
+            margin-bottom: 1rem;
         }
     }
 
@@ -58,7 +62,7 @@ form {
         legend {
             margin: unset;
         }
-        
+
         .label-input {
             margin: 1rem 0;
             width: 50%;

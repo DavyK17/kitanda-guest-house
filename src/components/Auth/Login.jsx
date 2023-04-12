@@ -21,8 +21,6 @@ const Login = props => {
                 <button type="submit" className="font-head-2 bold uppercase">Submit</button>
                 <button className="font-head-2 bold uppercase" onClick={toggleHasAccount}>Sign up instead</button>
             </fieldset>
-
-            <p id="status"></p>
         </form>
     )
 }
