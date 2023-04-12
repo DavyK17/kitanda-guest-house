@@ -33,8 +33,20 @@
     }
 }
 
+@media only screen and (min-width: 992px) {
+    #account-main {
+        .buttons {
+            flex-direction: row;
+
+            button {
+                margin: unset;
+            }
+        }
+    }
+}
+
 // Dashboard
-.account-dashboard {
+.dashboard {
     width: 100%;
 
     .third-party {
@@ -52,17 +64,7 @@
 }
 
 @media only screen and (min-width: 992px) {
-    #account-main {
-        .buttons {
-            flex-direction: row;
-
-            button {
-                margin: unset;
-            }
-        }
-    }
-
-    .account-dashboard {
+    .dashboard {
         width: 50%;
     }
 }
@@ -150,6 +152,44 @@
             }
         }
     }
+
+    &#address-edit {
+        #address-details {
+            display: grid;
+            width: 100%;
+            grid-template: repeat(6, 1fr) / 1fr;
+            grid-gap: 1rem;
+            margin-bottom: 1rem;
+
+            .label-input {
+                margin: unset;
+            }
+
+            #form-address-1 {
+                grid-area: 1 / 1 / span 1 / span 1;
+            }
+
+            #form-address-1 {
+                grid-area: 2 / 1 / span 1 / span 1;
+            }
+
+            #form-city {
+                grid-area: 3 / 1 / span 1 / span 1;
+            }
+
+            #form-county {
+                grid-area: 4 / 1 / span 1 / span 1;
+            }
+
+            #form-postcode {
+                grid-area: 5 / 1 / span 1 / span 1;
+            }
+
+            #form-country {
+                grid-area: 6 / 1 / span 1 / span 1;
+            }
+        }
+    }
 }
 
 @media only screen and (min-width: 768px) {
@@ -205,6 +245,40 @@
                 }
             }
         }
+
+        &#address-edit {
+            #address-details {
+                grid-template: repeat(3, 1fr) / repeat(6, 1fr);
+
+                .label-input {
+                    width: 100%;
+                }
+
+                #form-address-1 {
+                    grid-area: 1 / 1 / span 1 / span 3;
+                }
+
+                #form-address-2 {
+                    grid-area: 1 / 4 / span 1 / span 3;
+                }
+
+                #form-city {
+                    grid-area: 2 / 1 / span 1 / span 2;
+                }
+
+                #form-county {
+                    grid-area: 2 / 3 / span 1 / span 2;
+                }
+
+                #form-postcode {
+                    grid-area: 2 / 5 / span 1 / span 2;
+                }
+
+                #form-country {
+                    grid-area: 3 / 1 / span 1 / span 6;
+                }
+            }
+        }
     }
 }
 
@@ -214,6 +288,54 @@
             #guest-details {
                 width: 50%;
             }
+        }
+
+        &#address-edit {
+            #address-details {
+                width: 50%;
+            }
+        }
+    }
+}
+
+// Addresses
+.addresses {
+    width: 100%;
+
+    h2 {
+        margin-bottom: 1rem;
+    }
+
+    .list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .address {
+            width: 300px;
+            padding: 1rem;
+            border: 1px solid rgba(143, 188, 143, 0.75);
+            border-radius: 5px;
+
+            div {
+                margin-bottom: 1rem;
+
+                p {
+                    margin: unset;
+                }
+            }
+
+            .buttons {
+                margin: unset !important;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .addresses {
+        .list {
+            flex-direction: row;
         }
     }
 }
