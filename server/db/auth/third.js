@@ -30,11 +30,11 @@ export const login = async (req, accessToken, refreshToken, profile, done) => {
 
 				// Return user to session
 				req.user.federatedCredentials.push({ id: profile.id, provider: profile.provider, confirmed: true });
-				return done(null, req.user, "/account");
+				return done(null, req.user, "/account/dashboard");
 			}
 
 			// Return user to session if third-party credentials are already linked
-			return done(null, req.user, "/account");
+			return done(null, req.user, "/account/dashboard");
 		}
 
 		// Create new account with third-party credentials if none found
@@ -58,7 +58,7 @@ export const login = async (req, accessToken, refreshToken, profile, done) => {
 			result = await pool.query(text, values);
 
 			// Add third-party credentials to database
-			result = await pool.query("INSERT INTO federated)credentials (id, guest_id, provider) VALUES ($1, $2, $3)", [profile.id, userId, profile.provider]);
+			result = await pool.query("INSERT INTO federated_credentials (id, guest_id, provider) VALUES ($1, $2, $3)", [profile.id, userId, profile.provider]);
 
 			// Add user details to be confirmed to session
 			let federatedCredentials = [{ id: profile.id, provider: profile.provider, confirmed: false }];
