@@ -44,9 +44,12 @@ export const deleteUser = async () => {
 	}
 };
 
-export const unlinkThirdParty = async () => {
+export const unlinkThirdParty = async (provider) => {
 	try {
-		let response = await fetch(`${url}/third`, { method: "DELETE" });
+		let endpoint = new URL(`${url}/third`, window.location);
+		endpoint.search = new URLSearchParams({ provider }).toString();
+
+		let response = await fetch(endpoint, { method: "DELETE" });
 		if (response.status !== 503) {
 			if (!response.ok) return response.text();
 			return;
