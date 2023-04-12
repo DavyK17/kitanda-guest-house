@@ -255,6 +255,13 @@ export const deleteAddress = async (req, res) => {
 		// Send error if address does not exist
 		if (result.rows.length === 0) return res.status(404).send("Error: This address does not exist.");
 
+		// Get all addresses
+		text = "SELECT * FROM addresses JOIN addresses_guest ON addresses_guest.address_id = addresses.id WHERE addresses_guest.guest_id = $1";
+		result = await pool.query(text, [userId]);
+
+		// Send error if address is the only one remaining in account
+		if (result.rows.length === 1 && result.rows[0].id === id) return res.status(403).send("Error: You must have at least one address linked to your account.");
+
 		// Delete address
 		result = await pool.query("DELETE FROM addresses WHERE id = $1", [id]);
 		res.status(204).send("Address deleted successfully");
