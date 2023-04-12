@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/img/logos/logo.png";
 
 const Header = props => {
-    const { activeClassName } = props;
+    const { activeClassName, user } = props;
 
     const iconMenu = (
         <svg width="24" height="24" viewBox="0 0 24 24">
@@ -39,7 +39,11 @@ const Header = props => {
                         <NavLink className={({ isActive }) => setActive(isActive)} to="/booking">Booking</NavLink>
                     </li>
                     <li>
-                        <NavLink className={({ isActive }) => setActive(isActive)} to="/account">Account</NavLink>
+                        <NavLink
+                            className={({ isActive }) => setActive(isActive)}
+                            to={user ? "/account" : "/auth"}>
+                            {user ? "Account" : "Sign in"}
+                        </NavLink>
                     </li>
                 </ul>
             </nav>
