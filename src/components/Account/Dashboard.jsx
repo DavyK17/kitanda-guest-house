@@ -1,9 +1,8 @@
 /* IMPORTS */
-import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
-import { getUser, deleteUser, unlinkThirdParty } from "../../api/Account";
+import { deleteUser, unlinkThirdParty } from "../../api/Account";
 import { logout } from "../../api/Auth";
 
 import capitalise from "../../util/capitalise";
@@ -12,41 +11,16 @@ import displayErrorMessage from "../../util/displayErrorMessage";
 /* COMPONENT */
 const Dashboard = props => {
     // Destructure props
-    const { setUser } = props;
+    const { account, fetchAccount, isLoading, error, setUser } = props;
 
     // Define status and useNavigate()
     const status = document.getElementById("status");
     let navigate = useNavigate();
 
-    /* STATE + FUNCTIONS */
-    // Loading
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(false);
-
-    // Account
-    const [account, setAccount] = useState();
-    const fetchAccount = async () => {
-        setIsLoading(true);
-
-        try {
-            let data = await getUser();
-            if (data) setAccount(data);
-        } catch (err) {
-            console.error(err);
-            setError(true);
-        }
-
-        setIsLoading(false);
-    }
-
-    useMemo(() => {
-        fetchAccount();
-    }, []);
-
-    // Render body
+    // Define function to render dashboard
     const renderBody = () => {
         // Return error message if error
-        if (error) return <p className="error">An error occurred loading your account details. Kindly refresh the page and try again.</p>;
+        if (error) return <p className="error">An error occurred loading your dashboard. Kindly refresh the page and try again.</p>;
 
         // Return skeleton if loading
         if (isLoading) return <Skeleton containerClassName="skeleton-container" containerTestId="account-loading" />;
@@ -139,6 +113,9 @@ const Dashboard = props => {
                 </div>
                 <div className="buttons">
                     <button className="font-head-2 bold uppercase" onClick={() => navigate("/account/details")}>Edit details</button>
+                    <button className="font-head-2 bold uppercase" onClick={() => navigate("/account/addresses")}>Manage addresses</button>
+                </div>
+                <div className="buttons">
                     <button className="font-head-2 bold uppercase" onClick={signOut}>Sign out</button>
                     <button className="font-head-2 bold uppercase" onClick={deleteAccount}>Delete account</button>
                 </div>
@@ -146,7 +123,7 @@ const Dashboard = props => {
         }
     }
 
-    // Return user details
+    // Return dashboard
     return renderBody();
 }
 
