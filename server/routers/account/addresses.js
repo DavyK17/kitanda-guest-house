@@ -5,12 +5,10 @@ import { getAddresses, createAddress, updateAddress, deleteAddress } from "../..
 /* IMPLEMENTATION */
 const addressesRouter = express.Router();
 
-addressesRouter.get("/:id", getAddresses);
-addressesRouter.put("/:id", updateAddress);
-addressesRouter.delete("/:id", deleteAddress);
-
 addressesRouter.get("/", getAddresses);
 addressesRouter.post("/", createAddress);
+addressesRouter.put("/", updateAddress);
+addressesRouter.delete("/", deleteAddress);
 
 /* EXPORT */
 export default addressesRouter;
