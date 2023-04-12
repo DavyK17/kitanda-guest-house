@@ -134,9 +134,9 @@ const Dashboard = props => {
                     </div>
                 </div>
                 <div className="buttons">
-                    <button class="font-head-2 bold uppercase" onClick={() => navigate("/account/details")}>Edit details</button>
-                    <button class="font-head-2 bold uppercase" onClick={signOut}>Sign out</button>
-                    <button class="font-head-2 bold uppercase" onClick={deleteAccount}>Delete account</button>
+                    <button className="font-head-2 bold uppercase" onClick={() => navigate("/account/details")}>Edit details</button>
+                    <button className="font-head-2 bold uppercase" onClick={signOut}>Sign out</button>
+                    <button className="font-head-2 bold uppercase" onClick={deleteAccount}>Delete account</button>
                 </div>
             </div>
         }
