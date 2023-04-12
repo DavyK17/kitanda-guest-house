@@ -263,6 +263,7 @@ export const deleteAddress = async (req, res) => {
 		if (result.rows.length === 1 && result.rows[0].id === id) return res.status(403).send("Error: You must have at least one address linked to your account.");
 
 		// Delete address
+		result = await pool.query("DELETE FROM addresses_guest WHERE address_id = $1 AND guest_id = $2", [id, userId]);
 		result = await pool.query("DELETE FROM addresses WHERE id = $1", [id]);
 		res.status(204).send("Address deleted successfully");
 	} catch (err) {
