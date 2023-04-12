@@ -69,8 +69,6 @@ const Details = props => {
                     <button type="submit" className="font-head-2 bold uppercase">Save details</button>
                     <button className="font-head-2 bold uppercase" onClick={() => navigate("/account/dashboard")}>Back to dashboard</button>
                 </fieldset>
-
-                <p id="status"></p>
             </form>
         )
     }
