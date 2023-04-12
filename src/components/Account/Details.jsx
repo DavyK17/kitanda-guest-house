@@ -23,7 +23,7 @@ const Details = props => {
 
         // Return component
         return (
-            <form id="account-details" onSubmit={handleSubmit}>
+            <form className="account-form" id="details" onSubmit={handleSubmit}>
                 <legend>Edit account details</legend>
 
                 <fieldset id="guest-details">

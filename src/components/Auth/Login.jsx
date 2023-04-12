@@ -2,8 +2,8 @@ const Login = props => {
     const { toggleHasAccount, handleSubmit } = props;
 
     return (
-        <form id="login" onSubmit={handleSubmit}>
-            <legend>Login</legend>
+        <form className="auth-form" id="login" onSubmit={handleSubmit}>
+            <legend>Sign in</legend>
 
             <fieldset id="guest-details">
                 <div className="label-input" id="form-email">

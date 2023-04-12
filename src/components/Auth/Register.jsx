@@ -12,8 +12,8 @@ const Register = props => {
 
     // Return component
     return (
-        <form id="register" onSubmit={handleSubmit}>
-            <legend>Register</legend>
+        <form className="auth-form" id="register" onSubmit={handleSubmit}>
+            <legend>Sign up</legend>
 
             <fieldset id="guest-details">
                 <div className="label-input" id="form-title">
