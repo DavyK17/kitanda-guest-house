@@ -81,8 +81,8 @@ const Dashboard = props => {
         }
 
         // Return account dashboard
-        return <div className="account-dashboard">
-            <h2 class="visually-hidden">Dashboard</h2>
+        return <div className="dashboard">
+            <h2 className="visually-hidden">Dashboard</h2>
             <div className="user-id" data-testid="account-id">
                 <h3 className="font-head-2 bold uppercase">User ID</h3>
                 <p className="font-head">{id}</p>

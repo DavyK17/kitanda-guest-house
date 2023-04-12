@@ -52,6 +52,13 @@ body {
 
 @media only screen and (min-width: 992px) {
     #root {
+        grid-template: repeat(3, auto) / 1fr 900px 1fr;
+        grid-template-areas: "header header header" ". main ." "footer footer footer";
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    #root {
         grid-template: repeat(3, auto) / 1fr 1200px 1fr;
         grid-template-areas: "header header header" ". main ." "footer footer footer";
     }
