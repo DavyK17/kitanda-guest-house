@@ -18,11 +18,13 @@ export const getUser = async (req, res) => {
 		if (!isNumeric(id, { no_symbols: true }) || !isLength(id, { min: 10, max: 10 })) return res.status(401).send("Error: Invalid user ID in session.");
 
 		// Get user
-		let result = await pool.query("SELECT id, first_name, last_name, phone, email FROM guests WHERE id = $1", [id]);
+		let result = await pool.query("SELECT id, title, first_name, last_name, company_name, phone, email FROM guests WHERE id = $1", [id]);
 		let user = {
 			id: result.rows[0].id,
+			title: result.rows[0].title,
 			firstName: result.rows[0].first_name,
 			lastName: result.rows[0].last_name,
+			companyName: result.rows[0].company_name,
 			phone: parseInt(result.rows[0].phone),
 			email: result.rows[0].email,
 		};
