@@ -7,6 +7,7 @@ import Dashboard from "./Dashboard";
 import Details from "./Details";
 
 import { getUser, updateUser } from "../../api/Account";
+import { getAddresses } from "../../api/Addresses";
 import displayErrorMessage from "../../util/displayErrorMessage";
 
 /* COMPONENT */
@@ -31,12 +32,17 @@ const Account = (props) => {
 
 	// Account
 	const [account, setAccount] = useState();
+	const [addresses, setAddresses] = useState([]);
 	const fetchAccount = async () => {
 		setIsLoading(true);
 
 		try {
 			let data = await getUser();
-			if (data) setAccount(data);
+			if (data) {
+				setAccount(data);
+				data = await getAddresses();
+				if (data.length > 0) setAddresses(data);
+			}
 		} catch (err) {
 			console.error(err);
 			setError(true);
@@ -84,7 +90,7 @@ const Account = (props) => {
 	const renderView = (view) => {
 		switch (view) {
 			case "addresses":
-				return <Addresses />;
+				return <Addresses list={addresses} fetchAccount={fetchAccount} isLoading={isLoading} error={error} />;
 			case "details":
 				return <Details account={account} isLoading={isLoading} error={error} handleSubmit={editDetails} />
 			case "dashboard":
