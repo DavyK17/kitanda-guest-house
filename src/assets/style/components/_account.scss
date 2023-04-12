@@ -10,14 +10,13 @@
     }
 }
 
-
 #account-main {
     grid-area: about;
     display: block;
-}
 
-#status {
-    margin: unset !important;
+    #status {
+        margin: unset !important;
+    }
 }
 
 // Dashboard
@@ -66,13 +65,14 @@
     }
 }
 
-// Details
-form {
+// Edit details
+#account-details {
     width: 100%;
 
     legend {
         display: block;
         width: 100%;
+        margin-bottom: 1rem;
     }
 
     fieldset {
@@ -103,119 +103,109 @@ form {
         }
     }
 
-    &#account-details {
-        legend {
-            margin-bottom: 1rem;
+    #guest-details {
+        display: grid;
+        width: 100%;
+        grid-template: repeat(8, 1fr) / 1fr;
+        grid-gap: 1rem;
+        margin-bottom: 1rem;
+
+        .label-input {
+            margin: unset;
         }
 
-        #guest-details {
-            display: grid;
-            width: 100%;
-            grid-template: repeat(8, 1fr) / 1fr;
-            grid-gap: 1rem;
-            margin-bottom: 1rem;
+        #form-title {
+            grid-area: 1 / 1 / span 1 / span 1;
+        }
 
-            .label-input {
-                margin: unset;
-            }
+        #form-first {
+            grid-area: 2 / 1 / span 1 / span 1;
+        }
 
-            #form-title {
-                grid-area: 1 / 1 / span 1 / span 1;
-            }
+        #form-last {
+            grid-area: 3 / 1 / span 1 / span 1;
+        }
 
-            #form-first {
-                grid-area: 2 / 1 / span 1 / span 1;
-            }
+        #form-company {
+            grid-area: 4 / 1 / span 1 / span 1;
+        }
 
-            #form-last {
-                grid-area: 3 / 1 / span 1 / span 1;
-            }
+        #form-phone {
+            grid-area: 5 / 1 / span 1 / span 1;
+        }
 
-            #form-company {
-                grid-area: 4 / 1 / span 1 / span 1;
-            }
+        #form-email {
+            grid-area: 6 / 1 / span 1 / span 1;
+        }
 
-            #form-phone {
-                grid-area: 5 / 1 / span 1 / span 1;
-            }
+        #form-password {
+            grid-area: 7 / 1 / span 1 / span 1;
+        }
 
-            #form-email {
-                grid-area: 6 / 1 / span 1 / span 1;
-            }
-
-            #form-password {
-                grid-area: 7 / 1 / span 1 / span 1;
-            }
-
-            #form-confirm-password {
-                grid-area: 8 / 1 / span 1 / span 1;
-            }
+        #form-confirm-password {
+            grid-area: 8 / 1 / span 1 / span 1;
         }
     }
 }
 
 @media only screen and (min-width: 768px) {
-    form {
+    #account-details {
         fieldset {
             &#form-end {
                 flex-direction: row;
             }
         }
 
-        &#account-details {
-            #guest-details {
-                grid-template: repeat(4, 1fr) / repeat(6, 1fr);
+        #guest-details {
+            grid-template: repeat(4, 1fr) / repeat(6, 1fr);
 
-                .label-input {
-                    width: 100%;
-                }
+            .label-input {
+                width: 100%;
+            }
 
-                #form-title {
-                    grid-area: 1 / 1 / span 1 / span 2;
-                }
+            #form-title {
+                grid-area: 1 / 1 / span 1 / span 2;
+            }
 
-                #form-first {
-                    grid-area: 1 / 3 / span 1 / span 2;
-                }
+            #form-first {
+                grid-area: 1 / 3 / span 1 / span 2;
+            }
 
-                #form-last {
-                    grid-area: 1 / 5 / span 1 / span 2;
-                }
+            #form-last {
+                grid-area: 1 / 5 / span 1 / span 2;
+            }
 
-                #form-company {
-                    grid-area: 2 / 1 / span 1 / span 6;
-                }
+            #form-company {
+                grid-area: 2 / 1 / span 1 / span 6;
+            }
 
-                #form-phone {
-                    grid-area: 3 / 1 / span 1 / span 3;
-                }
+            #form-phone {
+                grid-area: 3 / 1 / span 1 / span 3;
+            }
 
-                #form-email {
-                    grid-area: 3 / 4 / span 1 / span 3;
-                }
+            #form-email {
+                grid-area: 3 / 4 / span 1 / span 3;
+            }
 
-                #form-current-password {
-                    grid-area: 4 / 1 / span 1 / span 2;
-                }
+            #form-current-password {
+                grid-area: 4 / 1 / span 1 / span 2;
+            }
 
-                #form-new-password {
-                    grid-area: 4 / 3 / span 1 / span 2;
-                }
+            #form-new-password {
+                grid-area: 4 / 3 / span 1 / span 2;
+            }
 
-                #form-confirm-new-password {
-                    grid-area: 4 / 5 / span 1 / span 2;
-                }
+            #form-confirm-new-password {
+                grid-area: 4 / 5 / span 1 / span 2;
             }
         }
     }
 }
 
 @media only screen and (min-width: 992px) {
-    form {
-        &#account-details {
-            #guest-details {
-                width: 50%;
-            }
+    #account-details {
+        #guest-details {
+            width: 50%;
         }
     }
 }

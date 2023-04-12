@@ -15,10 +15,6 @@
     display: block;
 }
 
-#status {
-    margin: unset !important;
-}
-
 
 /* Forms */
 form {
@@ -39,7 +35,6 @@ form {
         &#form-end {
             display: flex;
             gap: 1rem;
-            margin-bottom: 1rem;
         }
     }
 
@@ -57,8 +52,6 @@ form {
     }
 
     &#login {
-        min-height: 300px;
-
         legend {
             margin: unset;
         }
