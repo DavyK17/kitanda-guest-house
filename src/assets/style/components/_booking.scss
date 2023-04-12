@@ -221,7 +221,7 @@
                                 margin: unset;
                                 padding: unset;
                                 transition: color 0.15s ease-in-out;
-                            
+
                                 &:hover,
                                 &:focus {
                                     color: darkseagreen;
@@ -256,7 +256,7 @@
     }
 }
 
-@media only screen and (min-width: 576px) {
+@media only screen and (min-width: 768px) {
     #booking-main {
         .sort {
             flex-direction: row;
@@ -276,20 +276,20 @@
                     .room-card-body {
                         grid-template: 1fr / 30% 1fr 1fr 1fr;
                         height: 150px;
-    
+
                         .room-img {
                             height: auto;
                             grid-area: unset;
                         }
-    
+
                         .room-features {
                             grid-area: unset;
                         }
-    
+
                         .room-capacity {
                             grid-area: unset;
                         }
-    
+
                         .room-book {
                             grid-area: unset;
                         }
@@ -451,7 +451,7 @@
 }
 
 
-@media only screen and (min-width: 576px) {
+@media only screen and (min-width: 768px) {
     #checkout-form {
         fieldset {
             &#guest-details {
