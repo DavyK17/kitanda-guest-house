@@ -72,6 +72,11 @@ header {
                     &.selected {
                         background-color: #222;
                         color: steelblue;
+
+                        &:hover,
+                        &:focus {
+                            opacity: initial;
+                        }
                     }
                 }
             }
