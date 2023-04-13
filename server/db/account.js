@@ -161,13 +161,27 @@ export const deleteUser = async (req, res) => {
 		let reservations = [];
 
 		// Add each reservation by user to reservations array
-		result = await pool.query("SELECT id FROM reservations WHERE guest_id = $1", [userId]);
+		let result = await pool.query("SELECT id FROM reservations WHERE guest_id = $1", [userId]);
 		result.rows.forEach((row) => reservations.push(row.id));
 
 		// Delete each reservation in reservations array
 		reservations.forEach(async (id) => {
 			result = await pool.query("DELETE FROM reservations_rooms WHERE reservation_id = $1", [id]);
 			result = await pool.query("DELETE FROM reservations WHERE id = $1", [id]);
+		});
+
+		// Create addresses array
+		let addresses = [];
+
+		// Add each address linked to user to addresses array
+		let text = "SELECT id FROM addresses JOIN addresses_guest ON addresses_guest.address_id = addresses.id WHERE addresses_guest.guest_id = $1";
+		result = await pool.query(text, [userId]);
+		result.rows.forEach((row) => addresses.push(row.id));
+
+		// Delete each address in addresses array
+		addresses.forEach(async (id) => {
+			result = await pool.query("DELETE FROM addresses_guest WHERE address_id = $1", [id]);
+			result = await pool.query("DELETE FROM addresses WHERE id = $1", [id]);
 		});
 
 		// Delete third-party credentials
