@@ -2,8 +2,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Login from "./Login";
-import Register from "./Register";
+import Form from "./Form";
 
 import { login, register } from "../../api/Auth";
 import displayErrorMessage from "../../util/displayErrorMessage";
@@ -89,10 +88,7 @@ const Auth = props => {
             </section>
             <section id="auth-main">
                 <div className="content align-items-start">
-                    {hasAccount ?
-                        <Login toggleHasAccount={toggleHasAccount} handleSubmit={handleLogin} /> :
-                        <Register toggleHasAccount={toggleHasAccount} handleSubmit={handleRegister} />
-                    }
+                    <Form hasAccount={hasAccount} toggleHasAccount={toggleHasAccount} handleSubmit={hasAccount ? handleLogin : handleRegister} />
                 </div>
             </section>
         </>
