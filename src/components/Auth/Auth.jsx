@@ -77,26 +77,33 @@ const Auth = props => {
         setTimeout(() => status.textContent = null, 3000);
     }
 
-	// Confirm third-party registration
-	const handleCTPR = async e => {
+    // Confirm third-party registration
+    const handleCTPR = async e => {
         e.preventDefault();
         const status = document.getElementById("status");
 
-		const password = e.target[1].value;
-		const confirmPassword = e.target[2].value;
-		if (password && !confirmPassword) return status.textContent = "Kindly confirm your password.";
-		if (!password || !confirmPassword) return status.textContent = "No password provided.";
-		if (password !== confirmPassword) return status.textContent = "Passwords do not match.";
-		
-		status.textContent = "Confirming registration…";
-		let response = await confirmThirdPartyRegistration(password, confirmPassword);
-		if (typeof response !== "object") return displayErrorMessage(response);
+        const address1 = e.target[1].value;
+        const address2 = e.target[2].value;
+        const townCity = e.target[3].value;
+        const countyStateProvince = e.target[4].value;
+        const postcodeZip = e.target[5].value;
+        const country = e.target[6].value;
+        const password = e.target[7].value;
+        const confirmPassword = e.target[8].value;
 
-		setUser(response);
-		status.textContent = null;
-		e.target.reset();
-		navigate("/account/dashboard");
-	}
+        if (password && !confirmPassword) return status.textContent = "Kindly confirm your password.";
+        if (!password || !confirmPassword) return status.textContent = "No password provided.";
+        if (password !== confirmPassword) return status.textContent = "Passwords do not match.";
+
+        status.textContent = "Confirming registration…";
+        let response = await confirmThirdPartyRegistration(address1, address2, townCity, countyStateProvince, postcodeZip, country, password, confirmPassword);
+        if (typeof response !== "object") return displayErrorMessage(response);
+
+        setUser(response);
+        status.textContent = null;
+        e.target.reset();
+        navigate("/account/dashboard");
+    }
 
     /* RETURN COMPONENT */
     return (

@@ -123,8 +123,38 @@ export const confirmThirdPartyRegistration = async (req, res) => {
 	// Send error if user is not authorised
 	if (!req.user.federatedCredentials[0]) return res.status(401).send("Error: You are not authorised to perform this operation.");
 
+	// Generate address ID
+	const addressId = idGen(12);
+
 	// VALIDATION AND SANITISATION
-	let { password, confirmPassword } = req.body;
+	let { address1, address2, townCity, countyStateProvince, postcodeZip, country, password, confirmPassword } = req.body;
+
+	// Address
+	if (typeof address1 !== "string") return res.status(400).send("Error: Address 1 must be a string.");
+	address1 = sanitizeHtml(trim(escape(address1)));
+
+	if (address2) {
+		if (typeof address2 !== "string") return res.status(400).send("Error: Address 2 must be a string.");
+		address2 = sanitizeHtml(trim(escape(address2)));
+	}
+
+	// Town/city
+	if (typeof townCity !== "string") return res.status(400).send("Error: Town/city must be a string.");
+	townCity = sanitizeHtml(trim(escape(townCity)));
+
+	// County/state/province
+	if (typeof countyStateProvince !== "string") return res.status(400).send("Error: County/state/province must be a string.");
+	countyStateProvince = sanitizeHtml(trim(escape(countyStateProvince)));
+
+	// Postcode/ZIP
+	if (typeof postcodeZip !== "string") return res.status(400).send("Error: Postcode/ZIP must be a string.");
+	postcodeZip = sanitizeHtml(trim(escape(postcodeZip)));
+
+	// Country
+	if (typeof country !== "string") return res.status(400).send("Error: Country (ISO 3166-1 alpha-2 code) must be a string.");
+	if (!isLength(country, { min: 2, max: 2 })) return res.status(400).send("Error: Invalid country provided (must be ISO 3166-1 alpha-2 code).");
+	country = iso3311a2.getCountry(country);
+	if (!country) return res.status(400).send("Error: This country (ISO 3166-1 alpha-2 code) does not exist.");
 
 	// Password
 	if (!checkPassword(password))
@@ -145,8 +175,18 @@ export const confirmThirdPartyRegistration = async (req, res) => {
 		// Confirm update
 		if (result.rows[0].id === userId) {
 			// Update third-party details confirmation status
-			let text = "UPDATE federated_credentials SET confirmed = $1 WHERE provider = $2 AND user_id = $3";
+			let text = "UPDATE federated_credentials SET confirmed = $1 WHERE provider = $2 AND guest_id = $3";
 			let values = [true, req.user.federatedCredentials[0].provider, userId];
+			result = await pool.query(text, values);
+
+			// Add address to database
+			text = `INSERT INTO addresses (id, address1, address2, town_city, county_state_province, postcode_zip, country, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, to_timestamp(${Date.now()} / 1000))`;
+			values = [addressId, address1, address2, townCity, countyStateProvince, postcodeZip, country];
+			result = await pool.query(text, values);
+
+			// Link address to user
+			text = `INSERT INTO addresses_guest (address_id, guest_id) VALUES ($1, $2)`;
+			values = [addressId, userId];
 			result = await pool.query(text, values);
 
 			// Get updated user details
