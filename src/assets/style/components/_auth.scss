@@ -34,7 +34,6 @@
 
         &#guest-details {
             display: grid;
-            width: 100%;
             grid-gap: 1rem;
             margin-bottom: 1rem;
 
@@ -283,12 +282,8 @@
 
 @media only screen and (min-width: 992px) {
     .auth-form {
-
-        &#register,
-        &#ctpr {
-            #guest-details {
-                width: 50%;
-            }
+        fieldset {
+            width: 50%;
         }
     }
 }
