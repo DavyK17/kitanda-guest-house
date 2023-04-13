@@ -9,11 +9,8 @@ import displayErrorMessage from "../../util/displayErrorMessage";
 
 /* COMPONENT */
 const Auth = props => {
-    // Destructure props
+    // Destructure props and useNavigate()
     const { ctpr, user, setUser } = props;
-
-    // Define status and useNavigate()
-    const status = document.getElementById("status");
     let navigate = useNavigate();
 
     // Redirect to dashboard if authenticated
@@ -33,6 +30,7 @@ const Auth = props => {
     // Login
     const handleLogin = async e => {
         e.preventDefault();
+        const status = document.getElementById("status");
 
         const email = e.target[1].value;
         const password = e.target[2].value;
@@ -50,6 +48,7 @@ const Auth = props => {
     // Register
     const handleRegister = async e => {
         e.preventDefault();
+        const status = document.getElementById("status");
 
         const title = e.target[1].value;
         const firstName = e.target[2].value;
@@ -81,6 +80,7 @@ const Auth = props => {
 	// Confirm third-party registration
 	const handleCTPR = async e => {
         e.preventDefault();
+        const status = document.getElementById("status");
 
 		const password = e.target[1].value;
 		const confirmPassword = e.target[2].value;
