@@ -91,14 +91,18 @@ const Dashboard = props => {
                 <h3 className="font-head-2 bold uppercase">Name</h3>
                 <p>{title} {firstName} {lastName}</p>
             </div>
-            <div className="company-name" data-testid="account-names">
-                <h3 className="font-head-2 bold uppercase">Company</h3>
-                <p>{companyName}</p>
-            </div>
-            <div className="phone" data-testid="account-phone">
-                <h3 className="font-head-2 bold uppercase">Phone number</h3>
-                <p>{phone}</p>
-            </div>
+            {
+                !companyName ? null : <div className="company-name" data-testid="account-names">
+                    <h3 className="font-head-2 bold uppercase">Company name</h3>
+                    <p>{companyName}</p>
+                </div>
+            }
+            {
+                !phone ? null : <div className="phone" data-testid="account-phone">
+                    <h3 className="font-head-2 bold uppercase">Phone number</h3>
+                    <p>{phone}</p>
+                </div>
+            }
             <div className="email" data-testid="account-email">
                 <h3 className="font-head-2 bold uppercase">Email address</h3>
                 <p>{email}</p>
