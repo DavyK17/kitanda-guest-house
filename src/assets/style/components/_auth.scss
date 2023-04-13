@@ -169,14 +169,38 @@
 
     &#ctpr {
         #guest-details {
-            grid-template: repeat(2, 1fr) / 1fr;
+            grid-template: repeat(8, 1fr) / 1fr;
 
-            #form-password {
+            #form-address-1 {
                 grid-area: 1 / 1 / span 1 / span 1;
             }
 
-            #form-confirm-password {
+            #form-address-2 {
                 grid-area: 2 / 1 / span 1 / span 1;
+            }
+
+            #form-city {
+                grid-area: 3 / 1 / span 1 / span 1;
+            }
+
+            #form-county {
+                grid-area: 4 / 1 / span 1 / span 1;
+            }
+
+            #form-postcode {
+                grid-area: 5 / 1 / span 1 / span 1;
+            }
+
+            #form-country {
+                grid-area: 6 / 1 / span 1 / span 1;
+            }
+
+            #form-password {
+                grid-area: 7 / 1 / span 1 / span 1;
+            }
+
+            #form-confirm-password {
+                grid-area: 8 / 1 / span 1 / span 1;
             }
         }
     }
@@ -266,14 +290,38 @@
 
         &#ctpr {
             #guest-details {
-                grid-template: 1fr / repeat(6, 1fr);
+                grid-template: repeat(4, 1fr) / repeat(6, 1fr);
 
-                #form-password {
+                #form-address-1 {
                     grid-area: 1 / 1 / span 1 / span 3;
                 }
 
-                #form-confirm-password {
+                #form-address-2 {
                     grid-area: 1 / 4 / span 1 / span 3;
+                }
+
+                #form-city {
+                    grid-area: 2 / 1 / span 1 / span 2;
+                }
+
+                #form-county {
+                    grid-area: 2 / 3 / span 1 / span 2;
+                }
+
+                #form-postcode {
+                    grid-area: 2 / 5 / span 1 / span 2;
+                }
+
+                #form-country {
+                    grid-area: 3 / 1 / span 1 / span 6;
+                }
+
+                #form-password {
+                    grid-area: 4 / 1 / span 1 / span 3;
+                }
+
+                #form-confirm-password {
+                    grid-area: 4 / 4 / span 1 / span 3;
                 }
             }
         }
