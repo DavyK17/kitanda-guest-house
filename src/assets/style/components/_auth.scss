@@ -32,6 +32,17 @@
             margin: unset !important;
         }
 
+        &#guest-details {
+            display: grid;
+            width: 100%;
+            grid-gap: 1rem;
+            margin-bottom: 1rem;
+
+            .label-input {
+                margin: unset;
+            }
+        }
+
         &#form-end {
             display: flex;
             flex-direction: column;
@@ -97,15 +108,7 @@
         }
 
         #guest-details {
-            display: grid;
-            width: 100%;
             grid-template: repeat(14, 1fr) / 1fr;
-            grid-gap: 1rem;
-            margin-bottom: 1rem;
-
-            .label-input {
-                margin: unset;
-            }
 
             #form-title {
                 grid-area: 1 / 1 / span 1 / span 1;
@@ -164,12 +167,31 @@
             }
         }
     }
+
+    &#ctpr {
+        #guest-details {
+            grid-template: repeat(2, 1fr) / 1fr;
+
+            #form-password {
+                grid-area: 1 / 1 / span 1 / span 1;
+            }
+
+            #form-confirm-password {
+                grid-area: 2 / 1 / span 1 / span 1;
+            }
+        }
+    }
 }
 
 @media only screen and (min-width: 768px) {
     .auth-form {
-
         fieldset {
+            &#guest-details {
+                .label-input {
+                    width: 100%;
+                }
+            }
+
             &#form-end {
                 flex-direction: row;
             }
@@ -184,10 +206,6 @@
         &#register {
             #guest-details {
                 grid-template: repeat(7, 1fr) / repeat(6, 1fr);
-
-                .label-input {
-                    width: 100%;
-                }
 
                 #form-title {
                     grid-area: 1 / 1 / span 1 / span 2;
@@ -246,12 +264,28 @@
                 }
             }
         }
+
+        &#ctpr {
+            #guest-details {
+                grid-template: 1fr / repeat(6, 1fr);
+
+                #form-password {
+                    grid-area: 1 / 1 / span 1 / span 3;
+                }
+
+                #form-confirm-password {
+                    grid-area: 1 / 4 / span 1 / span 3;
+                }
+            }
+        }
     }
 }
 
 @media only screen and (min-width: 992px) {
     .auth-form {
-        &#register {
+
+        &#register,
+        &#ctpr {
             #guest-details {
                 width: 50%;
             }
