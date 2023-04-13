@@ -53,8 +53,8 @@ export const login = async (req, accessToken, refreshToken, profile, done) => {
 			const passwordHash = await bcrypt.hash(process.env.GENERIC_PASSWORD, salt);
 
 			// Add user to database
-			let text = `INSERT INTO guests (id, first_name, last_name, phone, email, password, created_at) VALUES ($1, $2, $3, $4, $5, $6, to_timestamp(${Date.now()} / 1000)) RETURNING id`;
-			let values = [userId, profile.name.givenName, profile.name.familyName, "254700000000", profile.emails[0].value, passwordHash];
+			let text = `INSERT INTO guests (id, first_name, last_name, email, password, created_at) VALUES ($1, $2, $3, $4, $5, to_timestamp(${Date.now()} / 1000)) RETURNING id`;
+			let values = [userId, profile.name.givenName, profile.name.familyName, profile.emails[0].value, passwordHash];
 			result = await pool.query(text, values);
 
 			// Add third-party credentials to database
@@ -107,7 +107,7 @@ export const callback = (strategy) => {
 				if (strategy === "local") return res.json(user);
 
 				// Redirect new user to confirm account details after linking third-party account
-				if (!user.federatedCredentials[0].confirmed) return res.redirect("/register");
+				if (!user.federatedCredentials[0].confirmed) return res.redirect("/auth");
 
 				// Redirect user to redirect path if provided
 				if (typeof redirect === "string") return res.redirect(redirect);
