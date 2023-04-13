@@ -47,12 +47,12 @@
         "supertest": "^6.3.3"
     },
     "scripts": {
-        "client:start": "react-scripts start",
-        "client:build": "react-scripts build",
-        "client:test": "react-scripts test",
-        "client:eject": "react-scripts eject",
+        "start": "node server/index.js",
         "dev": "nodemon server/index.js",
-        "start": "node server/index.js"
+        "build": "react-scripts build",
+        "client:start": "react-scripts start",
+        "client:test": "react-scripts test",
+        "client:eject": "react-scripts eject"
     },
     "eslintConfig": {
         "extends": [
