@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Addresses from "./Addresses";
+import CTPR from "./CTPR";
 import Dashboard from "./Dashboard";
 import Details from "./Details";
 
@@ -86,16 +87,24 @@ const Account = (props) => {
 		fetchAccount();
 	}
 
+	// Define function to confirm third-party registration
+	const confirmThirdPartyRegistration = e => {
+		e.preventDefault();
+		console.log(e);
+	}
+
 	// Define function to render appropriate element
 	const renderView = (view) => {
 		switch (view) {
 			case "addresses":
 				return <Addresses list={addresses} fetchAccount={fetchAccount} isLoading={isLoading} error={error} />;
-			case "details":
-				return <Details account={account} isLoading={isLoading} error={error} handleSubmit={editDetails} />
+			case "ctpr":
+				return <CTPR isLoading={isLoading} error={error} handleSubmit={confirmThirdPartyRegistration} />
 			case "dashboard":
 			default:
 				return <Dashboard account={account} fetchAccount={fetchAccount} isLoading={isLoading} error={error} setUser={setUser} />;
+			case "details":
+				return <Details account={account} isLoading={isLoading} error={error} handleSubmit={editDetails} />
 		}
 	}
 
