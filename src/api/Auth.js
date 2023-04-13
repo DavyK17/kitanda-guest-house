@@ -38,6 +38,23 @@ export const register = async (
 	}
 };
 
+export const confirmThirdPartyRegistration = async (password, confirmPassword) => {
+	try {
+		let response = await fetch(`${url}/register/ctpr`, {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ password, confirmPassword }),
+		});
+
+		if (response.status !== 503) {
+			if (!response.ok) return response.text();
+			return response.json();
+		}
+	} catch (err) {
+		console.error(err);
+	}
+};
+
 export const login = async (email, password) => {
 	try {
 		let response = await fetch(`${url}/login`, {
