@@ -2,6 +2,7 @@
 import FacebookIcon from "../../assets/img/icons/facebook.svg";
 import GoogleIcon from "../../assets/img/icons/google.svg";
 
+import CTPR from "./CTPR";
 import Login from "./Login";
 import Register from "./Register";
 
@@ -10,7 +11,7 @@ import capitalise from "../../util/capitalise";
 /* COMPONENT */
 const Form = props => {
     // Destructure props
-    const { hasAccount, toggleHasAccount, handleSubmit } = props;
+    const { ctpr, hasAccount, toggleHasAccount, handleSubmit } = props;
 
     // Define third-party icons
     const icons = { facebook: FacebookIcon, google: GoogleIcon };
@@ -24,6 +25,11 @@ const Form = props => {
         )
     }
 
+    /* RETURN COMPONENT */
+    // Return CTPR if third-party registration not confirmed
+    if (ctpr) return <CTPR handleSubmit={handleSubmit} />
+
+    // Return authentication form
     return (
         <form className="auth-form" id={hasAccount ? "login" : "register"} onSubmit={handleSubmit}>
             <legend>Sign {hasAccount ? "in" : "up"}</legend>

@@ -4,13 +4,16 @@ import { useNavigate } from "react-router-dom";
 
 import Form from "./Form";
 
-import { login, register } from "../../api/Auth";
+import { confirmThirdPartyRegistration, login, register } from "../../api/Auth";
 import displayErrorMessage from "../../util/displayErrorMessage";
 
 /* COMPONENT */
 const Auth = props => {
-    // Destructure props and useNavigate()
-    const { user, setUser } = props;
+    // Destructure props
+    const { ctpr, user, setUser } = props;
+
+    // Define status and useNavigate()
+    const status = document.getElementById("status");
     let navigate = useNavigate();
 
     // Redirect to dashboard if authenticated
@@ -30,7 +33,6 @@ const Auth = props => {
     // Login
     const handleLogin = async e => {
         e.preventDefault();
-        const status = document.getElementById("status");
 
         const email = e.target[1].value;
         const password = e.target[2].value;
@@ -48,7 +50,6 @@ const Auth = props => {
     // Register
     const handleRegister = async e => {
         e.preventDefault();
-        const status = document.getElementById("status");
 
         const title = e.target[1].value;
         const firstName = e.target[2].value;
@@ -77,6 +78,26 @@ const Auth = props => {
         setTimeout(() => status.textContent = null, 3000);
     }
 
+	// Confirm third-party registration
+	const handleCTPR = async e => {
+        e.preventDefault();
+
+		const password = e.target[1].value;
+		const confirmPassword = e.target[2].value;
+		if (password && !confirmPassword) return status.textContent = "Kindly confirm your password.";
+		if (!password || !confirmPassword) return status.textContent = "No password provided.";
+		if (password !== confirmPassword) return status.textContent = "Passwords do not match.";
+		
+		status.textContent = "Confirming registration…";
+		let response = await confirmThirdPartyRegistration(password, confirmPassword);
+		if (typeof response !== "object") return displayErrorMessage(response);
+
+		setUser(response);
+		status.textContent = null;
+		e.target.reset();
+		navigate("/account/dashboard");
+	}
+
     /* RETURN COMPONENT */
     return (
         <>
@@ -88,7 +109,7 @@ const Auth = props => {
             </section>
             <section id="auth-main">
                 <div className="content align-items-start">
-                    <Form hasAccount={hasAccount} toggleHasAccount={toggleHasAccount} handleSubmit={hasAccount ? handleLogin : handleRegister} />
+                    <Form ctpr={ctpr} hasAccount={hasAccount} toggleHasAccount={toggleHasAccount} handleSubmit={ctpr ? handleCTPR : hasAccount ? handleLogin : handleRegister} />
                 </div>
             </section>
         </>

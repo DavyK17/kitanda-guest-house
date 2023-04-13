@@ -42,7 +42,7 @@ const App = () => {
     // Define function to render main section
     const renderMain = () => {
         // Return CTPR component if third-party registration not confirmed
-        if (ctpr) return <Account view="ctpr" user={user} setUser={setUser} />;
+        if (ctpr) return <Auth ctpr={ctpr} user={user} setUser={setUser} />;
 
         // Define function to return account route
         const renderAccountRoute = (path, view = path) => <Route path={path} element={<Account view={view} user={user} setUser={setUser} />} />;
