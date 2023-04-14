@@ -154,8 +154,9 @@ main {
     color: white;
     margin: unset;
     padding: 2rem;
+    gap: 2rem;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 
     #availability-form-head {
