@@ -36,9 +36,9 @@ const Addresses = props => {
                 e.preventDefault();
 
                 const newAddress1 = e.target[1].value;
-                const newAddress2 = e.target[2].value || null;
+                const newAddress2 = e.target[2].value;
                 const newTownCity = e.target[3].value;
-                const newCountyStateProvince = e.target[4].value || null;
+                const newCountyStateProvince = e.target[4].value;
                 const newPostcodeZip = e.target[5].value;
                 const newCountry = e.target[6].value;
 
