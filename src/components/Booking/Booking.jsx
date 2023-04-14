@@ -43,6 +43,12 @@ const Booking = props => {
         const checkInDate = e.target[0].value;
         const checkOutDate = e.target[1].value;
 
+        const cartCheckIn = document.getElementById("check-in-date");
+        cartCheckIn.textContent = new Date(checkInDate).toLocaleDateString("en-KE").replaceAll("/", "-");
+
+        const cartCheckOut = document.getElementById("check-out-date");
+        cartCheckOut.textContent = new Date(checkOutDate).toLocaleDateString("en-KE").replaceAll("/", "-");
+
         setIsLoading(true);
         let response = await getAvailableRoomTypes(checkInDate, checkOutDate);
         if (typeof response !== "object") {
