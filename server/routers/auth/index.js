@@ -2,7 +2,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import pool from "../../db/pool.js";
-import { loggedIn } from "../../middleware/authenticated.js";
+import { loggedIn, loggedOut } from "../../middleware/authenticated.js";
 
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
@@ -76,11 +76,11 @@ passport.deserializeUser(async (id, done) => {
 });
 
 /* IMPLEMENTATION */
-authRouter.get("/logout", logout);
+authRouter.get("/logout", loggedIn, logout);
 authRouter.all("/user", loggedIn, (req, res) => res.json(req.user));
 
-authRouter.use("/login", loginRouter);
-authRouter.use("/register", registerRouter);
+authRouter.use("/login", loggedOut, loginRouter);
+authRouter.use("/register", loggedOut, registerRouter);
 
 /* EXPORT */
 export default authRouter;
