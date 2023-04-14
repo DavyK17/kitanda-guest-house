@@ -1,12 +1,13 @@
-const Cart = props => {
-    const { step, handleCheckout } = props;
+/* COMPONENT */
+// const Cart = props => {
+const Cart = () => {
+    // Destructure props
+    // const { step, handleCheckout } = props;
     
+    // Return component
     return (
         <div className="cart" id="booking-cart">
             <div className="content">
-                {/* <!-- TEXT TO SHOW WHEN CART IS EMPTY --> */}
-                <p>No rooms have been selected.</p>
-    
                 {/* <!-- CART --> */}
                 <div className="room-cart">
                     <div className="room-cart-header">
@@ -23,9 +24,11 @@ const Cart = props => {
                     </div>
     
                     <div className="room-cart-body">
+                        {/* <!-- TEXT TO SHOW WHEN CART IS EMPTY --> */}
+                        <p>No rooms have been selected.</p>
     
                         {/* <!-- Single booking --> */}
-                        <div className="room-cart-single">
+                        {/* <div className="room-cart-single">
                             <div className="info-line">
                                 <p className="font-head-2 bold uppercase">Room:</p>
                                 <p className="font-head-2 uppercase">Room type</p>
@@ -44,72 +47,20 @@ const Cart = props => {
                             <div className="remove">
                                 <button className="font-head-2 uppercase" href="#">Remove</button>
                             </div>
-                        </div>
-    
-                        {/* <!-- Single booking --> */}
-                        <div className="room-cart-single">
-                            <div className="info-line">
-                                <p className="font-head-2 bold uppercase">Room:</p>
-                                <p className="font-head-2 uppercase">Room type</p>
-                            </div>
-                            <div className="info-line">
-                                <p className="font-head-2 bold uppercase">Stay:</p>
-                                <div className="stay">
-                                    <p className="font-head-2 uppercase">N nights</p>
-                                    <p className="font-head-2 uppercase">(N adults, N children, N infants)</p>
-                                </div>
-                            </div>
-                            <div className="info-line">
-                                <p className="font-head-2 bold uppercase">Price:</p>
-                                <p className="font-head-2 uppercase">Ksh. 0,000</p>
-                            </div>
-                            <div className="remove">
-                                <button className="font-head-2 uppercase" href="#">Remove</button>
-                            </div>
-    
-                        </div>
-    
-                        {/* <!-- Single booking --> */}
-                        <div className="room-cart-single">
-                            <div className="info-line">
-                                <p className="font-head-2 bold uppercase">Room:</p>
-                                <p className="font-head-2 uppercase">Room type</p>
-                            </div>
-                            <div className="info-line">
-                                <p className="font-head-2 bold uppercase">Stay:</p>
-                                <div className="stay">
-                                    <p className="font-head-2 uppercase">N nights</p>
-                                    <p className="font-head-2 uppercase">(N adults, N children, N infants)</p>
-                                </div>
-                            </div>
-                            <div className="info-line">
-                                <p className="font-head-2 bold uppercase">Price:</p>
-                                <p className="font-head-2 uppercase">Ksh. 0,000</p>
-                            </div>
-                            <div className="remove">
-                                <button className="font-head-2 uppercase" href="#">Remove</button>
-                            </div>
-                        </div>
+                        </div> */}
     
                         {/* <!-- Checkout button --> */}
-                        <div className="room-cart-checkout">
-    
-                            {/* <!-- Subtotal --> */}
-                            {/* <div className="info-line">
+                        {/* <div className="room-cart-checkout">
+                            <div className="info-line">
                                 <p className="font-head-2 uppercase">Subtotal:</p>
                                 <p className="font-head-2 uppercase">Ksh. 0,000</p>
-                            </div> */}
-    
-                            {/* <!-- Total --> */}
+                            </div>
                             <div className="info-line">
                                 <p className="font-head-2 bold uppercase">Total:</p>
                                 <p className="font-head-2 bold uppercase">Ksh. 0,000</p>
                             </div>
-    
-                            {/* <!-- Parent a tag to simulate sending cart data to "./checkout.html"; remove once button is configured --> */}
                             <button className="font-head-2 bold uppercase" onClick={handleCheckout}>{step === "checkout" ? "Back" : "Checkout"}</button>
-                        </div>
-    
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -117,4 +68,5 @@ const Cart = props => {
     )
 }
 
+/* EXPORT */
 export default Cart;
