@@ -43,7 +43,7 @@ const CheckAvailability = props => {
                     <label htmlFor="departure">Departure date</label>
                     <input type="date" id="departure" name="departure" defaultValue={dayAfterTomorrow} />
                 </div>
-                <div className="label-input a-c-i">
+                {/* <div className="label-input a-c-i">
                     <label htmlFor="adults">Adults</label>
                     <input type="number" id="adults" name="adults" defaultValue="1" />
                 </div>
@@ -54,7 +54,7 @@ const CheckAvailability = props => {
                 <div className="label-input a-c-i">
                     <label htmlFor="infants">Infants</label>
                     <input type="number" id="infants" name="infants" defaultValue="0" />
-                </div>
+                </div> */}
                 <button className="bold uppercase" type="submit">Search</button>
             </form>
         </div>
