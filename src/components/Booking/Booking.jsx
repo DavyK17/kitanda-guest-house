@@ -109,9 +109,9 @@ const Booking = props => {
                 {
                     step === "checkout" ?
                         <Checkout handleSubmit={completeCheckout} /> :
-                        <RoomSelect roomTypes={roomTypes} items={items} setItems={setItems} isLoading={isLoading} error={error} setCart={setCart} />
+                        <RoomSelect roomTypes={roomTypes} items={items} setItems={setItems} cart={cart} setCart={setCart} isLoading={isLoading} error={error} />
                 }
-                <Cart cart={cart} step={step} handleCheckout={toggleCheckout} />
+                <Cart cart={cart} setCart={setCart} step={step} handleCheckout={toggleCheckout} />
             </section>
         </>
     )
