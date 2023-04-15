@@ -4,7 +4,7 @@ import Skeleton from "react-loading-skeleton";
 /* COMPONENT */
 const RoomSelect = props => {
     // Destructure props
-    const { roomTypes, items, setItems, isLoading, error } = props;
+    const { roomTypes, items, setItems, cart, setCart, isLoading, error } = props;
 
     // Define function to render sort element
     const renderSort = () => {
@@ -16,7 +16,7 @@ const RoomSelect = props => {
                 if (target.value === "descending") return b.pricePerNight - a.pricePerNight;
                 return 0;
             });
-            
+
             setItems(sorted);
         }
 
@@ -38,7 +38,7 @@ const RoomSelect = props => {
         }
 
         // Return sort element
-        if (Array.isArray(roomTypes) && roomTypes.length > 0)  return <div className="sort">
+        if (Array.isArray(roomTypes) && roomTypes.length > 0) return <div className="sort">
             <div>
                 <label htmlFor="sort-by">Sort by</label>
                 <select name="sort-by" onChange={sortByPrice}>
@@ -47,8 +47,8 @@ const RoomSelect = props => {
                 </select>
             </div>
             <div>
-                <label htmlFor="show">Show price</label>
-                <select name="show" onChange={changePriceType}>
+                <label htmlFor="show-price">Show price</label>
+                <select name="show-price" onChange={changePriceType}>
                     <option value="per-night">Per night</option>
                     <option value="total">Total</option>
                 </select>
@@ -73,9 +73,22 @@ const RoomSelect = props => {
             if (items.length === 0) return <p>No available rooms found.</p>;
 
             // Return room types
-            return items.map(({ name, features, numOfAdults, numOfChildren, numOfInfants, pricePerNight }, i) => {
+            return items.map(({ id, name, features, numOfAdults, numOfChildren, numOfInfants, pricePerNight }, i) => {
                 // Define function to generate class name
                 const className = name.toLowerCase().split(" ").join("-");
+
+                // Define function to add room type to cart
+                const addToCart = async () => {
+                    const updated = [].concat(cart);
+                    const roomType = roomTypes.filter(roomType => roomType.id === id)[0];
+
+                    const checkInDate = new Date(document.getElementById("arrival").value);
+                    const checkOutDate = new Date(document.getElementById("departure").value);
+                    const stayInDays = (checkOutDate - checkInDate) / 86400000;
+
+                    updated.push({ ...roomType, pricePerNight: roomType.pricePerNight * stayInDays });
+                    setCart(updated);
+                }
 
                 // Return card
                 return <div className={`room-card ${className}`} key={i}>
@@ -100,7 +113,7 @@ const RoomSelect = props => {
                             </ul>
                         </div>
                         <div className="room-book">
-                            <button className="font-head-2 bold uppercase">Book now</button>
+                            <button className="font-head-2 bold uppercase" onClick={addToCart}>Book now</button>
                         </div>
                     </div>
                 </div>
