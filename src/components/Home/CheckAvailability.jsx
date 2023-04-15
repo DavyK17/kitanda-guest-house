@@ -1,7 +1,15 @@
+/* IMPORTS */
+import { useSearchParams } from "react-router-dom";
+
 /* COMPONENT */
 const CheckAvailability = props => {
     // Destructure props
     const { handleSubmit } = props;
+
+    // Define search params
+    const [searchParams] = useSearchParams();
+    const paramsCheckInDate = searchParams.get("checkInDate");
+    const paramsCheckOutDate = searchParams.get("checkOutDate");
 
     // Define checkbox icon
     const iconCheckbox = (
@@ -37,11 +45,11 @@ const CheckAvailability = props => {
             <form id="availability-form" onSubmit={handleSubmit}>
                 <div className="label-input">
                     <label htmlFor="arrival">Arrival date</label>
-                    <input type="date" id="arrival" name="arrival" min={tomorrow} defaultValue={tomorrow} onChange={setDepartureMin} />
+                    <input type="date" id="arrival" name="arrival" min={tomorrow} defaultValue={paramsCheckInDate || tomorrow} onChange={setDepartureMin} />
                 </div>
                 <div className="label-input">
                     <label htmlFor="departure">Departure date</label>
-                    <input type="date" id="departure" name="departure" defaultValue={dayAfterTomorrow} />
+                    <input type="date" id="departure" name="departure" defaultValue={paramsCheckOutDate || dayAfterTomorrow} />
                 </div>
                 {/* <div className="label-input a-c-i">
                     <label htmlFor="adults">Adults</label>
