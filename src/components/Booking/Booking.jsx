@@ -1,4 +1,6 @@
-import { useState } from "react";
+/* IMPORTS */
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import Cart from "./Cart";
 import Checkout from "./Checkout";
@@ -7,9 +9,41 @@ import RoomSelect from "./RoomSelect";
 
 import { getAvailableRoomTypes } from "../../api/RoomTypes";
 
+/* COMPONENT */
 const Booking = props => {
     // Destructure props
     const { cart, setCart } = props;
+
+    // Define search params
+    const [searchParams] = useSearchParams();
+    const paramsCheckInDate = searchParams.get("checkInDate");
+    const paramsCheckOutDate = searchParams.get("checkOutDate");
+
+    const autoSearch = async () => {
+        setError(false);
+
+        const cartCheckIn = document.getElementById("check-in-date");
+        cartCheckIn.textContent = new Date(paramsCheckInDate).toLocaleDateString("en-KE").replaceAll("/", "-");
+
+        const cartCheckOut = document.getElementById("check-out-date");
+        cartCheckOut.textContent = new Date(paramsCheckOutDate).toLocaleDateString("en-KE").replaceAll("/", "-");
+
+        setIsLoading(true);
+        let response = await getAvailableRoomTypes(paramsCheckInDate, paramsCheckOutDate);
+        if (typeof response !== "object") {
+            setError(true)
+        } else {
+            setRoomTypes(response);
+            setItems(response);
+        }
+
+        setIsLoading(false);
+    }
+
+    useEffect(() => {
+        if (paramsCheckInDate && paramsCheckOutDate) autoSearch();
+        // eslint-disable-next-line
+    }, [paramsCheckInDate, paramsCheckOutDate]);
 
     /* STATE + FUNCTIONS */
     // Loading
@@ -61,6 +95,7 @@ const Booking = props => {
         setIsLoading(false);
     }
 
+    // Return component
     return (
         <>
             <section id="booking-top">
@@ -82,4 +117,5 @@ const Booking = props => {
     )
 }
 
+/* EXPORT */
 export default Booking;
