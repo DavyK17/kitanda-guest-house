@@ -53,7 +53,7 @@
         }
 
         .content {
-            padding: 2rem 2rem 0 2rem;
+            padding: 2rem;
 
             .room-card {
                 width: 100%;
@@ -204,11 +204,10 @@
                             border-top: 1px solid rgba(0, 0, 0, 0.5);
                         }
 
-                        .stay {
+                        .room-price {
                             display: flex;
                             flex-direction: column;
-                            align-items: flex-end;
-                            text-align: right;
+                            gap: 1rem;
                         }
 
                         .remove {
@@ -307,6 +306,15 @@
                         .info-line:last-of-type {
                             text-align: right;
                             margin-top: unset;
+                        }
+                    }
+
+                    .room-cart-body {
+                        .room-cart-single {
+                            .room-price {
+                                flex-direction: row;
+                                justify-content: space-between;
+                            }
                         }
                     }
                 }
