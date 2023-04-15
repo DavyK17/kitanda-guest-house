@@ -1,15 +1,8 @@
-/* IMPORTS */
-import { useSearchParams } from "react-router-dom";
-
 /* COMPONENT */
 const CheckAvailability = props => {
-    // Destructure props
-    const { handleSubmit } = props;
-
-    // Define search params
-    const [searchParams] = useSearchParams();
-    const paramsCheckInDate = searchParams.get("checkInDate");
-    const paramsCheckOutDate = searchParams.get("checkOutDate");
+    // Destructure props and dates
+    const { dates, setDates, handleSubmit } = props;
+    const { checkInDate, checkOutDate } = dates;
 
     // Define checkbox icon
     const iconCheckbox = (
@@ -27,12 +20,22 @@ const CheckAvailability = props => {
         e.preventDefault();
         const departureInput = document.getElementById("departure");
 
+        // Update arrival date in state
+        setDates({ checkInDate: e.target.value, checkOutDate });
+
+        // Set new minimum
         const arrivalDate = new Date(e.target.value);
         const currentDepartureDate = new Date(departureInput.value);
         const newDepartureDate = new Date(arrivalDate.getTime() + (24 * 60 * 60 * 1000));
 
         departureInput.min = newDepartureDate.toLocaleDateString("fr-CA");
         if (arrivalDate > currentDepartureDate) departureInput.value = newDepartureDate.toLocaleDateString("fr-CA");
+    }
+
+    // Define function to update departure date in state
+    const updateDepartureDate = e => {
+        e.preventDefault();
+        setDates({ checkInDate, checkOutDate: e.target.value });
     }
 
     // Return component
@@ -45,11 +48,11 @@ const CheckAvailability = props => {
             <form id="availability-form" onSubmit={handleSubmit}>
                 <div className="label-input">
                     <label htmlFor="arrival">Arrival date</label>
-                    <input type="date" id="arrival" name="arrival" min={tomorrow} defaultValue={paramsCheckInDate || tomorrow} onChange={setDepartureMin} />
+                    <input type="date" id="arrival" name="arrival" min={tomorrow} defaultValue={checkInDate || tomorrow} onChange={setDepartureMin} />
                 </div>
                 <div className="label-input">
                     <label htmlFor="departure">Departure date</label>
-                    <input type="date" id="departure" name="departure" defaultValue={paramsCheckOutDate || dayAfterTomorrow} />
+                    <input type="date" id="departure" name="departure" defaultValue={checkOutDate || dayAfterTomorrow} onChange={updateDepartureDate} />
                 </div>
                 {/* <div className="label-input a-c-i">
                     <label htmlFor="adults">Adults</label>

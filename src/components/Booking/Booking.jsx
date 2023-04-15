@@ -1,6 +1,5 @@
 /* IMPORTS */
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 
 import Cart from "./Cart";
 import Checkout from "./Checkout";
@@ -11,25 +10,30 @@ import { getAvailableRoomTypes } from "../../api/RoomTypes";
 
 /* COMPONENT */
 const Booking = props => {
-    // Destructure props
-    const { cart, setCart } = props;
+    // Destructure props and dates
+    const { dates, setDates, cart, setCart, roomTypes, setRoomTypes, items, setItems } = props;
+    const { checkInDate, checkOutDate } = dates;
 
-    // Define search params
-    const [searchParams] = useSearchParams();
-    const paramsCheckInDate = searchParams.get("checkInDate");
-    const paramsCheckOutDate = searchParams.get("checkOutDate");
+    /* STATE + FUNCTIONS */
+    // Loading
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(false);
 
+    // Booking step state
+    const [step, setStep] = useState("booking");
+
+    // Define function to automatically search for room types if search params are available
     const autoSearch = async () => {
         setError(false);
 
         const cartCheckIn = document.getElementById("check-in-date");
-        cartCheckIn.textContent = new Date(paramsCheckInDate).toLocaleDateString("en-KE").replaceAll("/", "-");
+        cartCheckIn.textContent = new Date(checkInDate).toLocaleDateString("en-KE").replaceAll("/", "-");
 
         const cartCheckOut = document.getElementById("check-out-date");
-        cartCheckOut.textContent = new Date(paramsCheckOutDate).toLocaleDateString("en-KE").replaceAll("/", "-");
+        cartCheckOut.textContent = new Date(checkOutDate).toLocaleDateString("en-KE").replaceAll("/", "-");
 
         setIsLoading(true);
-        let response = await getAvailableRoomTypes(paramsCheckInDate, paramsCheckOutDate);
+        let response = await getAvailableRoomTypes(checkInDate, checkOutDate);
         if (typeof response !== "object") {
             setError(true)
         } else {
@@ -41,21 +45,9 @@ const Booking = props => {
     }
 
     useEffect(() => {
-        if (paramsCheckInDate && paramsCheckOutDate) autoSearch();
+        if (checkInDate && checkOutDate) autoSearch();
         // eslint-disable-next-line
-    }, [paramsCheckInDate, paramsCheckOutDate]);
-
-    /* STATE + FUNCTIONS */
-    // Loading
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(false);
-
-    // Room types
-    const [roomTypes, setRoomTypes] = useState();
-    const [items, setItems] = useState();
-
-    // Booking step state
-    const [step, setStep] = useState("booking");
+    }, [checkInDate, checkOutDate]);
 
     // Define function to toggle step state
     const toggleCheckout = e => {
@@ -73,9 +65,6 @@ const Booking = props => {
     const findAvailableRoomTypes = async e => {
         e.preventDefault();
         setError(false);
-
-        const checkInDate = e.target[0].value;
-        const checkOutDate = e.target[1].value;
 
         const cartCheckIn = document.getElementById("check-in-date");
         cartCheckIn.textContent = new Date(checkInDate).toLocaleDateString("en-KE").replaceAll("/", "-");
@@ -103,7 +92,7 @@ const Booking = props => {
                     <h1 className="bold uppercase">Booking</h1>
                     <p>Book your stay at our serene guest house today.</p>
                 </div>
-                <CheckAvailability handleSubmit={findAvailableRoomTypes} />
+                <CheckAvailability dates={dates} setDates={setDates} handleSubmit={findAvailableRoomTypes} />
             </section>
             <section id="booking-main">
                 {

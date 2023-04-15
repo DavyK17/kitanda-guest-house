@@ -5,21 +5,24 @@ import CheckAvailability from "./CheckAvailability";
 import Slideshow from "./Slideshow";
 
 /* COMPONENT */
-const Top = () => {
+const Top = props => {
+    // Destructure props
+    const { dates, setDates } = props;
+
     // Define useNavigate()
     let navigate = useNavigate()
 
     // Define availability form submit function
     const beginSearch = e => {
         e.preventDefault();
-        navigate(`/booking?checkInDate=${e.target[0].value}&checkOutDate=${e.target[1].value}`);
+        navigate("/booking");
     }
 
     // Return component
     return (
         <section id="top">
             <Slideshow />
-            <CheckAvailability handleSubmit={beginSearch} />
+            <CheckAvailability dates={dates} setDates={setDates} handleSubmit={beginSearch} />
         </section>
     )
 }

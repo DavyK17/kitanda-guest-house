@@ -21,6 +21,13 @@ const App = () => {
     const activeClassName = "selected";
 
     /* STATE + FUNCTIONS */
+    // Dates
+    const [dates, setDates] = useState({ checkInDate: null, checkOutDate: null });
+
+    // Room types
+    const [roomTypes, setRoomTypes] = useState();
+    const [items, setItems] = useState();
+
     // Cart
     const [cart, setCart] = useState([]);
 
@@ -32,7 +39,13 @@ const App = () => {
     }
 
     useMemo(() => {
+        // Fetch user
         fetchUser();
+
+        // Set default dates
+        const tomorrow = new Date(Date.now() + (24 * 60 * 60 * 1000)).toLocaleDateString("fr-CA");
+        const dayAfterTomorrow = new Date(Date.now() + ((24 * 60 * 60 * 1000) * 2)).toLocaleDateString("fr-CA");
+        setDates({ checkInDate: tomorrow, checkOutDate: dayAfterTomorrow });
     }, []);
 
     // Define conditions for confirming third-party registration
@@ -49,9 +62,20 @@ const App = () => {
 
         // Return routes
         return <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home dates={dates} setDates={setDates} />} />
             <Route path="/gallery" element={<Gallery />} />
-            <Route path="/booking" element={<Booking cart={cart} setCart={setCart} />} />
+            <Route path="/booking" element={
+                <Booking
+                    dates={dates}
+                    setDates={setDates}
+                    cart={cart}
+                    setCart={setCart}
+                    roomTypes={roomTypes}
+                    setRoomTypes={setRoomTypes}
+                    items={items}
+                    setItems={setItems}
+                />
+            } />
             <Route path="/account">
                 {renderAccountRoute("addresses")}
                 {renderAccountRoute("details")}
