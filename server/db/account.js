@@ -174,13 +174,12 @@ export const deleteUser = async (req, res) => {
 		let addresses = [];
 
 		// Add each address linked to user to addresses array
-		let text = "SELECT id FROM addresses JOIN addresses_guest ON addresses_guest.address_id = addresses.id WHERE addresses_guest.guest_id = $1";
+		let text = "SELECT id FROM addresses WHERE guest_id = $1";
 		result = await pool.query(text, [userId]);
 		result.rows.forEach((row) => addresses.push(row.id));
 
 		// Delete each address in addresses array
 		addresses.forEach(async (id) => {
-			result = await pool.query("DELETE FROM addresses_guest WHERE address_id = $1", [id]);
 			result = await pool.query("DELETE FROM addresses WHERE id = $1", [id]);
 		});
 

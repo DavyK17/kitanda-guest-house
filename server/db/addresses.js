@@ -23,7 +23,7 @@ export const getAddresses = async (req, res) => {
 			if (!isNumeric(id, { no_symbols: true }) || !isLength(id, { min: 12, max: 12 })) return res.status(400).send("Error: Invalid address ID provided.");
 
 			// Get address
-			let text = "SELECT * FROM addresses JOIN addresses_guest ON addresses_guest.address_id = addresses.id WHERE addresses.id = $1 AND addresses_guest.guest_id = $2";
+			let text = "SELECT * FROM addresses WHERE id = $1 AND guest_id = $2";
 			let result = await pool.query(text, [id, userId]);
 
 			// Send error if address does not exist
@@ -49,7 +49,7 @@ export const getAddresses = async (req, res) => {
 			let addresses = [];
 
 			// Get addresses
-			let text = "SELECT * FROM addresses JOIN addresses_guest ON addresses_guest.address_id = addresses.id WHERE addresses_guest.guest_id = $1";
+			let text = "SELECT * FROM addresses WHERE guest_id = $1";
 			let result = await pool.query(text, [userId]);
 
 			// Add each address to addresses array
@@ -124,7 +124,7 @@ export const createAddress = async (req, res) => {
 
 	try {
 		// Add address to database
-		let text = `INSERT INTO addresses (id, address1, address2, town_city, county_state_province, postcode_zip, country, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, to_timestamp(${Date.now()} / 1000)) RETURNING id`;
+		let text = `INSERT INTO addresses (id, address1, address2, town_city, county_state_province, postcode_zip, country, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, to_timestamp(${Date.now()} / 1000))`;
 		let values = [addressId, address1, address2, townCity, countyStateProvince, postcodeZip, country];
 		let result = await pool.query(text, values);
 
@@ -136,11 +136,7 @@ export const createAddress = async (req, res) => {
 		}
 
 		// Link address to user if logged in
-		if (userId) {
-			text = `INSERT INTO addresses_guest (address_id, guest_id) VALUES ($1, $2)`;
-			values = [addressId, userId];
-			result = await pool.query(text, values);
-		}
+		if (userId) result = await pool.query("UPDATE addresses SET guest_id = $1 WHERE id = $2", [userId, addressId]);
 
 		// Send response
 		res.status(201).send(`Address created with ID: ${addressId}`);
@@ -186,7 +182,7 @@ export const updateAddress = async (req, res) => {
 
 	try {
 		// Get address
-		let text = "SELECT * FROM addresses JOIN addresses_guest ON addresses_guest.address_id = addresses.id WHERE addresses.id = $1 AND addresses_guest.guest_id = $2";
+		let text = "SELECT * FROM addresses WHERE id = $1 AND guest_id = $2";
 		let result = await pool.query(text, [id, userId]);
 
 		// Send error if product does not exist
@@ -249,22 +245,21 @@ export const deleteAddress = async (req, res) => {
 
 	try {
 		// Get address
-		let text = "SELECT * FROM addresses JOIN addresses_guest ON addresses_guest.address_id = addresses.id WHERE addresses.id = $1 AND addresses_guest.guest_id = $2";
+		let text = "SELECT * FROM addresses WHERE id = $1 AND guest_id = $2";
 		let result = await pool.query(text, [id, userId]);
 
 		// Send error if address does not exist
 		if (result.rows.length === 0) return res.status(404).send("Error: This address does not exist.");
 
 		// Get all addresses
-		text = "SELECT * FROM addresses JOIN addresses_guest ON addresses_guest.address_id = addresses.id WHERE addresses_guest.guest_id = $1";
+		text = "SELECT * FROM addresses WHERE guest_id = $1";
 		result = await pool.query(text, [userId]);
 
 		// Send error if address is the only one remaining in account
 		if (result.rows.length === 1 && result.rows[0].id === id) return res.status(403).send("Error: You must have at least one address linked to your account.");
 
 		// Delete address
-		result = await pool.query("DELETE FROM addresses_guest WHERE address_id = $1 AND guest_id = $2", [id, userId]);
-		result = await pool.query("DELETE FROM addresses WHERE id = $1", [id]);
+		result = await pool.query("DELETE FROM addresses WHERE id = $1 AND guest_id = $2", [id, userId]);
 		res.status(204).send("Address deleted successfully");
 	} catch (err) {
 		sendGenericError(res);

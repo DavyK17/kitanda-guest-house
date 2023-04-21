@@ -108,9 +108,7 @@ export const register = async (req, res) => {
 		result = await pool.query(text, values);
 
 		// Link address to user
-		text = `INSERT INTO addresses_guest (address_id, guest_id) VALUES ($1, $2)`;
-		values = [addressId, userId];
-		result = await pool.query(text, values);
+		result = await pool.query("UPDATE addresses SET guest_id = $1 WHERE id = $2", [userId, addressId]);
 
 		// Send response
 		res.status(201).send(`User created with ID: ${userId}`);
@@ -185,9 +183,7 @@ export const confirmThirdPartyRegistration = async (req, res) => {
 			result = await pool.query(text, values);
 
 			// Link address to user
-			text = `INSERT INTO addresses_guest (address_id, guest_id) VALUES ($1, $2)`;
-			values = [addressId, userId];
-			result = await pool.query(text, values);
+			result = await pool.query("UPDATE addresses SET guest_id = $1 WHERE id = $2", [userId, addressId]);
 
 			// Get updated user details
 			result = await pool.query("SELECT id, email FROM guests WHERE email = $1", [req.user.email]);
