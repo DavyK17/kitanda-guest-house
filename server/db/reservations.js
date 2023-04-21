@@ -198,7 +198,7 @@ export const cancelReservation = async (req, res) => {
 	}
 };
 
-export const beginCheckout = async (req, res, next) => {
+export const makeReservation = async (req, res) => {
 	// Generate reservation ID
 	const reservationId = idGen(7);
 
@@ -248,14 +248,74 @@ export const beginCheckout = async (req, res, next) => {
 	if (userId && (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 }))) return res.status(401).send("Error: Invalid user ID in session.");
 
 	try {
+		// Create reservation room prices array
+		let prices = [];
+
+		// Add price of each room to array
+		rooms.forEach(async ({ roomTypeId }) => {
+			// Add price of each room to array
+			let result = await pool.query("SELECT price_per_night FROM room_types WHERE id = $1", [roomTypeId]);
+			prices.push(result.rows[0].price_per_night);
+		});
+
+		// Get total cost of all rooms in reservation
+		let totalPrice = prices.reduce((a, b) => a + b);
+
+		// Create reservation
+		let text = `INSERT INTO reservations (id, guest_id, phone, email, checkin_date, checkout_date, total_price, created_at) VALUES ($1, $2, $3, $4, to_timestamp($5, 'YYYY-MM-DD'), to_timestamp($6, 'YYYY-MM-DD'), $7, to_timestamp(${Date.now()} / 1000))`;
+		let values = [reservationId, userId, phone, email, checkInDate, checkOutDate, totalPrice];
+		let result = await pool.query(text, values);
+
+		// Get first available room for each requested type
+		rooms.forEach(async ({ roomTypeId }) => {
+			// Get first available room of requested type
+			text =
+				"SELECT id FROM rooms WHERE room_type_id = $1 AND id NOT IN ( SELECT room_id FROM reservations_rooms JOIN reservations ON reservations_rooms.reservation_id = reservations.id JOIN rooms ON reservations_rooms.room_id = rooms.id WHERE reservations.checkin_date <= $2 AND reservations.checkout_date >= $3 ) LIMIT 1";
+			values = [roomTypeId, checkInDate, checkOutDate];
+			result = await pool.query(text, values);
+
+			// Add room to reservation
+			result = await pool.query("INSERT INTO reservations_rooms (reservation_id, room_id) VALUES ($1, $2)", [reservationId, result.rows[0].id]);
+		});
+
+		// Confirm reservation
+		res.status(201).send(`Reservation made with ID: ${reservationId}`);
+	} catch (err) {
+		sendGenericError(res);
+	}
+};
+
+export const beginMpesaPayment = async (req, res, next) => {
+	// VALIDATION AND SANITISATION
+	let { reservationId, phone, email } = req.body;
+
+	// Reservation ID
+	if (typeof reservationId !== "string") return res.status(400).send("Error: Reservation ID must be a string.");
+	reservationId = trim(reservationId);
+	if (!isNumeric(reservationId, { no_symbols: true }) || !isLength(reservationId, { min: 7, max: 7 })) return res.status(400).send("Error: Invalid reservation ID provided.");
+
+	// Phone number
+	if (typeof phone !== "number" && typeof phone !== "string") return res.status(400).send("Error: Phone must be a number.");
+	phone = sanitizeHtml(trim(typeof phone === "number" ? phone.toString() : phone));
+	if (!isNumeric(phone, { no_symbols: true })) return res.status(400).send("Error: Phone must contain numbers only.");
+	if (!isLength(phone, { min: 12, max: 12 })) return res.status(400).send("Error: Invalid phone number provided (must be 254XXXXXXXXX).");
+	if (!checkPhone("safaricom", phone)) return res.status(400).send("Error: Phone must be a Safaricom number.");
+
+	// Email
+	if (!req.user) {
+		if (typeof email !== "string") return res.status(400).send("Error: Email must be a string.");
+		email = sanitizeHtml(normalizeEmail(trim(escape(email)), { gmail_remove_dots: false }));
+		if (!isEmail(email)) return res.status(400).send("Error: Invalid email provided.");
+	}
+
+	// User ID
+	let userId = req.user.id ? trim(req.user.id) : null;
+	if (userId && (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 }))) return res.status(401).send("Error: Invalid user ID in session.");
+
+	try {
 		// Send data to next middleware
 		req.reservationId = reservationId;
-
 		req.phone = phone;
-		req.checkInDate = checkInDate;
-		req.checkOutDate = checkOutDate;
-		req.rooms = rooms;
-
 		req.email = email;
 		req.userId = userId;
 		next();
@@ -293,9 +353,9 @@ export const getMpesaToken = async (req, res, next) => {
 	}
 };
 
-export const makeMpesaPayment = async (req, res, next) => {
+export const completeMpesaPayment = async (req, res) => {
 	// Destructure request object for M-Pesa access token
-	let { accessToken, phone } = req;
+	let { accessToken, phone, email, reservationId, userId } = req;
 
 	// Daraja API M-Pesa Express endpoint
 	const url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
@@ -346,8 +406,13 @@ export const makeMpesaPayment = async (req, res, next) => {
 		// Make payment
 		await axios.post(url, body, { headers });
 
-		// Send data to next middleware
-		next();
+		// Update reservation status
+		let text = `UPDATE reservations SET status = 'confirmed' WHERE id = $1 AND ${userId ? "guest_id" : "email"} = $2 RETURNING id`;
+		let values = userId ? [reservationId, userId] : [reservationId, email];
+		let result = await pool.query(text, values);
+
+		// Confirm payment
+		return res.status(200).send(`Payment successfully made for reservation with ID: ${result.rows[0].id}`);
 	} catch (err) {
 		// Do the following if error generated by M-Pesa
 		if (err.response) {
@@ -359,36 +424,6 @@ export const makeMpesaPayment = async (req, res, next) => {
 		}
 
 		// Send generic error message
-		sendGenericError(res);
-	}
-};
-
-export const completeCheckout = async (req, res) => {
-	// Destructure request object for checkout data
-	let { reservationId, phone, checkInDate, checkOutDate, rooms, email, userId } = req;
-
-	try {
-		// Get total price of reservation
-		// Create reservation room prices array
-		let prices = [];
-
-		// Add price of each room to array
-		rooms.forEach(async ({ roomTypeId }) => {
-			let result = await pool.query("SELECT price_per_night FROM room_types WHERE id = $1", [roomTypeId]);
-			prices.push(result.rows[0].price_per_night);
-		});
-
-		// Get total cost of all rooms in reservation
-		let totalPrice = prices.reduce((a, b) => a + b);
-
-		// Create reservation
-		let text = `INSERT INTO reservations (id, guest_id, phone, email, checkin_date, checkout_date, total_price, created_at) VALUES ($1, $2, $3, $4, to_timestamp($5, 'YYYY-MM-DD'), to_timestamp($6, 'YYYY-MM-DD'), $7, to_timestamp(${Date.now()} / 1000)) RETURNING id`;
-		let values = [reservationId, userId, phone, email, checkInDate, checkOutDate, totalPrice];
-		let result = await pool.query(text, values);
-
-		// Confirm reservation
-		res.status(201).send(`Reservation made with ID: ${result.rows[0].id}`);
-	} catch (err) {
 		sendGenericError(res);
 	}
 };
