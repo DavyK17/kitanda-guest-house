@@ -65,6 +65,19 @@ export const makeReservation = async (phone, checkInDate, checkOutDate, rooms, e
 	}
 };
 
+export const linkAddressToReservation = async (reservationId, addressId) => {
+	try {
+		let response = await fetch(`${url}/link-address`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ reservationId, addressId }),
+		});
+		if (response.status !== 503) return response.text();
+	} catch (err) {
+		console.error(err);
+	}
+};
+
 export const confirmReservation = async (reservationId, phone, email = null) => {
 	try {
 		let response = await fetch(`${url}/confirm`, {
