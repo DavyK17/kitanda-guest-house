@@ -203,7 +203,12 @@ export const makeReservation = async (req, res) => {
 	const reservationId = idGen(7);
 
 	// VALIDATION AND SANITISATION
-	let { phone, checkInDate, checkOutDate, rooms } = req.body;
+	let { addressId, phone, checkInDate, checkOutDate, rooms, email } = req.body;
+
+	// Address ID
+	if (typeof addressId !== "string") return res.status(400).send("Error: Address ID must be a string.");
+	addressId = trim(addressId);
+	if (!isNumeric(addressId, { no_symbols: true }) || !isLength(addressId, { min: 12, max: 12 })) return res.status(400).send("Error: Invalid address ID provided.");
 
 	// Phone number
 	if (typeof phone !== "number" && typeof phone !== "string") return res.status(400).send("Error: Phone must be a number.");
@@ -230,13 +235,13 @@ export const makeReservation = async (req, res) => {
 	});
 
 	// Email
-	let email = req.user.email || req.body.email;
+	email = email || req.user.email;
 	if (typeof email !== "string") return res.status(400).send("Error: Email must be a string.");
 	email = sanitizeHtml(normalizeEmail(trim(escape(email)), { gmail_remove_dots: false }));
 	if (!isEmail(email)) return res.status(400).send("Error: Invalid email provided.");
 
 	// User ID
-	let userId = req.user.id ? trim(req.user.id) : null;
+	let userId = req.user ? trim(req.user.id) : null;
 	if (userId && (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 }))) return res.status(401).send("Error: Invalid user ID in session.");
 
 	try {
@@ -253,8 +258,8 @@ export const makeReservation = async (req, res) => {
 		let totalPrice = prices.reduce((a, b) => a + b);
 
 		// Create reservation
-		let text = `INSERT INTO reservations (id, guest_id, phone, email, checkin_date, checkout_date, total_price, created_at) VALUES ($1, $2, $3, $4, to_timestamp($5, 'YYYY-MM-DD'), to_timestamp($6, 'YYYY-MM-DD'), $7, to_timestamp(${Date.now()} / 1000))`;
-		let values = [reservationId, userId, phone, email, checkInDate, checkOutDate, totalPrice];
+		let text = `INSERT INTO reservations (id, guest_id, address_id, phone, email, checkin_date, checkout_date, total_price, created_at) VALUES ($1, $2, $3, $4, $5, to_timestamp($6, 'YYYY-MM-DD'), to_timestamp($7, 'YYYY-MM-DD'), $8, to_timestamp(${Date.now()} / 1000))`;
+		let values = [reservationId, userId, addressId, phone, email, checkInDate, checkOutDate, totalPrice];
 		let result = await pool.query(text, values);
 
 		// Get first available room for each requested type
@@ -273,31 +278,6 @@ export const makeReservation = async (req, res) => {
 		res.status(201).send(`Reservation made with ID: ${reservationId}`);
 	} catch (err) {
 		console.error(err);
-		sendGenericError(res);
-	}
-};
-
-export const linkAddressToReservation = async (req, res) => {
-	// VALIDATION AND SANITISATION
-	let { reservationId, addressId } = req.body;
-
-	// Reservation ID
-	if (typeof reservationId !== "string") return res.status(400).send("Error: Reservation ID must be a string.");
-	reservationId = trim(reservationId);
-	if (!isNumeric(reservationId, { no_symbols: true }) || !isLength(reservationId, { min: 7, max: 7 })) return res.status(400).send("Error: Invalid reservation ID provided.");
-
-	// Address ID
-	if (typeof addressId !== "string") return res.status(400).send("Error: Address ID must be a string.");
-	addressId = trim(addressId);
-	if (!isNumeric(addressId, { no_symbols: true }) || !isLength(addressId, { min: 12, max: 12 })) return res.status(400).send("Error: Invalid address ID provided.");
-
-	try {
-		// Link address to reservation
-		await pool.query("INSERT INTO reservations_address (reservation_id, address_id) VALUES ($1, $2)", [reservationId, addressId]);
-
-		// Confirm link
-		res.status(201).send(`Reservation with ID ${reservationId} successfully linked with address with ID ${addressId}`);
-	} catch (err) {
 		sendGenericError(res);
 	}
 };
@@ -326,7 +306,7 @@ export const beginMpesaPayment = async (req, res, next) => {
 	}
 
 	// User ID
-	let userId = req.user.id ? trim(req.user.id) : null;
+	let userId = req.user ? trim(req.user.id) : null;
 	if (userId && (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 }))) return res.status(401).send("Error: Invalid user ID in session.");
 
 	try {
