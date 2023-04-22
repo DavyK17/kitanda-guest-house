@@ -1,14 +1,15 @@
 /* IMPORTS */
 import express from "express";
 import { getAddresses, createAddress, updateAddress, deleteAddress } from "../../db/addresses.js";
+import { loggedIn } from "../../middleware/authenticated.js";
 
 /* IMPLEMENTATION */
 const addressesRouter = express.Router();
 
-addressesRouter.get("/", getAddresses);
+addressesRouter.get("/", loggedIn, getAddresses);
 addressesRouter.post("/", createAddress);
-addressesRouter.put("/", updateAddress);
-addressesRouter.delete("/", deleteAddress);
+addressesRouter.put("/", loggedIn, updateAddress);
+addressesRouter.delete("/", loggedIn, deleteAddress);
 
 /* EXPORT */
 export default addressesRouter;

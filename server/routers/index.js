@@ -1,6 +1,5 @@
 /* IMPORTS */
 import express from "express";
-import { loggedIn } from "../middleware/authenticated.js";
 
 // Routers
 import authRouter from "./auth/index.js";
@@ -13,7 +12,7 @@ const apiRouter = express.Router();
 
 // Routers
 apiRouter.use("/auth", authRouter);
-apiRouter.use("/account", loggedIn, accountRouter);
+apiRouter.use("/account", accountRouter);
 apiRouter.use("/reservations", reservationsRouter);
 apiRouter.use("/room-types", roomTypesRouter);
 

@@ -1,16 +1,17 @@
 /* IMPORTS */
 import express from "express";
 import { getUser, updateUser, deleteUser, unlinkThirdParty } from "../../db/account.js";
+import { loggedIn } from "../../middleware/authenticated.js";
 import addressesRouter from "./addresses.js";
 
 /* IMPLEMENTATION */
 const accountRouter = express.Router();
 
-accountRouter.get("/", getUser);
-accountRouter.put("/", updateUser);
-accountRouter.delete("/", deleteUser);
+accountRouter.get("/", loggedIn, getUser);
+accountRouter.put("/", loggedIn, updateUser);
+accountRouter.delete("/", loggedIn, deleteUser);
 
-accountRouter.delete("/third", unlinkThirdParty);
+accountRouter.delete("/third", loggedIn, unlinkThirdParty);
 accountRouter.use("/addresses", addressesRouter);
 
 /* EXPORT */
