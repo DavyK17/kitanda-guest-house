@@ -84,8 +84,11 @@ export const createAddress = async (req, res) => {
 	let { reservationId, address1, address2, townCity, countyStateProvince, postcodeZip, country } = req.body;
 
 	// User ID
-	let userId = req.user.id ? trim(req.user.id) : null;
-	if (userId && (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 }))) return res.status(401).send("Error: Invalid user ID in session.");
+	let userId;
+	if (req.user) {
+		userId = trim(req.user.id);
+		if ((!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 }))) return res.status(401).send("Error: Invalid user ID in session.");
+	}
 
 	// Reservation ID
 	if (reservationId) {
