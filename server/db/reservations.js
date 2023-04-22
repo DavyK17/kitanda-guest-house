@@ -224,7 +224,7 @@ export const makeReservation = async (req, res) => {
 
 	// Rooms
 	if (!Array.isArray(rooms)) return res.status(400).send("Error: Rooms must be an array.");
-	rooms.forEach(({ roomTypeId }) => {
+	rooms.forEach((roomTypeId) => {
 		// Validate and sanitise room type ID
 		if (!isNumeric(roomTypeId, { no_symbols: true }) || !isLength(roomTypeId, { min: 1, max: 1 })) return res.status(400).send("Error: Invalid room type ID in rooms array.");
 	});
@@ -244,7 +244,7 @@ export const makeReservation = async (req, res) => {
 		let prices = [];
 
 		// Add price of each room to array
-		rooms.forEach(async ({ roomTypeId }) => {
+		rooms.forEach(async (roomTypeId) => {
 			// Add price of each room to array
 			let result = await pool.query("SELECT price_per_night FROM room_types WHERE id = $1", [roomTypeId]);
 			prices.push(result.rows[0].price_per_night);
@@ -259,7 +259,7 @@ export const makeReservation = async (req, res) => {
 		let result = await pool.query(text, values);
 
 		// Get first available room for each requested type
-		rooms.forEach(async ({ roomTypeId }) => {
+		rooms.forEach(async (roomTypeId) => {
 			// Get first available room of requested type
 			text =
 				"SELECT id FROM rooms WHERE room_type_id = $1 AND id NOT IN ( SELECT room_id FROM reservations_rooms JOIN reservations ON reservations_rooms.reservation_id = reservations.id JOIN rooms ON reservations_rooms.room_id = rooms.id WHERE reservations.checkin_date <= $2 AND reservations.checkout_date >= $3 ) LIMIT 1";
