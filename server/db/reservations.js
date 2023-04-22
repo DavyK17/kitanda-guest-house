@@ -244,11 +244,10 @@ export const makeReservation = async (req, res) => {
 		let prices = [];
 
 		// Add price of each room to array
-		rooms.forEach(async (roomTypeId) => {
-			// Add price of each room to array
+		for (const roomTypeId of rooms) {
 			let result = await pool.query("SELECT price_per_night FROM room_types WHERE id = $1", [roomTypeId]);
 			prices.push(result.rows[0].price_per_night);
-		});
+		}
 
 		// Get total cost of all rooms in reservation
 		let totalPrice = prices.reduce((a, b) => a + b);
@@ -259,7 +258,7 @@ export const makeReservation = async (req, res) => {
 		let result = await pool.query(text, values);
 
 		// Get first available room for each requested type
-		rooms.forEach(async (roomTypeId) => {
+		for (const roomTypeId of rooms) {
 			// Get first available room of requested type
 			text =
 				"SELECT id FROM rooms WHERE room_type_id = $1 AND id NOT IN ( SELECT room_id FROM reservations_rooms JOIN reservations ON reservations_rooms.reservation_id = reservations.id JOIN rooms ON reservations_rooms.room_id = rooms.id WHERE reservations.checkin_date <= $2 AND reservations.checkout_date >= $3 ) LIMIT 1";
@@ -268,11 +267,12 @@ export const makeReservation = async (req, res) => {
 
 			// Add room to reservation
 			result = await pool.query("INSERT INTO reservations_rooms (reservation_id, room_id) VALUES ($1, $2)", [reservationId, result.rows[0].id]);
-		});
+		}
 
 		// Confirm reservation
 		res.status(201).send(`Reservation made with ID: ${reservationId}`);
 	} catch (err) {
+		console.error(err);
 		sendGenericError(res);
 	}
 };
@@ -284,7 +284,7 @@ export const linkAddressToReservation = async (req, res) => {
 	// Reservation ID
 	if (typeof reservationId !== "string") return res.status(400).send("Error: Reservation ID must be a string.");
 	reservationId = trim(reservationId);
-	if (!isNumeric(reservationId, { no_symbols: true }) || !isLength(id, { min: 7, max: 7 })) return res.status(400).send("Error: Invalid reservation ID provided.");
+	if (!isNumeric(reservationId, { no_symbols: true }) || !isLength(reservationId, { min: 7, max: 7 })) return res.status(400).send("Error: Invalid reservation ID provided.");
 
 	// Address ID
 	if (typeof addressId !== "string") return res.status(400).send("Error: Address ID must be a string.");
