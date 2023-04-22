@@ -66,6 +66,7 @@ const App = () => {
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/booking" element={
                 <Booking
+                    user={user}
                     dates={dates}
                     setDates={setDates}
                     cart={cart}
