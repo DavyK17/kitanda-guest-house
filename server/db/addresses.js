@@ -81,22 +81,7 @@ export const createAddress = async (req, res) => {
 	const addressId = idGen(12);
 
 	// VALIDATION AND SANITISATION
-	let { reservationId, address1, address2, townCity, countyStateProvince, postcodeZip, country } = req.body;
-
-	// User ID
-	let userId;
-	if (req.user) {
-		userId = trim(req.user.id);
-		if ((!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 }))) return res.status(401).send("Error: Invalid user ID in session.");
-	}
-
-	// Reservation ID
-	if (reservationId) {
-		if (userId) return res.status(403).send("Error: Reservation ID cannot be provided while logged in.");
-		if (typeof reservationId !== "string") return res.status(400).send("Error: Reservation ID name must be a string.");
-		if (!isNumeric(reservationId, { no_symbols: true }) || !isLength(reservationId, { min: 7, max: 7 })) return res.status(400).send("Error: Invalid reservation ID provided.");
-		reservationId = trim(reservationId);
-	}
+	let { address1, address2, townCity, countyStateProvince, postcodeZip, country } = req.body;
 
 	// Address
 	if (typeof address1 !== "string") return res.status(400).send("Error: Address 1 must be a string.");
@@ -125,18 +110,18 @@ export const createAddress = async (req, res) => {
 	country = iso3311a2.getCountry(country);
 	if (!country) return res.status(400).send("Error: This country (ISO 3166-1 alpha-2 code) does not exist.");
 
+	// User ID
+	let userId;
+	if (req.user) {
+		userId = trim(req.user.id);
+		if ((!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 }))) return res.status(401).send("Error: Invalid user ID in session.");
+	}
+
 	try {
 		// Add address to database
 		let text = `INSERT INTO addresses (id, address1, address2, town_city, county_state_province, postcode_zip, country, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, to_timestamp(${Date.now()} / 1000))`;
 		let values = [addressId, address1, address2, townCity, countyStateProvince, postcodeZip, country];
 		let result = await pool.query(text, values);
-
-		// Link address to reservation if provided
-		if (reservationId) {
-			text = `INSERT INTO reservations_address (reservation_id, address_id) VALUES ($1, $2)`;
-			values = [reservationId, addressId];
-			result = await pool.query(text, values);
-		}
 
 		// Link address to user if logged in
 		if (userId) result = await pool.query("UPDATE addresses SET guest_id = $1 WHERE id = $2", [userId, addressId]);
