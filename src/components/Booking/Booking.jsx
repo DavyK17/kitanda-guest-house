@@ -96,9 +96,11 @@ const Booking = props => {
     // Define function to complete checkout
     const completeCheckout = async e => {
         e.preventDefault();
-        let addressId;
         const rooms = cart.map(({ id }) => id.toString());
         const status = document.getElementById("status");
+
+        let addressId;
+        let response;
 
         if (!user) {
             const address1 = e.target[4].value;
@@ -109,7 +111,7 @@ const Booking = props => {
             const country = e.target[9].value;
 
             status.textContent = "Creating address…";
-            response = await createAddress(address1, address2, townCity, countyStateProvince, postcodeZip, country, reservationId);
+            response = await createAddress(address1, address2, townCity, countyStateProvince, postcodeZip, country);
             if (!response.includes("Address created")) return displayErrorMessage(response);
 
             addressId = response.split(" ").pop();
@@ -118,9 +120,8 @@ const Booking = props => {
         }
 
         status.textContent = "Making reservation…";
-        let response = await makeReservation(addressId, phone, checkInDate, checkOutDate, rooms, email);
+        response = await makeReservation(addressId, phone, checkInDate, checkOutDate, rooms, email);
         if (!response.includes("Reservation made")) return displayErrorMessage(response);
-        const reservationId = response.split(" ").pop();
 
         status.textContent = "Reservation made successfully.";
         setTimeout(() => {
