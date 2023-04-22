@@ -224,17 +224,9 @@ export const makeReservation = async (req, res) => {
 
 	// Rooms
 	if (!Array.isArray(rooms)) return res.status(400).send("Error: Rooms must be an array.");
-	rooms.forEach((room) => {
-		// VALIDATION AND SANITISATION
-		let { roomTypeId, numOfAdults, numOfChildren, numOfInfants } = room;
-
-		// Room type ID
+	rooms.forEach(({ roomTypeId }) => {
+		// Validate and sanitise room type ID
 		if (!isNumeric(roomTypeId, { no_symbols: true }) || !isLength(roomTypeId, { min: 1, max: 1 })) return res.status(400).send("Error: Invalid room type ID in rooms array.");
-
-		// Number of adults, children and infants
-		if (!isNumeric(numOfAdults, { no_symbols: true })) return res.status(400).send("Error: Number of adults must contain numbers only.");
-		if (!isNumeric(numOfChildren, { no_symbols: true })) return res.status(400).send("Error: Number of children must contain numbers only.");
-		if (!isNumeric(numOfInfants, { no_symbols: true })) return res.status(400).send("Error: Number of infants must contain numbers only.");
 	});
 
 	// Email
