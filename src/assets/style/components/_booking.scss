@@ -361,37 +361,69 @@
     }
 }
 
-#checkout-form {
+.checkout-form {
     padding: 1rem 0;
 
     fieldset {
+        display: grid;
+        width: 100%;
+        grid-gap: 1rem;
+
         &:not(:first-of-type) {
             margin-top: 2rem;
         }
 
-        &#guest-details {
-            display: grid;
-            width: 100%;
-            grid-template: auto repeat(12, 1fr) / 1fr;
-            grid-gap: 1rem;
+        legend {
+            grid-area: 1 / 1 / span 1 / span 1;
+        }
 
-            legend {
-                grid-area: 1 / 1 / span 1 / span 1;
+        &#guest-details {
+            grid-template: auto repeat(2, 1fr) / 1fr;
+
+            #form-phone {
+                grid-area: 2 / 1 / span 1 / span 1;
+            }
+
+            #form-email {
+                grid-area: 3 / 1 / span 1 / span 1;
             }
         }
 
-        &#additional-info .label-input:not(:first-of-type) {
-            margin-top: 1rem;
-        }
+        &#address-details {
+            &.authenticated {
+                grid-template: auto 1fr / 1fr;
 
-        &#payment-method {
-            width: 100%;
+                #form-address {
+                    grid-area: 2 / 1 / span 1 / span 1;
+                }
+            }
 
-            .methods {
-                display: flex;
-                width: inherit;
-                flex-direction: column;
-                justify-content: flex-start;
+            &.unauthenticated {
+                grid-template: auto repeat(6, 1fr) / 1fr;
+
+                #form-address-1 {
+                    grid-area: 2 / 1 / span 1 / span 1;
+                }
+
+                #form-address-2 {
+                    grid-area: 3 / 1 / span 1 / span 1;
+                }
+
+                #form-city {
+                    grid-area: 4 / 1 / span 1 / span 1;
+                }
+
+                #form-county {
+                    grid-area: 5 / 1 / span 1 / span 1;
+                }
+
+                #form-postcode {
+                    grid-area: 6 / 1 / span 1 / span 1;
+                }
+
+                #form-country {
+                    grid-area: 7 / 1 / span 1 / span 1;
+                }
             }
         }
 
@@ -406,125 +438,56 @@
         width: 100%;
         padding: 0.25rem 0.5rem;
     }
-
-    .label-input {
-        &#form-title {
-            grid-area: 2 / 1 / span 1 / span 1;
-        }
-
-        &#form-first {
-            grid-area: 3 / 1 / span 1 / span 1;
-        }
-
-        &#form-last {
-            grid-area: 4 / 1 / span 1 / span 1;
-        }
-
-        &#form-company {
-            grid-area: 5 / 1 / span 1 / span 1;
-        }
-
-        &#form-address-1 {
-            grid-area: 6 / 1 / span 1 / span 1;
-        }
-
-        &#form-address-2 {
-            grid-area: 7 / 1 / span 1 / span 1;
-        }
-
-        &#form-city {
-            grid-area: 8 / 1 / span 1 / span 1;
-        }
-
-        &#form-county {
-            grid-area: 9 / 1 / span 1 / span 1;
-        }
-
-        &#form-postcode {
-            grid-area: 10 / 1 / span 1 / span 1;
-        }
-
-        &#form-country {
-            grid-area: 11 / 1 / span 1 / span 1;
-        }
-
-        &#form-phone {
-            grid-area: 12 / 1 / span 1 / span 1;
-        }
-
-        &#form-email {
-            grid-area: 13 / 1 / span 1 / span 1;
-        }
-    }
 }
 
 
 @media only screen and (min-width: 768px) {
-    #checkout-form {
+    .checkout-form {
         fieldset {
-            &#guest-details {
-                grid-template: auto repeat(6, 1fr) / repeat(6, 1fr);
-            }
-
-            &#guest-details legend {
+            legend {
                 grid-area: 1 / 1 / span 1 / span 6;
             }
 
-            &#payment-method {
-                .methods {
-                    flex-direction: row;
-                    justify-content: space-between;
+            &#guest-details {
+                grid-template: auto 1fr / repeat(6, 1fr);
+
+                #form-phone {
+                    grid-area: 2 / 1 / span 1 / span 3;
+                }
+
+                #form-email {
+                    grid-area: 2 / 4 / span 1 / span 3;
                 }
             }
-        }
 
-        .label-input {
-            &#form-title {
-                grid-area: 2 / 1 / span 1 / span 2;
-            }
+            &#address-details {
+                &.unauthenticated {
+                    grid-template: auto repeat(3, 1fr) / repeat(6, 1fr);
 
-            &#form-first {
-                grid-area: 2 / 3 / span 1 / span 2;
-            }
+                    #form-address-1 {
+                        grid-area: 2 / 1 / span 1 / span 3;
+                    }
 
-            &#form-last {
-                grid-area: 2 / 5 / span 1 / span 2;
-            }
+                    #form-address-2 {
+                        grid-area: 2 / 4 / span 1 / span 3;
+                    }
 
-            &#form-company {
-                grid-area: 3 / 1 / span 1 / span 6;
-            }
+                    #form-city {
+                        grid-area: 3 / 1 / span 1 / span 2;
+                    }
 
-            &#form-address-1 {
-                grid-area: 4 / 1 / span 1 / span 3;
-            }
+                    #form-county {
+                        grid-area: 3 / 3 / span 1 / span 2;
+                    }
 
-            &#form-address-2 {
-                grid-area: 4 / 4 / span 1 / span 3;
-            }
+                    #form-postcode {
+                        grid-area: 3 / 5 / span 1 / span 2;
+                    }
 
-            &#form-city {
-                grid-area: 5 / 1 / span 1 / span 2;
-            }
-
-            &#form-county {
-                grid-area: 5 / 3 / span 1 / span 2;
-            }
-
-            &#form-postcode {
-                grid-area: 5 / 5 / span 1 / span 2;
-            }
-
-            &#form-country {
-                grid-area: 6 / 1 / span 1 / span 6;
-            }
-
-            &#form-phone {
-                grid-area: 7 / 1 / span 1 / span 3;
-            }
-
-            &#form-email {
-                grid-area: 7 / 4 / span 1 / span 3;
+                    #form-country {
+                        grid-area: 4 / 1 / span 1 / span 6;
+                    }
+                }
             }
         }
     }
