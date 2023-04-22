@@ -277,6 +277,31 @@ export const makeReservation = async (req, res) => {
 	}
 };
 
+export const linkAddressToReservation = async (req, res) => {
+	// VALIDATION AND SANITISATION
+	let { reservationId, addressId } = req.body;
+
+	// Reservation ID
+	if (typeof reservationId !== "string") return res.status(400).send("Error: Reservation ID must be a string.");
+	reservationId = trim(reservationId);
+	if (!isNumeric(reservationId, { no_symbols: true }) || !isLength(id, { min: 7, max: 7 })) return res.status(400).send("Error: Invalid reservation ID provided.");
+
+	// Address ID
+	if (typeof addressId !== "string") return res.status(400).send("Error: Address ID must be a string.");
+	addressId = trim(addressId);
+	if (!isNumeric(addressId, { no_symbols: true }) || !isLength(addressId, { min: 12, max: 12 })) return res.status(400).send("Error: Invalid address ID provided.");
+
+	try {
+		// Link address to reservation
+		await pool.query("INSERT INTO reservations_address (reservation_id, address_id) VALUES ($1, $2)", [reservationId, addressId]);
+
+		// Confirm link
+		res.status(201).send(`Reservation with ID ${reservationId} successfully linked with address with ID ${addressId}`);
+	} catch (err) {
+		sendGenericError(res);
+	}
+};
+
 export const beginMpesaPayment = async (req, res, next) => {
 	// VALIDATION AND SANITISATION
 	let { reservationId, phone, email } = req.body;
