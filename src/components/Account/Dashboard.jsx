@@ -21,7 +21,7 @@ const Dashboard = props => {
     if (error) return <p className="error">An error occurred loading your dashboard. Kindly refresh the page and try again.</p>;
 
     // Return skeleton if loading
-    if (isLoading) return <Skeleton containerClassName="skeleton-container" containerTestId="account-loading" />;
+    if (isLoading) return <Skeleton containerClassName="skeleton-container" containerTestId="account-dashboard-loading" />;
 
     // Return account details if fetched
     if (account) {
