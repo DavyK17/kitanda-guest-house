@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 import Addresses from "./Addresses";
 import Dashboard from "./Dashboard";
 import Details from "./Details";
+import Reservations from "./Reservations";
 
 import { getUser, updateUser } from "../../api/Account";
 import { getAddresses } from "../../api/Addresses";
+import { getReservations } from "../../api/Reservations";
 import displayErrorMessage from "../../util/displayErrorMessage";
 
 /* COMPONENT */
@@ -33,6 +35,7 @@ const Account = (props) => {
 	// Account
 	const [account, setAccount] = useState();
 	const [addresses, setAddresses] = useState([]);
+	const [reservations, setReservations] = useState([]);
 	const fetchAccount = async () => {
 		setIsLoading(true);
 
@@ -41,7 +44,11 @@ const Account = (props) => {
 			if (data) {
 				setAccount(data);
 				data = await getAddresses();
-				if (data.length > 0) setAddresses(data);
+				if (data.length > 0) {
+					setAddresses(data);
+					data = await getReservations();
+					if (data.length > 0) setReservations(data);
+				}
 			}
 		} catch (err) {
 			console.error(err);
@@ -95,7 +102,9 @@ const Account = (props) => {
 			default:
 				return <Dashboard account={account} fetchAccount={fetchAccount} isLoading={isLoading} error={error} setUser={setUser} />;
 			case "details":
-				return <Details account={account} isLoading={isLoading} error={error} handleSubmit={editDetails} />
+				return <Details account={account} isLoading={isLoading} error={error} handleSubmit={editDetails} />;
+			case "reservations":
+				return <Reservations list={reservations} fetchAccount={fetchAccount} isLoading={isLoading} error={error} />;
 		}
 	}
 
