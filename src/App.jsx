@@ -81,6 +81,7 @@ const App = () => {
                 {renderAccountRoute("addresses")}
                 {renderAccountRoute("details")}
                 {renderAccountRoute("dashboard")}
+                {renderAccountRoute("reservations")}
                 {renderAccountRoute("", "dashboard")}
             </Route>
             <Route path="/auth" element={<Auth user={user} setUser={setUser} />} />
