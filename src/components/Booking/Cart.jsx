@@ -56,14 +56,12 @@ const Cart = props => {
                 <div className="room-cart">
                     <div className="room-cart-header">
                         <div className="info-line">
-                            {/* <!-- Checking in date --> */}
-                            <h3 className="font-head-2 semi-bold uppercase">Checking in</h3>
-                            <h3 className="font-head-2 light uppercase" id="check-in-date">DD-MM-YYYY</h3>
+                            <p className="font-head-2 semi-bold uppercase">Checking in</p>
+                            <p className="font-head-2 light uppercase" id="check-in-date">DD-MM-YYYY</p>
                         </div>
                         <div className="info-line">
-                            {/* <!-- Checking out date --> */}
-                            <h3 className="font-head-2 semi-bold uppercase">Checking out</h3>
-                            <h3 className="font-head-2 light uppercase" id="check-out-date">DD-MM-YYYY</h3>
+                            <p className="font-head-2 semi-bold uppercase">Checking out</p>
+                            <p className="font-head-2 light uppercase" id="check-out-date">DD-MM-YYYY</p>
                         </div>
                     </div>
 
