@@ -45,12 +45,11 @@ export const getReservations = async (req, res) => {
 				};
 
 				// Add each room in reservation to rooms array in reservation object
-				result = await pool.query(
-					"SELECT room_id, num_of_adults, num_of_children, num_of_infants FROM reservations_rooms JOIN reservations ON reservations.id = reservations_rooms.reservation_id WHERE reservations_rooms.reservation_id = $1",
-					[id]
-				);
-				result.rows.forEach(({ room_id, num_of_adults, num_of_children, num_of_infants }) => {
-					let item = { roomId: room_id, numOfAdults: num_of_adults, numOfChildren: num_of_children, numOfInfants: num_of_infants };
+				let text =
+					"SELECT reservations_rooms.room_id AS room_id, room_types.name AS room_type_name FROM reservations_rooms JOIN reservations ON reservations.id = reservations_rooms.reservation_id JOIN rooms ON rooms.id = reservations_rooms.room_id JOIN room_types ON rooms.room_type_id = room_types.id WHERE reservations_rooms.reservation_id = $1";
+				result = await pool.query(text, [id]);
+				result.rows.forEach(({ room_id, room_type_name }) => {
+					let item = { roomId: room_id, roomTypeName: room_type_name };
 					reservation.rooms.push(item);
 				});
 
@@ -111,12 +110,11 @@ export const getReservations = async (req, res) => {
 		};
 
 		// Add each room in reservation to rooms array in reservation object
-		result = await pool.query(
-			"SELECT room_id, num_of_adults, num_of_children, num_of_infants FROM reservations_rooms JOIN reservations ON reservations.id = reservations_rooms.reservation_id WHERE reservations_rooms.reservation_id = $1",
-			[id]
-		);
-		result.rows.forEach(({ room_id, num_of_adults, num_of_children, num_of_infants }) => {
-			let item = { roomId: room_id, numOfAdults: num_of_adults, numOfChildren: num_of_children, numOfInfants: num_of_infants };
+		let text =
+			"SELECT reservations_rooms.room_id AS room_id, room_types.name AS room_type_name FROM reservations_rooms JOIN reservations ON reservations.id = reservations_rooms.reservation_id JOIN rooms ON rooms.id = reservations_rooms.room_id JOIN room_types ON rooms.room_type_id = room_types.id WHERE reservations_rooms.reservation_id = $1";
+		result = await pool.query(text, [id]);
+		result.rows.forEach(({ room_id, room_type_name }) => {
+			let item = { roomId: room_id, roomTypeName: room_type_name };
 			reservation.rooms.push(item);
 		});
 
