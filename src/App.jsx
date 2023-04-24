@@ -11,6 +11,7 @@ import NotFound from "./components/Other/NotFound";
 import Home from "./components/Home/Home";
 import Gallery from "./components/Gallery/Gallery";
 import Booking from "./components/Booking/Booking";
+import Tracker from "./components/Tracker/Tracker";
 
 import Account from "./components/Account/Account";
 import Auth from "./components/Auth/Auth";
@@ -77,6 +78,7 @@ const App = () => {
                     setItems={setItems}
                 />
             } />
+            <Route path="/tracker" element={<Tracker user={user} />} />
             <Route path="/account">
                 {renderAccountRoute("addresses")}
                 {renderAccountRoute("details")}
