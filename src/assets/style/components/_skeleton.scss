@@ -20,7 +20,7 @@
         display: inline-flex;
         position: relative;
         background-color: rgba(70, 130, 180, 0.15);
-        width: calc(100vw - 2rem);
+        width: 100%;
         height: inherit;
         border-radius: unset;
         line-height: 1;
@@ -47,7 +47,7 @@
     }
 }
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 768px) {
     .skeleton-container {
         .react-loading-skeleton {
             width: 500px;
