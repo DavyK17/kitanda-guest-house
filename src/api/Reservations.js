@@ -26,27 +26,18 @@ export const getReservations = async (id = null, email = null) => {
 	}
 };
 
-export const cancelReservation = async (id = null, email = null) => {
+export const cancelReservation = async (id, email = null) => {
 	try {
-		let endpoint;
-		let response;
+		let endpoint = new URL(`${url}/cancel`, window.location);
 
-		if (id) {
-			endpoint = new URL(`${url}/cancel`, window.location);
-
-			if (email) {
-				endpoint.search = new URLSearchParams({ email, id }).toString();
-			} else {
-				endpoint.search = new URLSearchParams({ id }).toString();
-			}
-
-			response = await fetch(endpoint);
-			if (response.ok) return response.json();
+		if (email) {
+			endpoint.search = new URLSearchParams({ id, email }).toString();
+		} else {
+			endpoint.search = new URLSearchParams({ id }).toString();
 		}
 
-		endpoint = `${url}/cancel`;
-		response = await fetch(endpoint);
-		if (response.ok) return response.json();
+		let response = await fetch(endpoint);
+		if (response.status !== 503) return response.text();
 	} catch (err) {
 		console.error(err);
 	}
