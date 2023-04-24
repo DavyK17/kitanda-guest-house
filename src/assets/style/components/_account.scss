@@ -339,3 +339,263 @@
         }
     }
 }
+
+// Reservations
+.reservations {
+    width: 100%;
+
+    h2 {
+        margin-bottom: 1rem;
+    }
+
+    .list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .reservation {
+            border: 1px solid black;
+
+            >div {
+                &:not(.buttons) {
+                    padding: 1rem;
+                }
+            }
+
+            .header {
+                display: flex;
+                background-color: black;
+                color: white;
+                flex-direction: column;
+                justify-content: space-between;
+
+                p {
+                    font-size: 1.125rem;
+                    margin: unset;
+                }
+
+                #check-in-date,
+                #check-out-date {
+                    opacity: 0.6;
+                }
+            }
+
+            .body {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+                .info {
+                    width: 100%;
+
+                    div {
+                        margin-bottom: 1rem;
+
+                        &:last-of-type {
+                            margin: unset;
+                        }
+
+                        p {
+                            margin-bottom: 0.5rem;
+
+                            &:last-of-type {
+                                margin: unset;
+                            }
+                        }
+                    }
+                }
+
+                .rooms {
+                    width: 100%;
+
+                    .react-loading-skeleton {
+                        width: 100% !important;
+                    }
+
+                    ul {
+                        padding: unset;
+                        margin: unset;
+                        list-style-type: none;
+                    }
+                }
+            }
+
+            .footer {
+                display: flex;
+                background-color: #FFFBD7;
+                flex-direction: column;
+                gap: 0.5rem;
+                justify-content: space-between;
+                border-top: 1px solid black;
+
+                p {
+                    font-size: 1.125rem;
+                    margin: unset;
+
+                    &.status {
+                        opacity: 0.6;
+                    }
+                }
+
+                .buttons {
+                    display: flex !important;
+                    width: 100% !important;
+                    margin: unset !important;
+                    flex-direction: row !important;
+                    justify-content: space-between;
+                    gap: 1rem !important;
+
+                    button {
+                        width: unset !important;
+                        background-color: unset !important;
+                        font-size: 1.125rem !important;
+                        margin: unset !important;
+                        padding: unset !important;
+                        transition: color 0.15s ease-in-out;
+
+                        &:hover,
+                        &:focus {
+                            text-decoration: none;
+                            transition: color 0.15s ease-in-out;
+                        }
+
+                        &#view-rooms {
+
+                            &:hover,
+                            &:focus {
+                                color: steelblue;
+                            }
+                        }
+
+                        &#cancel {
+
+                            &:hover,
+                            &:focus {
+                                color: crimson;
+                            }
+                        }
+
+                        &#confirm {
+
+                            &:hover,
+                            &:focus {
+                                color: darkseagreen;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .payment {
+                display: none;
+                background-color: black;
+                color: white;
+                gap: 0.5rem;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem;
+
+                label {
+                    margin: unset;
+                    margin-bottom: 0.5rem;
+                }
+
+                button {
+                    width: unset;
+                    background-color: unset;
+                    color: steelblue;
+                    font-size: 1.5rem;
+                    margin: unset;
+                    padding: unset;
+                    transition: color 0.15s ease-in-out;
+
+                    &:hover,
+                    &:focus {
+                        color: darkseagreen;
+                        text-decoration: none;
+                        transition: color 0.15s ease-in-out;
+                    }
+                }
+            }
+        }
+    }
+
+    .buttons {
+        margin-top: 2rem !important;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .reservations {
+        .list {
+            .reservation {
+                width: 50%;
+
+                .body {
+                    flex-direction: row;
+                    gap: unset;
+                }
+
+                .footer {
+                    flex-direction: row;
+                    gap: unset;
+
+                    .buttons {
+                        width: fit-content !important;
+                    }
+                }
+
+                .payment {
+                    label {
+                        margin: unset;
+                        margin-right: 0.5rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .reservations {
+        .list {
+            .reservation {
+                .header {
+                    flex-direction: row;
+                }
+            }
+        }
+    }
+}
+
+// Reservations search
+.reservations-search {
+    display: flex;
+    width: 100%;
+    background-color: black;
+    color: white;
+    margin: unset;
+    padding: 2rem;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .input {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .reservations-search {
+        flex-direction: row;
+
+        .input {
+            gap: 0.25rem;
+            align-items: start;
+        }
+    }
+}
