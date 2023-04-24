@@ -29,7 +29,12 @@ const CheckAvailability = props => {
         const newDepartureDate = new Date(arrivalDate.getTime() + (24 * 60 * 60 * 1000));
 
         departureInput.min = newDepartureDate.toLocaleDateString("fr-CA");
-        if (arrivalDate > currentDepartureDate) departureInput.value = newDepartureDate.toLocaleDateString("fr-CA");
+
+        // Update departure date if earlier than arrival date
+        if (arrivalDate > currentDepartureDate) {
+            departureInput.value = newDepartureDate.toLocaleDateString("fr-CA");
+            setDates({ checkInDate: e.target.value, checkOutDate: newDepartureDate.toLocaleDateString("fr-CA") });
+        }
     }
 
     // Define function to update departure date in state
