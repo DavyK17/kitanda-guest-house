@@ -13,7 +13,7 @@ import { getReservations } from "../../api/Reservations";
 import displayErrorMessage from "../../util/displayErrorMessage";
 
 /* COMPONENT */
-const Account = (props) => {
+const Account = props => {
 	// Destructure props
 	const { view, user, setUser } = props;
 
@@ -104,7 +104,7 @@ const Account = (props) => {
 			case "details":
 				return <Details account={account} isLoading={isLoading} error={error} handleSubmit={editDetails} />;
 			case "reservations":
-				return <Reservations list={reservations} fetchAccount={fetchAccount} isLoading={isLoading} error={error} />;
+				return <Reservations account={account} fetchAccount={fetchAccount} list={reservations} isLoading={isLoading} error={error} />;
 		}
 	}
 
