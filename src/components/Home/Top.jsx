@@ -20,7 +20,7 @@ const Top = props => {
 
     // Return component
     return (
-        <section id="top">
+        <section id="top" data-testid="home-top">
             <Slideshow />
             <CheckAvailability dates={dates} setDates={setDates} handleSubmit={beginSearch} />
         </section>

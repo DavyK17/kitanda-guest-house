@@ -1,3 +1,4 @@
+/* IMPORTS */
 import Carousel from "react-bootstrap/Carousel";
 
 import image1 from "../../assets/img/slideshow/slide-0.jpg";
@@ -6,6 +7,7 @@ import image3 from "../../assets/img/slideshow/slide-2.JPG";
 import image4 from "../../assets/img/slideshow/slide-3.JPG";
 import image5 from "../../assets/img/slideshow/slide-4.JPG";
 
+/* COMPONENT */
 const Slideshow = () => {
     return (
         <Carousel>
@@ -28,4 +30,5 @@ const Slideshow = () => {
     )
 }
 
+/* EXPORT */
 export default Slideshow;

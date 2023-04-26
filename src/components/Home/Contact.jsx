@@ -1,4 +1,6 @@
+/* COMPONENT */
 const Contact = () => {
+    // Define icons
     const iconLocation = (
         <svg width="24" height="24" viewBox="0 0 24 24">
             <path d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z" style={{ fill: "#fff" }} />
@@ -17,8 +19,9 @@ const Contact = () => {
         </svg>
     )
 
+    // Return component
     return (
-        <section id="contact">
+        <section id="contact" data-testid="home-contact">
             <div className="background black">
                 <div className="content">
                     <h2 className="bold uppercase">Get In Touch</h2>
@@ -47,4 +50,5 @@ const Contact = () => {
     )
 }
 
+/* EXPORT */
 export default Contact;

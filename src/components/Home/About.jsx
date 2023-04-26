@@ -1,6 +1,7 @@
+/* COMPONENT */
 const About = () => {
     return (
-        <section id="about">
+        <section id="about" data-testid="home-about">
             <div className="background">
                 <div className="content">
                     <h1 className="bold font-head uppercase">Welcome to Kitanda Guest House</h1>
@@ -14,4 +15,5 @@ const About = () => {
     )
 }
 
+/* EXPORT */
 export default About;
