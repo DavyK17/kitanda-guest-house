@@ -275,7 +275,6 @@ export const makeReservation = async (req, res) => {
 		// Confirm reservation
 		res.status(201).send(`Reservation made with ID: ${reservationId}`);
 	} catch (err) {
-		console.error(err);
 		sendGenericError(res);
 	}
 };
@@ -308,10 +307,17 @@ export const beginMpesaPayment = async (req, res, next) => {
 	if (userId && (!isNumeric(userId, { no_symbols: true }) || !isLength(userId, { min: 10, max: 10 }))) return res.status(401).send("Error: Invalid user ID in session.");
 
 	try {
+		// Get total price from reservation
+		let result = await pool.query("SELECT total_price FROM reservations WHERE id = $1", [reservationId]);
+
+		// Send error if reservation does not exist
+		if (result.rows.length === 0) return res.status(404).send("Error: This reservation does not exist.");
+
 		// Send data to next middleware
 		req.reservationId = reservationId;
 		req.phone = phone;
 		req.email = email;
+		req.totalPrice = result.rows[0].total_price;
 		req.userId = userId;
 		next();
 	} catch (err) {
@@ -350,7 +356,7 @@ export const getMpesaToken = async (req, res, next) => {
 
 export const completeMpesaPayment = async (req, res) => {
 	// Destructure request object for M-Pesa access token
-	let { accessToken, phone, email, reservationId, userId } = req;
+	let { accessToken, phone, email, totalPrice, reservationId, userId } = req;
 
 	// Daraja API M-Pesa Express endpoint
 	const url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
@@ -387,11 +393,11 @@ export const completeMpesaPayment = async (req, res) => {
 		Password: password,
 		Timestamp: generateTimestamp(),
 		TransactionType: "CustomerPayBillOnline",
-		Amount: totalCost,
+		Amount: totalPrice,
 		PartyA: phone,
 		PartyB: shortcode,
 		PhoneNumber: phone,
-		CallBackURL: "https://kitanda-guest-house-production.up.railway.app/api/payment/mpesa-callback",
+		CallBackURL: "https://kitanda-guest-house-development.up.railway.app/api/payment/mpesa-callback",
 		AccountReference: "Kitanda Guest House",
 		TransactionDesc: "Booking payment",
 	});
