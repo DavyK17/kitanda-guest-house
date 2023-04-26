@@ -1,3 +1,4 @@
+/* COMPONENT */
 const Footer = () => {
     return (
         <footer>
@@ -6,4 +7,5 @@ const Footer = () => {
     )
 }
 
+/* EXPORT */
 export default Footer;

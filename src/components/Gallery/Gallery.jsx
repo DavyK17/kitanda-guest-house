@@ -1,3 +1,4 @@
+/* IMPORTS */
 import Grid from "./Grid";
 
 import image1 from "../../assets/img/gallery/image1.JPG";
@@ -16,6 +17,7 @@ import image13 from "../../assets/img/gallery/image13.JPG";
 import image14 from "../../assets/img/gallery/image14.jpg";
 import image15 from "../../assets/img/gallery/image15.jpg";
 
+/* COMPONENT */
 const Gallery = () => {
     let images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15];
 
@@ -32,4 +34,5 @@ const Gallery = () => {
     )
 }
 
+/* EXPORT */
 export default Gallery;
