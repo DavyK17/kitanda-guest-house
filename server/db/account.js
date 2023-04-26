@@ -179,9 +179,7 @@ export const deleteUser = async (req, res) => {
 		result.rows.forEach((row) => addresses.push(row.id));
 
 		// Delete each address in addresses array
-		addresses.forEach(async (id) => {
-			result = await pool.query("DELETE FROM addresses WHERE id = $1", [id]);
-		});
+		addresses.forEach(async (id) => (result = await pool.query("DELETE FROM addresses WHERE id = $1", [id])));
 
 		// Delete third-party credentials
 		result = await pool.query("DELETE FROM federated_credentials WHERE guest_id = $1", [userId]);

@@ -71,7 +71,7 @@ const Reservation = props => {
                     <p>Ksh. {totalPrice.toLocaleString("en-KE")}</p>
                 </div>
                 <div className="created-at">
-                    <h3 className="font-head-2 bold uppercase">Created at</h3>
+                    <h3 className="font-head-2 bold uppercase">Created on</h3>
                     <p>{renderTime(createdAt)}</p>
                 </div>
             </div>
