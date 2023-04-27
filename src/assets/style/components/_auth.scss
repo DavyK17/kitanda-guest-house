@@ -17,7 +17,7 @@
 
 
 /* Forms */
-.auth-form {
+[name=auth-form] {
     width: 100%;
 
     legend {
@@ -207,7 +207,7 @@
 }
 
 @media only screen and (min-width: 768px) {
-    .auth-form {
+    [name=auth-form] {
         fieldset {
             &#guest-details {
                 .label-input {
@@ -329,7 +329,7 @@
 }
 
 @media only screen and (min-width: 992px) {
-    .auth-form {
+    [name=auth-form] {
         fieldset {
             width: 50%;
         }

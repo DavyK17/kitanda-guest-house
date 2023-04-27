@@ -31,7 +31,7 @@ const Form = props => {
 
     // Return authentication form
     return (
-        <form className="auth-form" id={hasAccount ? "login" : "register"} onSubmit={handleSubmit}>
+        <form name="auth-form" id={hasAccount ? "login" : "register"} onSubmit={handleSubmit}>
             <legend>Sign {hasAccount ? "in" : "up"}</legend>
 
             {hasAccount ? <Login /> : <Register />}
