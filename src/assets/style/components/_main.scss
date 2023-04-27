@@ -146,7 +146,7 @@ main {
     grid-area: "top";
 }
 
-.check-availability {
+[name=check-availability] {
     display: flex;
     width: 100%;
     background-color: black;
@@ -154,12 +154,11 @@ main {
     color: white;
     margin: unset;
     padding: 2rem;
-    gap: 2rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    #availability-form-head {
+    .form-head {
         display: flex;
         width: auto;
         align-items: center;
@@ -176,7 +175,7 @@ main {
         }
     }
 
-    #availability-form {
+    .form-body {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -197,8 +196,10 @@ main {
 }
 
 @media only screen and (min-width: 992px) {
-    .check-availability {
-        #availability-form {
+    [name=check-availability] {
+        gap: 2rem;
+
+        .form-body {
             flex-direction: row;
             align-items: start;
 
@@ -219,11 +220,11 @@ main {
 }
 
 @media only screen and (min-width: 1200px) {
-    .check-availability {
+    [name=check-availability] {
         padding: 1.5rem;
         flex-direction: row;
 
-        #availability-form-head {
+        .form-head {
             margin-bottom: unset;
         }
 

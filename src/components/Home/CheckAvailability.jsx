@@ -45,12 +45,12 @@ const CheckAvailability = props => {
 
     // Return component
     return (
-        <div className="check-availability" data-testid="check-availability">
-            <div id="availability-form-head">
+        <form name="check-availability" data-testid="check-availability" onSubmit={handleSubmit}>
+            <div className="form-head">
                 {iconCheckbox}
                 <h2 className="uppercase">Check Availability</h2>
             </div>
-            <form id="availability-form" onSubmit={handleSubmit} role="form">
+            <div className="form-body">
                 <div className="label-input">
                     <label htmlFor="arrival">Arrival date</label>
                     <input type="date" id="arrival" name="arrival" min={tomorrow} defaultValue={checkInDate || tomorrow} onChange={setDepartureMin} />
@@ -72,8 +72,8 @@ const CheckAvailability = props => {
                     <input type="number" id="infants" name="infants" defaultValue="0" />
                 </div> */}
                 <button className="bold uppercase" type="submit">Search</button>
-            </form>
-        </div>
+            </div>
+        </form>
     )
 }
 
