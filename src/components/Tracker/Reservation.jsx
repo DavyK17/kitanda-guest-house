@@ -38,7 +38,7 @@ const Reservation = props => {
             </div>
             <div className="rooms">
                 <h3 className="font-head-2 bold uppercase">Rooms</h3>
-                <ul>{rooms.map(({ roomNumber, roomTypeName }) => <li>{roomNumber} ({roomTypeName})</li>)}</ul>
+                <ul>{rooms.map(({ roomNumber, roomTypeName }, i) => <li key={i}>{roomNumber} ({roomTypeName})</li>)}</ul>
             </div>
         </div>
         <div className="footer">
