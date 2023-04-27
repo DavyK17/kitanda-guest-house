@@ -50,7 +50,7 @@ const Reservation = props => {
                 </div>
             }
         </div>
-        <form className="payment" id={`reservation-${id}-payment`} onSubmit={handleConfirm}>
+        <form name="reservation-payment" id={`reservation-${id}-payment`} onSubmit={handleConfirm}>
             <div className="input">
                 <label className="font-head-2 semi-bold uppercase" htmlFor="phone">M-Pesa number</label>
                 <input type="tel" id="phone" placeholder="i.e. 254XXXXXXXXX" pattern={phoneRegex.toString().replaceAll("/", "")} defaultValue={phone} required />

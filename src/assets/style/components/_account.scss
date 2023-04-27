@@ -486,7 +486,7 @@
                 }
             }
 
-            .payment {
+            [name=reservation-payment] {
                 display: none;
                 background-color: black;
                 color: white;
@@ -545,7 +545,7 @@
                     }
                 }
 
-                .payment {
+                [name=reservation-payment] {
                     label {
                         margin: unset;
                         margin-right: 0.5rem;
