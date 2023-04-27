@@ -119,6 +119,8 @@ const testView = (view, title = null) => {
 
 // Define tests
 describe("Authentication form component", () => {
+	let origErrorConsole;
+	
 	// Workaround for "Not implemented: HTMLFormElement.prototype.submit" error
 	beforeEach(() => {
 		origErrorConsole = window.console.error;
