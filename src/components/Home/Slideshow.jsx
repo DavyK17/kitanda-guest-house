@@ -10,23 +10,25 @@ import image5 from "../../assets/img/slideshow/slide-4.JPG";
 /* COMPONENT */
 const Slideshow = () => {
     return (
-        <Carousel>
-            <Carousel.Item>
-                <img src={image1} alt="Entrance to guest house" style={{ bottom: "75%" }} />
-            </Carousel.Item>
-            <Carousel.Item>
-                <img src={image2} alt="Guest house garden" style={{ bottom: "75%" }} />
-            </Carousel.Item>
-            <Carousel.Item>
-                <img src={image3} alt="Guest house lobby" style={{ bottom: "60%" }} />
-            </Carousel.Item>
-            <Carousel.Item>
-                <img src={image4} alt="Guest house corridor" style={{ bottom: "75%" }} />
-            </Carousel.Item>
-            <Carousel.Item>
-                <img src={image5} alt="Bedroom" style={{ bottom: "30%" }} />
-            </Carousel.Item>
-        </Carousel>
+        <div data-testid="home-carousel">
+            <Carousel>
+                <Carousel.Item>
+                    <img src={image1} alt="Entrance to guest house" style={{ bottom: "75%" }} />
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img src={image2} alt="Guest house garden" style={{ bottom: "75%" }} />
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img src={image3} alt="Guest house lobby" style={{ bottom: "60%" }} />
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img src={image4} alt="Guest house corridor" style={{ bottom: "75%" }} />
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img src={image5} alt="Bedroom" style={{ bottom: "30%" }} />
+                </Carousel.Item>
+            </Carousel>
+        </div>
     )
 }
 

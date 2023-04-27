@@ -45,7 +45,7 @@ const CheckAvailability = props => {
 
     // Return component
     return (
-        <div className="check-availability">
+        <div className="check-availability" data-testid="check-availability">
             <div id="availability-form-head">
                 {iconCheckbox}
                 <h2 className="uppercase">Check Availability</h2>
