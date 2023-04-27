@@ -56,20 +56,19 @@ export const addresses = [
 // Reservations
 export const reservations = [
 	{
-		id: "7925492",
-		checkInDate: "2023-04-23T21:00:00.000Z",
-		checkOutDate: "2023-04-24T21:00:00.000Z",
-		totalPrice: 9200,
-		createdAt: "2023-04-22T19:28:22.000Z",
-		status: "confirmed",
-	},
-	{
 		id: "2839058",
 		checkInDate: "2023-04-25T21:00:00.000Z",
 		checkOutDate: "2023-04-26T21:00:00.000Z",
 		totalPrice: 3000,
 		createdAt: "2023-04-24T18:07:36.000Z",
 		status: "cancelled",
+		rooms: [
+			{
+				roomId: "53595",
+				roomNumber: "101",
+				roomTypeName: "Single room",
+			},
+		],
 	},
 	{
 		id: "4989796",
@@ -78,6 +77,18 @@ export const reservations = [
 		totalPrice: 7200,
 		createdAt: "2023-04-24T17:42:04.000Z",
 		status: "pending",
+		rooms: [
+			{
+				roomId: "16098",
+				roomNumber: "201",
+				roomTypeName: "Double room",
+			},
+			{
+				roomId: "92455",
+				roomNumber: "301",
+				roomTypeName: "Twin room",
+			},
+		],
 	},
 ];
 
