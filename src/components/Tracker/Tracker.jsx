@@ -102,7 +102,6 @@ const Tracker = props => {
 
         // Return reservation
         return <Reservation
-            key={null}
             details={{ id, checkInDate, checkOutDate, totalPrice, rooms, createdAt, status }}
             phone={null}
             handleCancel={handleCancel}
