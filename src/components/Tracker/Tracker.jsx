@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
+import Fetch from "./Fetch";
 import Reservation from "./Reservation";
 
 import { getReservations, cancelReservation, confirmReservation } from "../../api/Reservations";
 import displayErrorMessage from "../../util/displayErrorMessage";
 
 /* COMPONENT */
-const Track = props => {
+const Tracker = props => {
     // Destructure props and define useNavigate()
     const { user } = props;
     let navigate = useNavigate();
@@ -120,17 +121,7 @@ const Track = props => {
                 </div>
             </section>
             <section id="account-main">
-                <form className="reservations-search" onSubmit={fetchReservation}>
-                    <div className="input">
-                        <label className="font-head-2" htmlFor="reservation-email">Email address</label>
-                        <input type="email" id="reservation-email" name="reservation-email" placeholder="name@example.com" required />
-                    </div>
-                    <div className="input">
-                        <label className="font-head-2" htmlFor="reservation-id">Reservation ID</label>
-                        <input type="text" id="reservation-id" name="reservation-id" placeholder="0000000" required />
-                    </div>
-                    <button type="submit" className="font-head-2 bold uppercase">Track</button>
-                </form>
+                <Fetch handleSubmit={fetchReservation} />
                 <div className="content align-items-start">
                     <div className="reservations">
                         <div className="list">
@@ -145,4 +136,4 @@ const Track = props => {
 };
 
 /* EXPORT */
-export default Track;
+export default Tracker;

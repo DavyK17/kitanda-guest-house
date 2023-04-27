@@ -569,7 +569,7 @@
 }
 
 // Reservations search
-.reservations-search {
+[name=reservations-search] {
     display: flex;
     width: 100%;
     background-color: black;
@@ -590,7 +590,7 @@
 }
 
 @media only screen and (min-width: 768px) {
-    .reservations-search {
+    [name=reservations-search] {
         flex-direction: row;
 
         .input {
