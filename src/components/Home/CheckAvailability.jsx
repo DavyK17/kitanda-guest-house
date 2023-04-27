@@ -50,7 +50,7 @@ const CheckAvailability = props => {
                 {iconCheckbox}
                 <h2 className="uppercase">Check Availability</h2>
             </div>
-            <form id="availability-form" onSubmit={handleSubmit}>
+            <form id="availability-form" onSubmit={handleSubmit} role="form">
                 <div className="label-input">
                     <label htmlFor="arrival">Arrival date</label>
                     <input type="date" id="arrival" name="arrival" min={tomorrow} defaultValue={checkInDate || tomorrow} onChange={setDepartureMin} />
