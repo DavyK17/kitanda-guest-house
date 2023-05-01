@@ -92,7 +92,7 @@ const Dashboard = props => {
                 <p>{title} {firstName} {lastName}</p>
             </div>
             {
-                !companyName ? null : <div className="company-name" data-testid="account-names">
+                !companyName ? null : <div className="company-name" data-testid="account-company-name">
                     <h3 className="font-head-2 bold uppercase">Company name</h3>
                     <p>{companyName}</p>
                 </div>
