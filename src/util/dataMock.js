@@ -1,18 +1,25 @@
 // User
-export const user = (confirmed = true) => ({
+export const user = (thirdParty = true, confirmed = true) => ({
 	id: "1234567890",
 	email: "thisisan@email.com",
-	federatedCredentials: [
-		{
-			id: "012345678901234567890",
-			provider: "google",
-			confirmed,
-		},
-	],
+	federatedCredentials: thirdParty
+		? [
+				{
+					id: "012345678901234567890",
+					provider: "facebook",
+					confirmed,
+				},
+				{
+					id: "012345678901234567890",
+					provider: "google",
+					confirmed,
+				},
+		  ]
+		: [],
 });
 
 // Account
-export const account = (confirmed = true) => ({
+export const account = (thirdParty = true, confirmed = true) => ({
 	id: "1234567890",
 	title: "Mr.",
 	firstName: "Mwenyeji",
@@ -20,13 +27,20 @@ export const account = (confirmed = true) => ({
 	companyName: "Enterprise Limited",
 	phone: 254712345678,
 	email: "thisisan@email.com",
-	federatedCredentials: [
-		{
-			id: "012345678901234567890",
-			provider: "google",
-			confirmed,
-		},
-	],
+	federatedCredentials: thirdParty
+		? [
+				{
+					id: "012345678901234567890",
+					provider: "facebook",
+					confirmed,
+				},
+				{
+					id: "012345678901234567890",
+					provider: "google",
+					confirmed,
+				},
+		  ]
+		: [],
 });
 
 // Addresses
