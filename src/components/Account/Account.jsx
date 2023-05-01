@@ -7,9 +7,12 @@ import Dashboard from "./Dashboard";
 import Details from "./Details";
 import Reservations from "./Reservations";
 
-import { getUser, updateUser } from "../../api/Account";
+import { logout } from "../../api/Auth";
+import { getUser, updateUser, deleteUser, unlinkThirdParty } from "../../api/Account";
 import { getAddresses } from "../../api/Addresses";
 import { getReservations } from "../../api/Reservations";
+
+import capitalise from "../../util/capitalise";
 import displayErrorMessage from "../../util/displayErrorMessage";
 
 /* COMPONENT */
@@ -27,7 +30,7 @@ const Account = props => {
 		// eslint-disable-next-line
 	}, [user]);
 
-	/* STATE + FUNCTIONS */
+	/* STATE */
 	// Loading
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState(false);
@@ -62,7 +65,8 @@ const Account = props => {
 		fetchAccount();
 	}, []);
 
-	// Define function to edit account details
+	/* FUNCTIONS */
+	// Edit account details
 	const editDetails = async e => {
 		e.preventDefault();
 
@@ -93,6 +97,48 @@ const Account = props => {
 		fetchAccount();
 	}
 
+	// Unlink third-party provider
+	const unlink = async e => {
+		e.preventDefault();
+		const { provider } = e.target.dataset;
+
+		status.textContent = `Unlinking from ${capitalise(provider)}…`;
+		let response = await unlinkThirdParty(provider);
+		if (typeof response === "string") return displayErrorMessage(response);
+
+		status.textContent = null;
+		fetchAccount();
+	}
+
+	// Sign out
+	const signOut = async e => {
+		e.preventDefault();
+
+		status.textContent = "Signing out…";
+		let response = await logout();
+		if (response !== "Logout successful") return displayErrorMessage(response);
+
+		status.textContent = null;
+		setUser(null);
+		navigate("/");
+	}
+
+	// Delete account
+	const deleteAccount = async e => {
+		e.preventDefault();
+
+		status.textContent = "Deleting account…";
+		let response = await deleteUser();
+		if (typeof response === "string") return displayErrorMessage(response);
+
+		status.textContent = "Account deleted successfully";
+		setTimeout(() => {
+			setUser(null);
+			navigate("/");
+			status.textContent = null;
+		}, 3000);
+	}
+
 	// Define function to render appropriate element
 	const renderView = (view) => {
 		switch (view) {
@@ -100,7 +146,7 @@ const Account = props => {
 				return <Addresses list={addresses} fetchAccount={fetchAccount} isLoading={isLoading} error={error} />;
 			case "dashboard":
 			default:
-				return <Dashboard account={account} fetchAccount={fetchAccount} isLoading={isLoading} error={error} setUser={setUser} />;
+				return <Dashboard account={account} isLoading={isLoading} error={error} handleUnlink={unlink} handleSignOut={signOut} handleDelete={deleteAccount} />;
 			case "details":
 				return <Details account={account} isLoading={isLoading} error={error} handleSubmit={editDetails} />;
 			case "reservations":

@@ -2,19 +2,12 @@
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
-import { deleteUser, unlinkThirdParty } from "../../api/Account";
-import { logout } from "../../api/Auth";
-
 import capitalise from "../../util/capitalise";
-import displayErrorMessage from "../../util/displayErrorMessage";
 
 /* COMPONENT */
 const Dashboard = props => {
-    // Destructure props
-    const { account, fetchAccount, isLoading, error, setUser } = props;
-
-    // Define status and useNavigate()
-    const status = document.getElementById("status");
+    // Destructure props and define useNavigate()
+    const { account, isLoading, error, handleUnlink, handleSignOut, handleDelete } = props;
     let navigate = useNavigate();
 
     // Return error message if error
@@ -37,47 +30,9 @@ const Dashboard = props => {
             let title = providers.includes(provider) ? `Unlink ${capitalise(provider)} account` : `Link ${capitalise(provider)} account`;
             let text = providers.includes(provider) ? `Unlink from ${capitalise(provider)}` : `Link to ${capitalise(provider)}`;
 
-            const unlink = async e => {
-                e.preventDefault();
-
-                status.textContent = `Unlinking from ${capitalise(provider)}…`;
-                let response = await unlinkThirdParty(provider);
-                if (typeof response === "string") return displayErrorMessage(response);
-
-                status.textContent = null;
-                fetchAccount();
-            }
-
-            return providers.includes(provider) ? <button className="link" title={title} onClick={unlink}>{text}</button> : <a href={path} title={title}>{text}</a>;
-        }
-
-        // Define function to sign out
-        const signOut = async e => {
-            e.preventDefault();
-
-            status.textContent = "Signing out…";
-            let response = await logout();
-            if (response !== "Logout successful") return displayErrorMessage(response);
-
-            status.textContent = null;
-            setUser(null);
-            navigate("/");
-        }
-
-        // Define function to delete account
-        const deleteAccount = async e => {
-            e.preventDefault();
-
-            status.textContent = "Deleting account…";
-            let response = await deleteUser();
-            if (typeof response === "string") return displayErrorMessage(response);
-
-            status.textContent = "Account deleted successfully";
-            setTimeout(() => {
-                setUser(null);
-                navigate("/");
-                status.textContent = null;
-            }, 3000);
+            return providers.includes(provider) ?
+                <button className="link" title={title} data-provider={provider} onClick={handleUnlink}>{text}</button> :
+                <a href={path} title={title} data-provider={provider}>{text}</a>;
         }
 
         // Return account dashboard
@@ -120,10 +75,10 @@ const Dashboard = props => {
             </div>
             <div className="buttons">
                 <button className="font-head-2 bold uppercase" onClick={() => navigate("/account/details")}>Edit details</button>
-                <button className="font-head-2 bold uppercase" onClick={signOut}>Sign out</button>
+                <button className="font-head-2 bold uppercase" onClick={handleSignOut}>Sign out</button>
             </div>
             <div className="buttons">
-                <button className="font-head-2 bold uppercase" onClick={deleteAccount}>Delete account</button>
+                <button className="font-head-2 bold uppercase" onClick={handleDelete}>Delete account</button>
             </div>
         </div>
     }
