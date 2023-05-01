@@ -120,7 +120,7 @@ const Account = props => {
 			<section id="account-main">
 				<div className="content align-items-start">
 					{renderView(view)}
-					<p id="status"></p>
+					<p id="status" data-testid="status"></p>
 				</div>
 			</section>
 		</>

@@ -114,7 +114,7 @@ const Checkout = props => {
                         <button className="font-head-2 bold uppercase">Checkout</button>
                     </fieldset>
 
-                    <p id="status"></p>
+                    <p id="status" data-testid="status"></p>
                 </form>
             </div>
         </div>

@@ -55,7 +55,7 @@ const CTPR = props => {
                 <button type="submit" className="font-head-2 bold uppercase">Submit</button>
             </fieldset>
 
-            <p id="status"></p>
+            <p id="status" data-testid="status"></p>
         </form>
     );
 }

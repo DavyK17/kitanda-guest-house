@@ -45,7 +45,7 @@ const Form = props => {
                 </div>
             </fieldset>
 
-            <p id="status"></p>
+            <p id="status" data-testid="status"></p>
         </form>
     )
 }

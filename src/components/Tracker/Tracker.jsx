@@ -127,7 +127,7 @@ const Tracker = props => {
                             {renderReservation()}
                         </div>
                     </div>
-                    <p id="status"></p>
+                    <p id="status" data-testid="status"></p>
                 </div>
             </section>
         </>
