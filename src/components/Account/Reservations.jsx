@@ -1,5 +1,4 @@
 /* IMPORTS */
-import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
 import Reservation from "./Reservation";
@@ -10,8 +9,7 @@ import displayErrorMessage from "../../util/displayErrorMessage";
 /* COMPONENT */
 const Reservations = props => {
     // Destructure props and define useNavigate()
-    const { account, fetchAccount, list, isLoading, error } = props;
-    let navigate = useNavigate();
+    const { account, fetchAccount, list, isLoading, error, handleBack } = props;
 
     // Define function to render reservations
     const renderReservations = () => {
@@ -85,7 +83,7 @@ const Reservations = props => {
             {renderReservations()}
         </div>
         <div className="buttons">
-            <button className="font-head-2 bold uppercase" onClick={() => navigate("/account/dashboard")}>Back to dashboard</button>
+            <button className="font-head-2 bold uppercase" onClick={handleBack}>Back to dashboard</button>
         </div>
     </div>
 }

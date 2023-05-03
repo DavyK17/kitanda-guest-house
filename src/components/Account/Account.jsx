@@ -202,7 +202,7 @@ const Account = props => {
 			case "details":
 				return <Details account={account} isLoading={isLoading} error={error} handleSubmit={editDetails} />;
 			case "reservations":
-				return <Reservations account={account} fetchAccount={fetchAccount} list={reservations} isLoading={isLoading} error={error} />;
+				return <Reservations account={account} fetchAccount={fetchAccount} list={reservations} isLoading={isLoading} error={error} handleBack={backToDashboard} />;
 		}
 	}
 
