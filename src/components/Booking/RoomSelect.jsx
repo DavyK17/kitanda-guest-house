@@ -1,6 +1,9 @@
 /* IMPORTS */
 import Skeleton from "react-loading-skeleton";
 
+import RoomType from "./RoomType";
+import RoomTypeSort from "./RoomTypeSort";
+
 /* COMPONENT */
 const RoomSelect = props => {
     // Destructure props
@@ -38,22 +41,7 @@ const RoomSelect = props => {
         }
 
         // Return sort element
-        if (Array.isArray(roomTypes) && roomTypes.length > 0) return <div className="sort">
-            <div>
-                <label htmlFor="sort-by">Sort by</label>
-                <select name="sort-by" onChange={sortByPrice}>
-                    <option value="ascending">Price (low to high)</option>
-                    <option value="descending">Price (high to low)</option>
-                </select>
-            </div>
-            <div>
-                <label htmlFor="show-price">Show price</label>
-                <select name="show-price" onChange={changePriceType}>
-                    <option value="per-night">Per night</option>
-                    <option value="total">Total</option>
-                </select>
-            </div>
-        </div>
+        if (Array.isArray(roomTypes) && roomTypes.length > 0) return <RoomTypeSort handleChangeSort={sortByPrice} handleChangePriceType={changePriceType} />
     }
 
     // Define function to render room types
@@ -91,32 +79,7 @@ const RoomSelect = props => {
                 }
 
                 // Return card
-                return <div className={`room-card ${className}`} key={i}>
-                    <div className="room-card-header">
-                        <p className="font-head-2 semi-bold uppercase">{name}</p>
-                        <p className="font-head-2 room-card-price uppercase">Ksh. {pricePerNight.toLocaleString("en-KE")}</p>
-                    </div>
-                    <div className="room-card-body">
-                        <div className="room-img"></div>
-                        <div className="room-features">
-                            <p className="font-head-2 bold uppercase">Features</p>
-                            <ul>
-                                {features.map((feature, i) => <li key={i}>{feature}</li>)}
-                            </ul>
-                        </div>
-                        <div className="room-capacity">
-                            <p className="font-head-2 bold uppercase">Capacity</p>
-                            <ul>
-                                {numOfAdults > 0 ? <li>{numOfAdults} adult{numOfAdults > 1 ? "s" : null}</li> : null}
-                                {numOfChildren > 0 ? <li>{numOfChildren} child{numOfChildren > 1 ? "ren" : null}</li> : null}
-                                {numOfInfants > 0 ? <li>{numOfInfants} infant{numOfInfants > 1 ? "s" : null}</li> : null}
-                            </ul>
-                        </div>
-                        <div className="room-book">
-                            <button className="font-head-2 bold uppercase" onClick={addToCart}>Book now</button>
-                        </div>
-                    </div>
-                </div>
+                return <RoomType key={i} className={className} details={{ id, name, features, numOfAdults, numOfChildren, numOfInfants, pricePerNight }} handleBook={addToCart} />
             });
         }
     }
