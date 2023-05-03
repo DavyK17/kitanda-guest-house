@@ -111,7 +111,7 @@ const Checkout = props => {
                             <input type="checkbox" id="agree" name="agree" value="agree" required />
                             <label htmlFor="agree">I have read and agreed to the Non-Existent Privacy Policy.</label>
                         </div>
-                        <button className="font-head-2 bold uppercase">Checkout</button>
+                        <button type="submit" className="font-head-2 bold uppercase">Checkout</button>
                     </fieldset>
 
                     <p id="status" data-testid="status"></p>
