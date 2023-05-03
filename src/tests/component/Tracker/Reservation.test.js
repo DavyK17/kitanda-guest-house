@@ -68,9 +68,9 @@ const testReservation = (pending) => {
 
 // Define tests
 describe("Tracker reservation component", () => {
+	// Workaround for "Not implemented: HTMLFormElement.prototype.submit" error
 	let origErrorConsole;
 
-	// Workaround for "Not implemented: HTMLFormElement.prototype.submit" error
 	beforeEach(() => {
 		origErrorConsole = window.console.error;
 
