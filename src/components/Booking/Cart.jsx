@@ -1,3 +1,6 @@
+/* IMPORTS */
+import CartItem from "./CartItem";
+
 /* COMPONENT */
 const Cart = props => {
     // Destructure props
@@ -22,21 +25,7 @@ const Cart = props => {
                     }
 
                     // Return cart item
-                    return <div className="room-cart-single" key={i}>
-                        <div className="room-price">
-                            <div className="info-line">
-                                <p className="font-head-2 bold uppercase">Room:</p>
-                                <p className="font-head-2 uppercase">{name}</p>
-                            </div>
-                            <div className="info-line">
-                                <p className="font-head-2 bold uppercase">Price:</p>
-                                <p className="font-head-2 uppercase">Ksh. {pricePerNight.toLocaleString("en-KE")}</p>
-                            </div>
-                        </div>
-                        <div className="remove">
-                            <button className="font-head-2 uppercase" onClick={removeFromCart}>Remove</button>
-                        </div>
-                    </div>
+                    return <CartItem key={i} details={{ id, name, pricePerNight }} handleRemove={removeFromCart} />
                 })
             }
             <div className="room-cart-checkout">
