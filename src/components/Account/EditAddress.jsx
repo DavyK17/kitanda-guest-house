@@ -6,14 +6,12 @@ import countryData from "../../util/countryData";
 
 /* COMPONENT */
 const EditAddress = props => {
-    // Destructure props
-    const { operation, address, setEditProps, handleSubmit } = props;
+    // Destructure props and address
+    const { operation, address, handleBack, handleSubmit } = props;
+    const { address1, address2, townCity, countyStateProvince, postcodeZip, country } = address;
 
     // Render list of countries
     const renderCountries = () => countryData.map(({ code, name }, i) => <option key={i} value={code}>{name}</option>);
-
-    // Destructure address
-    const { address1, address2, townCity, countyStateProvince, postcodeZip, country } = address;
 
     // Return component
     return (
@@ -51,7 +49,7 @@ const EditAddress = props => {
 
             <fieldset id="form-end">
                 <button type="submit" className="font-head-2 bold uppercase">Save address</button>
-                <button className="font-head-2 bold uppercase" onClick={() => setEditProps(null)}>Back to addresses</button>
+                <button className="font-head-2 bold uppercase" onClick={handleBack}>Back to addresses</button>
             </fieldset>
         </form>
     )

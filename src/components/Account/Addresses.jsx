@@ -1,25 +1,17 @@
 /* IMPORTS */
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 
+import Address from "./Address";
 import EditAddress from "./EditAddress";
 
-import { createAddress, updateAddress, deleteAddress } from "../../api/Addresses";
+import { updateAddress, deleteAddress } from "../../api/Addresses";
 import displayErrorMessage from "../../util/displayErrorMessage";
-import renderTime from "../../util/renderTime";
 
 /* COMPONENT */
 const Addresses = props => {
-    // Destructure props
-    const { list, fetchAccount, isLoading, error } = props;
-
-    // Define status and useNavigate()
+    // Destructure props and define status
+    const { list, fetchAccount, isLoading, error, editProps, setEditProps, handleNew, handleBack } = props;
     const status = document.getElementById("status");
-    let navigate = useNavigate();
-
-    // Edit address state
-    const [editProps, setEditProps] = useState(null);
 
     // Return error message if error
     if (error) return <p className="error">An error occurred loading your addresses. Kindly refresh the page and try again.</p>;
@@ -31,6 +23,12 @@ const Addresses = props => {
     if (list.length > 0) {
         // Define function to render addresses
         const renderAddresses = () => list.map(({ id, address1, address2, townCity, countyStateProvince, postcodeZip, country, createdAt }, i) => {
+            // Define function to go back to addresses
+            const backToAddresses = e => {
+                e.preventDefault();
+                setEditProps(null);
+            }
+
             // Define function to edit address
             const handleEdit = async e => {
                 e.preventDefault();
@@ -58,7 +56,7 @@ const Addresses = props => {
                 const props = {
                     operation: "edit",
                     address: { address1, address2, townCity, countyStateProvince, postcodeZip, country },
-                    setEditProps,
+                    handleBack: backToAddresses,
                     handleSubmit: handleEdit
                 }
 
@@ -78,61 +76,13 @@ const Addresses = props => {
             }
 
             // Return address
-            return <div className="address" key={i}>
-                <div className="details" data-testid="address-details">
-                    <h3 className="font-head-2 bold uppercase">Address</h3>
-                    <p className="font-head">{address1}</p>
-                    <p className="font-head">{address2}</p>
-                    <p className="font-head">{townCity}</p>
-                    <p className="font-head">{countyStateProvince}</p>
-                    <p className="font-head">{postcodeZip}</p>
-                    <p className="font-head">{country}</p>
-                </div>
-                <div className="info" data-testid="address-info">
-                    <h3 className="font-head-2 bold uppercase">Information</h3>
-                    <p className="font-head">ID: {id}</p>
-                    <p className="font-head">Created on {renderTime(createdAt)}</p>
-                </div>
-                <div className="buttons">
-                    <button className="font-head-2 bold uppercase" onClick={showEditAddress}>Edit</button>
-                    <button className="font-head-2 bold uppercase" onClick={handleDelete}>Delete</button>
-                </div>
-            </div>
+            return <Address
+                key={i}
+                address={{ id, address1, address2, townCity, countyStateProvince, postcodeZip, country, createdAt }}
+                handleEdit={showEditAddress}
+                handleDelete={handleDelete}
+            />
         });
-
-        // Define function to create address
-        const handleCreate = async e => {
-            e.preventDefault();
-
-            const address1 = e.target[1].value;
-            const address2 = e.target[2].value;
-            const townCity = e.target[3].value;
-            const countyStateProvince = e.target[4].value;
-            const postcodeZip = e.target[5].value;
-            const country = e.target[6].value;
-
-            status.textContent = "Creating address…";
-            let response = await createAddress(address1, address2, townCity, countyStateProvince, postcodeZip, country);
-            if (!response.includes("Address created")) return displayErrorMessage(response);
-
-            status.textContent = null;
-            setEditProps(null);
-            fetchAccount();
-        }
-
-        // Define function to show create component
-        const showCreateAddress = e => {
-            e.preventDefault();
-
-            const props = {
-                operation: "create",
-                address: {},
-                setEditProps,
-                handleSubmit: handleCreate
-            }
-
-            setEditProps(props);
-        }
 
         // Return edit address component if props present
         if (editProps) return <EditAddress {...editProps} />;
@@ -145,8 +95,8 @@ const Addresses = props => {
                     {renderAddresses()}
                 </div>
                 <div className="buttons">
-                    <button className="font-head-2 bold uppercase" onClick={showCreateAddress}>New address</button>
-                    <button className="font-head-2 bold uppercase" onClick={() => navigate("/account/dashboard")}>Back to dashboard</button>
+                    <button className="font-head-2 bold uppercase" onClick={handleNew}>New address</button>
+                    <button className="font-head-2 bold uppercase" onClick={handleBack}>Back to dashboard</button>
                 </div>
             </div>
         )

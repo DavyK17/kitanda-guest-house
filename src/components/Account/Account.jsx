@@ -9,7 +9,7 @@ import Reservations from "./Reservations";
 
 import { logout } from "../../api/Auth";
 import { getUser, updateUser, deleteUser, unlinkThirdParty } from "../../api/Account";
-import { getAddresses } from "../../api/Addresses";
+import { getAddresses, createAddress } from "../../api/Addresses";
 import { getReservations } from "../../api/Reservations";
 
 import capitalise from "../../util/capitalise";
@@ -64,6 +64,9 @@ const Account = props => {
 	useEffect(() => {
 		fetchAccount();
 	}, []);
+
+	// Edit address state
+	const [addressEditProps, setAddressEditProps] = useState(null);
 
 	/* FUNCTIONS */
 	// Edit account details
@@ -139,11 +142,60 @@ const Account = props => {
 		}, 3000);
 	}
 
+	// Create new address
+	const handleCreate = async e => {
+		e.preventDefault();
+
+		const address1 = e.target[1].value;
+		const address2 = e.target[2].value;
+		const townCity = e.target[3].value;
+		const countyStateProvince = e.target[4].value;
+		const postcodeZip = e.target[5].value;
+		const country = e.target[6].value;
+
+		status.textContent = "Creating address…";
+		let response = await createAddress(address1, address2, townCity, countyStateProvince, postcodeZip, country);
+		if (!response.includes("Address created")) return displayErrorMessage(response);
+
+		status.textContent = null;
+		setAddressEditProps(null);
+		fetchAccount();
+	}
+
+	// Show create component
+	const showCreateAddress = e => {
+		e.preventDefault();
+
+		const props = {
+			operation: "create",
+			address: {},
+			setEditProps: setAddressEditProps,
+			handleSubmit: handleCreate
+		}
+
+		setAddressEditProps(props);
+	}
+
+	// Navigate back to dashboard
+	const backToDashboard = e => {
+		e.preventDefault();
+		navigate("/account/dashboard");
+	}
+
 	// Define function to render appropriate element
 	const renderView = (view) => {
 		switch (view) {
 			case "addresses":
-				return <Addresses list={addresses} fetchAccount={fetchAccount} isLoading={isLoading} error={error} />;
+				return <Addresses
+					list={addresses}
+					fetchAccount={fetchAccount}
+					isLoading={isLoading}
+					error={error}
+					editProps={addressEditProps}
+					setEditProps={setAddressEditProps}
+					handleNew={showCreateAddress}
+					handleBack={backToDashboard}
+				/>;
 			case "dashboard":
 			default:
 				return <Dashboard account={account} isLoading={isLoading} error={error} handleUnlink={unlink} handleSignOut={signOut} handleDelete={deleteAccount} />;
