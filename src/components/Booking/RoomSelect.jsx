@@ -88,7 +88,7 @@ const RoomSelect = props => {
     return (
         <>
             {renderSort()}
-            <div className="rooms">
+            <div className="rooms" data-testid="booking-rooms">
                 <div className="content align-items-start">
                     {renderRoomTypes()}
                 </div>

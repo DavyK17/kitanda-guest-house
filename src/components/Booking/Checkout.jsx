@@ -64,7 +64,7 @@ const Checkout = props => {
 
     // Return component
     return (
-        <div className="rooms" id="checkout-form-top">
+        <div className="rooms" id="booking-checkout" data-testid="booking-checkout">
             <div className="content align-items-start">
                 <h2 className="font-bold uppercase">Checkout</h2>
                 <p className="checkout-mobile-links">

@@ -4,7 +4,7 @@ const RoomTypeSort = props => {
     const { handleChangeSort, handleChangePriceType } = props;
 
     // Return component
-    return <div className="sort">
+    return <div className="sort" data-testid="booking-room-type-sort">
         <div>
             <label htmlFor="sort-by">Sort by</label>
             <select id="sort-by" onChange={handleChangeSort}>

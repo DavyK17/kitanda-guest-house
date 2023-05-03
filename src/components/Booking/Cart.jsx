@@ -40,7 +40,7 @@ const Cart = props => {
 
     // Return component
     return (
-        <div className="cart" id="booking-cart">
+        <div className="cart" id="booking-cart" data-testid="booking-cart">
             <div className="content">
                 <div className="room-cart">
                     <div className="room-cart-header">
