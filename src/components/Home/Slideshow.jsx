@@ -1,11 +1,11 @@
 /* IMPORTS */
 import Carousel from "react-bootstrap/Carousel";
 
-import image1 from "../../assets/img/slideshow/slide-0.jpg";
-import image2 from "../../assets/img/slideshow/slide-1.JPG";
-import image3 from "../../assets/img/slideshow/slide-2.JPG";
-import image4 from "../../assets/img/slideshow/slide-3.JPG";
-import image5 from "../../assets/img/slideshow/slide-4.JPG";
+import image1 from "../../assets/img/slideshow/slide-0.webp";
+import image2 from "../../assets/img/slideshow/slide-1.webp";
+import image3 from "../../assets/img/slideshow/slide-2.webp";
+import image4 from "../../assets/img/slideshow/slide-3.webp";
+import image5 from "../../assets/img/slideshow/slide-4.webp";
 
 /* COMPONENT */
 const Slideshow = () => {
