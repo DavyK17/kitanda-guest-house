@@ -123,7 +123,7 @@ const Booking = props => {
         response = await makeReservation(addressId, phone, checkInDate, checkOutDate, rooms, email);
         if (!response.includes("Reservation made")) return displayErrorMessage(response);
 
-        status.textContent = "Reservation made successfully.";
+        status.textContent = response;
         setTimeout(() => {
             // Reset status element
             status.textContent = null;
