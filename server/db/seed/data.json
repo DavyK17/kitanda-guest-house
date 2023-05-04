@@ -1,0 +1,398 @@
+{
+	"guests": [
+		{
+			"id": "7903657263",
+			"title": "",
+			"first_name": "Mwenyeji",
+			"last_name": "Mkenya",
+			"company_name": "",
+			"phone": "",
+			"email": "thisisan@email.com",
+			"password": "$2b$17$lPaNEwJnQO.0h8HpKJDLduDJ4x3uX054LItopguUI9nbwy2oGl4om",
+			"created_at": "2023-05-04T14:45:14.000Z"
+		}
+	],
+	"addresses": [
+		{
+			"id": "651793757830",
+			"address1": "D1 Nice Apartments, Wide Road",
+			"address2": "P.O. Box 98765",
+			"town_city": "Nairobi",
+			"county_state_province": "Nairobi",
+			"postcode_zip": "00100",
+			"country": "Kenya",
+			"created_at": "2023-05-04T14:45:14.000Z",
+			"guest_id": "7903657263"
+		}
+	],
+	"roomTypes": [
+		{
+			"id": 1,
+			"name": "Single room",
+			"features": ["1 single bed"],
+			"num_of_adults": 1,
+			"num_of_children": 1,
+			"num_of_infants": 0,
+			"price_per_night": 3000
+		},
+		{
+			"id": 2,
+			"name": "Double room",
+			"features": ["1 double bed"],
+			"num_of_adults": 2,
+			"num_of_children": 2,
+			"num_of_infants": 1,
+			"price_per_night": 3500
+		},
+		{
+			"id": 3,
+			"name": "Twin room",
+			"features": ["1 twin bed"],
+			"num_of_adults": 2,
+			"num_of_children": 1,
+			"num_of_infants": 0,
+			"price_per_night": 3700
+		},
+		{
+			"id": 4,
+			"name": "Triple room",
+			"features": ["1 single bed", "1 double bed"],
+			"num_of_adults": 3,
+			"num_of_children": 3,
+			"num_of_infants": 2,
+			"price_per_night": 5500
+		}
+	],
+	"rooms": [
+		{
+			"id": "53595",
+			"room_type_id": 1,
+			"room_number": "101",
+			"created_at": "2023-04-09T17:08:22.000Z"
+		},
+		{
+			"id": "61068",
+			"room_type_id": 1,
+			"room_number": "102",
+			"created_at": "2023-04-09T17:08:24.000Z"
+		},
+		{
+			"id": "93806",
+			"room_type_id": 1,
+			"room_number": "103",
+			"created_at": "2023-04-09T17:08:24.000Z"
+		},
+		{
+			"id": "93007",
+			"room_type_id": 1,
+			"room_number": "104",
+			"created_at": "2023-04-09T17:08:24.000Z"
+		},
+		{
+			"id": "48784",
+			"room_type_id": 1,
+			"room_number": "105",
+			"created_at": "2023-04-09T17:08:24.000Z"
+		},
+		{
+			"id": "94385",
+			"room_type_id": 1,
+			"room_number": "106",
+			"created_at": "2023-04-09T17:08:25.000Z"
+		},
+		{
+			"id": "40242",
+			"room_type_id": 1,
+			"room_number": "107",
+			"created_at": "2023-04-09T17:08:25.000Z"
+		},
+		{
+			"id": "08811",
+			"room_type_id": 1,
+			"room_number": "108",
+			"created_at": "2023-04-09T17:08:25.000Z"
+		},
+		{
+			"id": "27007",
+			"room_type_id": 1,
+			"room_number": "109",
+			"created_at": "2023-04-09T17:08:25.000Z"
+		},
+		{
+			"id": "14599",
+			"room_type_id": 1,
+			"room_number": "110",
+			"created_at": "2023-04-09T17:08:26.000Z"
+		},
+		{
+			"id": "40956",
+			"room_type_id": 1,
+			"room_number": "111",
+			"created_at": "2023-04-09T17:08:26.000Z"
+		},
+		{
+			"id": "67847",
+			"room_type_id": 1,
+			"room_number": "112",
+			"created_at": "2023-04-09T17:08:26.000Z"
+		},
+		{
+			"id": "21650",
+			"room_type_id": 1,
+			"room_number": "113",
+			"created_at": "2023-04-09T17:08:27.000Z"
+		},
+		{
+			"id": "97215",
+			"room_type_id": 1,
+			"room_number": "114",
+			"created_at": "2023-04-09T17:08:27.000Z"
+		},
+		{
+			"id": "13381",
+			"room_type_id": 1,
+			"room_number": "115",
+			"created_at": "2023-04-09T17:08:27.000Z"
+		},
+		{
+			"id": "44857",
+			"room_type_id": 1,
+			"room_number": "116",
+			"created_at": "2023-04-09T17:08:27.000Z"
+		},
+		{
+			"id": "56092",
+			"room_type_id": 1,
+			"room_number": "117",
+			"created_at": "2023-04-09T17:08:28.000Z"
+		},
+		{
+			"id": "09184",
+			"room_type_id": 1,
+			"room_number": "118",
+			"created_at": "2023-04-09T17:08:28.000Z"
+		},
+		{
+			"id": "35986",
+			"room_type_id": 1,
+			"room_number": "119",
+			"created_at": "2023-04-09T17:08:28.000Z"
+		},
+		{
+			"id": "12761",
+			"room_type_id": 1,
+			"room_number": "120",
+			"created_at": "2023-04-09T17:08:28.000Z"
+		},
+		{
+			"id": "16098",
+			"room_type_id": 2,
+			"room_number": "201",
+			"created_at": "2023-04-09T17:08:29.000Z"
+		},
+		{
+			"id": "90572",
+			"room_type_id": 2,
+			"room_number": "202",
+			"created_at": "2023-04-09T17:08:29.000Z"
+		},
+		{
+			"id": "85441",
+			"room_type_id": 2,
+			"room_number": "203",
+			"created_at": "2023-04-09T17:08:29.000Z"
+		},
+		{
+			"id": "31546",
+			"room_type_id": 2,
+			"room_number": "204",
+			"created_at": "2023-04-09T17:08:30.000Z"
+		},
+		{
+			"id": "04072",
+			"room_type_id": 2,
+			"room_number": "205",
+			"created_at": "2023-04-09T17:08:30.000Z"
+		},
+		{
+			"id": "76784",
+			"room_type_id": 2,
+			"room_number": "206",
+			"created_at": "2023-04-09T17:08:30.000Z"
+		},
+		{
+			"id": "73325",
+			"room_type_id": 2,
+			"room_number": "207",
+			"created_at": "2023-04-09T17:08:30.000Z"
+		},
+		{
+			"id": "76204",
+			"room_type_id": 2,
+			"room_number": "208",
+			"created_at": "2023-04-09T17:08:31.000Z"
+		},
+		{
+			"id": "22564",
+			"room_type_id": 2,
+			"room_number": "209",
+			"created_at": "2023-04-09T17:08:31.000Z"
+		},
+		{
+			"id": "81254",
+			"room_type_id": 2,
+			"room_number": "210",
+			"created_at": "2023-04-09T17:08:31.000Z"
+		},
+		{
+			"id": "85910",
+			"room_type_id": 2,
+			"room_number": "211",
+			"created_at": "2023-04-09T17:08:31.000Z"
+		},
+		{
+			"id": "16551",
+			"room_type_id": 2,
+			"room_number": "212",
+			"created_at": "2023-04-09T17:08:32.000Z"
+		},
+		{
+			"id": "89099",
+			"room_type_id": 2,
+			"room_number": "213",
+			"created_at": "2023-04-09T17:08:32.000Z"
+		},
+		{
+			"id": "24243",
+			"room_type_id": 2,
+			"room_number": "214",
+			"created_at": "2023-04-09T17:08:32.000Z"
+		},
+		{
+			"id": "01499",
+			"room_type_id": 2,
+			"room_number": "215",
+			"created_at": "2023-04-09T17:08:33.000Z"
+		},
+		{
+			"id": "92455",
+			"room_type_id": 3,
+			"room_number": "301",
+			"created_at": "2023-04-09T17:08:33.000Z"
+		},
+		{
+			"id": "26529",
+			"room_type_id": 3,
+			"room_number": "302",
+			"created_at": "2023-04-09T17:08:33.000Z"
+		},
+		{
+			"id": "33355",
+			"room_type_id": 3,
+			"room_number": "303",
+			"created_at": "2023-04-09T17:08:33.000Z"
+		},
+		{
+			"id": "34704",
+			"room_type_id": 3,
+			"room_number": "304",
+			"created_at": "2023-04-09T17:08:34.000Z"
+		},
+		{
+			"id": "41678",
+			"room_type_id": 3,
+			"room_number": "305",
+			"created_at": "2023-04-09T17:08:34.000Z"
+		},
+		{
+			"id": "09346",
+			"room_type_id": 3,
+			"room_number": "306",
+			"created_at": "2023-04-09T17:08:34.000Z"
+		},
+		{
+			"id": "52782",
+			"room_type_id": 3,
+			"room_number": "307",
+			"created_at": "2023-04-09T17:08:34.000Z"
+		},
+		{
+			"id": "97832",
+			"room_type_id": 3,
+			"room_number": "308",
+			"created_at": "2023-04-09T17:08:35.000Z"
+		},
+		{
+			"id": "69267",
+			"room_type_id": 3,
+			"room_number": "309",
+			"created_at": "2023-04-09T17:08:35.000Z"
+		},
+		{
+			"id": "79828",
+			"room_type_id": 3,
+			"room_number": "310",
+			"created_at": "2023-04-09T17:08:35.000Z"
+		},
+		{
+			"id": "85415",
+			"room_type_id": 4,
+			"room_number": "401",
+			"created_at": "2023-04-09T17:08:36.000Z"
+		},
+		{
+			"id": "17579",
+			"room_type_id": 4,
+			"room_number": "402",
+			"created_at": "2023-04-09T17:08:36.000Z"
+		},
+		{
+			"id": "71699",
+			"room_type_id": 4,
+			"room_number": "403",
+			"created_at": "2023-04-09T17:08:36.000Z"
+		},
+		{
+			"id": "27207",
+			"room_type_id": 4,
+			"room_number": "404",
+			"created_at": "2023-04-09T17:08:36.000Z"
+		},
+		{
+			"id": "62474",
+			"room_type_id": 4,
+			"room_number": "405",
+			"created_at": "2023-04-09T17:08:37.000Z"
+		},
+		{
+			"id": "90642",
+			"room_type_id": 4,
+			"room_number": "406",
+			"created_at": "2023-04-09T17:08:37.000Z"
+		},
+		{
+			"id": "71498",
+			"room_type_id": 4,
+			"room_number": "407",
+			"created_at": "2023-04-09T17:08:37.000Z"
+		},
+		{
+			"id": "58936",
+			"room_type_id": 4,
+			"room_number": "408",
+			"created_at": "2023-04-09T17:08:37.000Z"
+		},
+		{
+			"id": "32611",
+			"room_type_id": 4,
+			"room_number": "409",
+			"created_at": "2023-04-09T17:08:38.000Z"
+		},
+		{
+			"id": "38051",
+			"room_type_id": 4,
+			"room_number": "410",
+			"created_at": "2023-04-09T17:08:38.000Z"
+		}
+	]
+}
