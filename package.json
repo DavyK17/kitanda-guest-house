@@ -51,8 +51,11 @@
         "dev": "nodemon server/index.js",
         "build": "react-scripts build",
         "client:start": "react-scripts start",
-        "client:test": "react-scripts test",
-        "client:eject": "react-scripts eject"
+        "client:test:unit": "react-scripts test",
+        "client:test:e2e": "start-server-and-test start http://localhost:8000 'npx cypress run'",
+        "client:eject": "react-scripts eject",
+        "server:test": "jest server --detectOpenHandles --verbose --clearMocks --resetMocks --restoreMocks",
+        "server:test:watch": "jest server --watchAll --detectOpenHandles --verbose --clearMocks --resetMocks --restoreMocks"
     },
     "eslintConfig": {
         "extends": [
