@@ -35,6 +35,7 @@ This is a portfolio project I did as part of my full stack engineer course on [C
 #### Additional libraries/techonolgies
 - [Bootstrap](https://getbootstrap.com/) - Front-end HTML and CSS framework
   - [React-Bootstrap](https://react-bootstrap.github.io/) - React implementation for Bootstrap
+- [Cypress](https://www.cypress.io/) - JavaScript testing framework
 - [Jest](https://jestjs.io/) - JavaScript testing framework
 - [lightGallery](https://www.lightgalleryjs.com/) - JavaScript image gallery framework
 - [React Loading Skeleton](https://www.npmjs.com/package/react-loading-skeleton) - Animated loading skeleton tool
